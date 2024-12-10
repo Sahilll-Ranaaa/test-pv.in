@@ -4,14 +4,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export default function WhatWeDoCard({ title, description, className }) {
+export default function WhatWeDoCard({
+  title,
+  description,
+  backgroundImage,
+  className,
+}) {
   const backDropOverlayVariants = {
     hidden: { top: "100%" },
     visible: { top: "0%" },
   };
 
   const textOverlayVariants = {
-    hidden: { maxHeight: "45px" },
+    hidden: { maxHeight: "60px" },
     visible: { maxHeight: "400px" },
   };
 
@@ -22,11 +27,11 @@ export default function WhatWeDoCard({ title, description, className }) {
       whileHover="visible"
     >
       <Image
-        src="/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"
+        src={backgroundImage || "/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"}
         alt="PV Logo"
         width={500}
         height={500}
-        className="object-contain -z-10 transition-all duration-200 group-hover:scale-105"
+        className="object-cover h-full w-full -z-10 transition-all duration-200 group-hover:scale-105"
       />
 
       <motion.div
@@ -42,7 +47,7 @@ export default function WhatWeDoCard({ title, description, className }) {
 
       {/* <div className="absolute w-full h-full bg-gradient-to-b duration-200 transition-all from-[rgba(0,0,0,0.3)] to-black top-full group-hover:top-0"></div> */}
       <motion.div
-        className="absolute w-full p-4 duration-500 overflow-hidden bottom-0"
+        className="absolute w-full p-4 duration-500 overflow-hidden bottom-0 space-y-5"
         variants={textOverlayVariants}
         transition={{
           type: "spring",
@@ -51,7 +56,7 @@ export default function WhatWeDoCard({ title, description, className }) {
           damping: 20,
         }}
       >
-        <h2 className="font-bold text-xl text-white">
+        <h2 className="font-semibold text-xl text-white">
           {title ?? "Consulting"}
         </h2>
         <p className="text-xs text-white">

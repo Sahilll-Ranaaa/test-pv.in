@@ -30,7 +30,7 @@ const EmblaCarousel = (props) => {
 
   const setTweenNodes = useCallback((emblaApi) => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      return slideNode.querySelector(".embla__slide__number");
+      return slideNode.querySelector(".embla_slide");
     });
   }, []);
 
@@ -92,12 +92,12 @@ const EmblaCarousel = (props) => {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className="embla relative space-y-5">
+    <div className="max-w-[48rem] m-auto [--slide-height:19rem] [--slide-spacing:1rem] [--slide-size:45%]  relative space-y-5">
       <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
       <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y touch-pinch-zoom ml-[calc(--slide-spacing)*-1]">
           {/* {slides.map((index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__number">{index + 1}</div>
@@ -119,8 +119,11 @@ export default EmblaCarousel;
 
 export function EmblaCarouselItem({ children }) {
   return (
-    <div className="embla__slide">
-      <div className="embla__slide__number">{children}</div>
+    <div
+      style={{ transform: "translate3d(0,0,0)" }}
+      className="flex-[0_0_var(--slide-size)] min-w-0 pl-[--slide-spacing]"
+    >
+      <div className="embla_slide select-none">{children}</div>
     </div>
   );
 }
