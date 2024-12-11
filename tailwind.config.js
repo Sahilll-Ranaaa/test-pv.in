@@ -71,6 +71,7 @@ module.exports = {
     },
     animation: {
       "meteor-effect": "meteor 5s linear infinite",
+      "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
     },
     keyframes: {
       meteor: {
@@ -79,6 +80,11 @@ module.exports = {
         "100%": {
           transform: "rotate(215deg) translateX(-500px)",
           opacity: "0",
+        },
+      },
+      "border-beam": {
+        "100%": {
+          "offset-distance": "100%",
         },
       },
     },

@@ -92,7 +92,7 @@ const EmblaCarousel = (props) => {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className="max-w-[48rem] m-auto [--slide-height:19rem] [--slide-spacing:1rem] [--slide-size:45%]  relative space-y-5">
+    <div className="max-w-[48rem] m-auto [--slide-height:19rem] [--slide-spacing:1rem] [--slide-size:69%]  relative space-y-5">
       <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
       <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 

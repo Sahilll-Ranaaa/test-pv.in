@@ -3,7 +3,7 @@ import { WordsPullUp } from "@/components/text-animations/words-pull-up";
 
 export default function AboutSection() {
   return (
-    <section className="flex items-center justify-center py-16">
+    <section className="flex items-center justify-center py-16 bg-gray-100">
       <div className="max-w-screen-lg mx-auto flex gap-4 items-center">
         <div className="flex-1 flex items-center flex-col">
           <h1>

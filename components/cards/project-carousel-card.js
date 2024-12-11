@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useCarousel } from "../ui/carousel";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { BorderBeam } from "../animate/border-beam";
 
 export default function ProjectCard({ id, title, description, className }) {
   // const { api: emblaApi } = useCarousel();
@@ -22,27 +23,33 @@ export default function ProjectCard({ id, title, description, className }) {
   return (
     <div
       className={cn(
-        "overflow-hidden flex flex-col items-start",
+        "relative overflow-hidden flex items-stretch backdrop-blur-0 shadow-md",
         // activeIndex === id ? "bg-gray-200 scale-125" : "scale-75",
         className
       )}
     >
-      <div className="relative w-full h-[150px]">
-        <Image
-          src="/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"
-          alt="PV Logo"
-          width={500}
-          height={500}
-          className="object-cover h-full w-full  -z-10 transition-all duration-200 group-hover:scale-105"
-        />
+      <BorderBeam />
+      <div className="">
+        <div className="relative w-[240px] h-full">
+          <Image
+            src="/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"
+            alt="PV Logo"
+            width={500}
+            height={500}
+            className="object-cover h-full w-full"
+          />
+        </div>
       </div>
-      <h3 className="text-xl p-2">{title}</h3>
-      <p className="text-xs font-normal line-clamp-4 px-2">{description}</p>
-      <div className="flex-1"></div>
-      <button className="mt-4 text-sm p-2 font-normal text-primary flex items-center gap-1">
-        Read more
-        <ArrowRight className="w-4 h-4" />
-      </button>
+
+      <div className="bg-white flex flex-col p-2 space-y-2 border border-l-0 pl-4">
+        <h3 className="text-2xl">{title}</h3>
+        <p className="font-normal line-clamp-4 text-gray-500">{description}</p>
+        <div className="flex-1"></div>
+        <button className="text-sm font-normal text-primary flex items-center gap-1">
+          Read more
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import ProjectCard from "@/components/cards/project-carousel-card";
 import EmblaCarousel, {
   EmblaCarouselItem,
-} from "@/components/embla-carousel/embla-scale-carousel";
+} from "@/components/embla-carousel/embla-carousel-default";
 
 const recentProjects = [
   {
@@ -98,7 +98,7 @@ const recentProjects = [
 
 export default function RecentProjects() {
   return (
-    <section className="bg-white">
+    <section>
       <div className="max-w-screen-lg mx-auto py-11">
         <h1 className=" text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl md:leading-[5rem]">
           Recent Projects
@@ -108,11 +108,15 @@ export default function RecentProjects() {
           build long-term relationships based on trust, integrity, and mutual
           growth.
         </p>
-        <div className="relative">
+        <div className="relative space-y-2">
           <EmblaCarousel options={{ loop: true }}>
             {recentProjects.map((project, idx) => (
               <EmblaCarouselItem key={project.id}>
-                <ProjectCard {...project} className="pb-2 max-w-xs" />
+                <ProjectCard
+                  key={project.id}
+                  {...project}
+                  className="h-[250px] max-w-2xl"
+                />
               </EmblaCarouselItem>
             ))}
           </EmblaCarousel>

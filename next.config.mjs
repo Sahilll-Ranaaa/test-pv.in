@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "pvadvisory.in",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "fiserv.scene7.com",
+        pathname: "/**",
+      },
     ],
   },
 };

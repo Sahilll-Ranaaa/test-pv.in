@@ -12,25 +12,30 @@ export function GradualSpacing({
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
   return (
-    <div className="flex space-x-1 justify-center">
-      <AnimatePresence>
-        {text.split("").map((char, i) => (
-          <motion.p
-            ref={ref}
-            key={i}
-            initial={{ opacity: 0, x: -18 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            exit="hidden"
-            transition={{ duration: duration, delay: i * 0.1 }}
-            className={cn(
-              "text-xl text-center sm:text-4xl font-bold tracking-tighter md:text-6xl md:leading-[4rem]",
-              className
-            )}
-          >
-            {char === " " ? <span>&nbsp;</span> : char}
-          </motion.p>
-        ))}
-      </AnimatePresence>
+    <div className="flex flex-wrap space-x-1">
+      {text.split(" ").map((word) => (
+        <div key={word} className="flex space-x-1">
+          <AnimatePresence key={word}>
+            {word.split("").map((char, i) => (
+              <motion.p
+                ref={ref}
+                key={i}
+                initial={{ opacity: 0, x: -18 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                exit="hidden"
+                transition={{ duration: duration, delay: i * 0.1 }}
+                className={cn(
+                  "text-xl text-center sm:text-4xl font-bold tracking-tighter md:text-6xl md:leading-[4rem]",
+                  className
+                )}
+              >
+                {char === " " ? <span>&nbsp;</span> : char}
+              </motion.p>
+            ))}
+          </AnimatePresence>
+          &nbsp;
+        </div>
+      ))}
     </div>
   );
 }

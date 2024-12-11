@@ -51,8 +51,8 @@ export default function Navbar() {
     >
       <div className="fixed top-0 z-50 w-full shadow bg-white">
         <MaxWidthWrapper>
-          <nav className="flex items-center justify-between py-0.5">
-            <div className="relative h-10 w-10">
+          <nav className="flex items-center justify-between py-2">
+            <div className="relative h-[3.3rem] w-[3.3rem]">
               <Image
                 src="https://pvadvisory.in/wp-content/uploads/2020/03/PV_Logo.png"
                 alt="PV Logo"

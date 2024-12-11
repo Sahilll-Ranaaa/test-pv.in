@@ -34,8 +34,8 @@ const whatWeDo = [
 
 export default function WhatWeDoSectionTest() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-slate-100 py-12">
-      <div className="max-w-screen-lg mx-auto space-y-5">
+    <section className="min-h-screen flex items-center justify-center py-12">
+      <div className="max-w-screen-xl mx-auto space-y-5">
         <div className="flex items-center flex-col col-span-2 row-span-2 py-3 px-5 ">
           <h1>
             <WordsPullUp
@@ -65,7 +65,7 @@ export default function WhatWeDoSectionTest() {
                 to thrive in today&apos;s dynamic environment.
               </p>
             </TextFade>
-            <TextFade>
+            {/* <TextFade>
               <p>
                 We measure our success by the success of our clients and strive
                 to build long-term relationships based on trust, integrity, and
@@ -73,16 +73,16 @@ export default function WhatWeDoSectionTest() {
                 consulting firm that not only provides insightful advice but
                 also implements solutions that create a lasting impact.
               </p>
-            </TextFade>
+            </TextFade> */}
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-2 h-min-[300px]">
+        <div className="flex items-center justify-center gap-8">
           {whatWeDo.map((item) => (
             <WhatWeDoCard
               key={item.id}
               title={item.title}
               backgroundImage={item.image}
-              className="w-full h-[250px]"
+              className="w-[250px] h-[300px] rounded-md"
               description={item.description}
             />
           ))}

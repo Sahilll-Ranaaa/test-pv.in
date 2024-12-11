@@ -115,7 +115,7 @@ export default function ClientsSection() {
                       src={client.imageUrl}
                       alt="logo"
                       objectFit="contain"
-                      className="grayscale mix-blend-normal"
+                      className="grayscale hover:grayscale-0 mix-blend-normal"
                       fill
                     />
                   </div>

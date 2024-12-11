@@ -16,7 +16,7 @@ export default function WhatWeDoCard({
   };
 
   const textOverlayVariants = {
-    hidden: { maxHeight: "60px" },
+    hidden: { maxHeight: "0px" },
     visible: { maxHeight: "400px" },
   };
 
@@ -44,10 +44,12 @@ export default function WhatWeDoCard({
           damping: 20,
         }}
       />
-
+      <div className="absolute top-0 p-4">
+        <h2 className=" text-xl text-white">{title ?? "Consulting"}</h2>
+      </div>
       {/* <div className="absolute w-full h-full bg-gradient-to-b duration-200 transition-all from-[rgba(0,0,0,0.3)] to-black top-full group-hover:top-0"></div> */}
       <motion.div
-        className="absolute w-full p-4 duration-500 overflow-hidden bottom-0 space-y-5"
+        className="absolute w-full duration-500 overflow-hidden bottom-0"
         variants={textOverlayVariants}
         transition={{
           type: "spring",
@@ -56,10 +58,7 @@ export default function WhatWeDoCard({
           damping: 20,
         }}
       >
-        <h2 className="font-semibold text-xl text-white">
-          {title ?? "Consulting"}
-        </h2>
-        <p className="text-xs text-white">
+        <p className="text-xs text-white p-4">
           {description ??
             "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory"}
         </p>
