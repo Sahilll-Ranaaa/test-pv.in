@@ -14,8 +14,7 @@ import { useEffect, useState } from "react";
 const carouselItems = [
   {
     id: 1,
-    image:
-      "https://fiserv.scene7.com/is/image/fiserv/fiserv-marine-drive-mumbai-530819947-2880x1984",
+    image: "/slide1.jpg",
     title: ["Your Finance", "Transformation Partner"],
     description: {
       text: "We are an implementation consulting firm. In the ever-evolving business landscape, we help you achieve full potential of your strategy and add long-term value to your business.",
@@ -24,8 +23,7 @@ const carouselItems = [
   },
   {
     id: 2,
-    image:
-      "https://fiserv.scene7.com/is/image/fiserv/fiserv-bandra-worli-sea-link-957919884-2880x1984",
+    image: "/slide2.jpg",
     title: ["What do we bring", "to the table?"],
     description: {
       text: "With an overall combined expertise of over 65+ years in diverse industry verticals, we offer services in the space of business restructuring, finance effectiveness, performance improvement, tax and human resources to businesses of all sizes.",
@@ -34,8 +32,7 @@ const carouselItems = [
   },
   {
     id: 3,
-    image:
-      "https://fiserv.scene7.com/is/image/fiserv/fiserv-woman-using-mobile-689071133-rt-2880x1984",
+    image: "/slide3.jpg",
     title: ["Leverage", "Transformation!"],
     description: {
       text: "We understand the importance of execution in your transformation journey. With our approach, we help you:",
@@ -65,6 +62,7 @@ export default function HeroSectionTest() {
       className="w-full bg-cover bg-center transition-all duration-1000"
       style={{
         backgroundImage: `url(${carouselItems[currentImageIndex].image})`,
+        // filter: "grayscale(100%)",
       }}
     >
       <div className="max-w-5xl mx-auto h-screen">

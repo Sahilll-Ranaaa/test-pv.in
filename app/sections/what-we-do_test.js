@@ -8,27 +8,27 @@ const whatWeDo = [
     title: "Consulting",
     description:
       "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
+    image: "/CONSULTING.webp",
   },
   {
     id: 2,
     title: "Outsourcing",
     description:
       "Finance & Accounts, Assurance, Data Analytics, Technology, Other Back-office services",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-2.png",
+    image: "/OUTSOURCING.webp",
   },
   {
     id: 3,
     title: "Technology",
     description: "This box will redirect to thepvhub website.",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-3.png",
+    image: "/TECHNOLOGY.webp",
   },
   {
     id: 4,
     title: "Start-Up Solutions",
     description:
       "Managed Services, Virtual CFO, Financial Planning and Analysis, Facilitate Business Strategy, Analytics, Policies, Processes and Procedures, Due Diligence, Investment Memorandum.",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
+    image: "/START-UP SOLUTION.webp",
   },
 ];
 
