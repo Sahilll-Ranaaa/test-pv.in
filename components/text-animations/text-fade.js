@@ -6,14 +6,15 @@ export function TextFade({
   direction,
   children,
   className = "",
-  staggerChildren = 0.1,
+  duration = 0.5,
+  staggerChildren = 0.2,
 }) {
   const FADE_DOWN = {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
     hidden: { opacity: 0, y: direction === "down" ? -18 : 18 },
   };
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: false });
   return (
     <motion.div
       ref={ref}
@@ -27,6 +28,7 @@ export function TextFade({
           },
         },
       }}
+      transition={{ duration: duration }}
       className={className}
     >
       {React.Children.map(children, (child) =>

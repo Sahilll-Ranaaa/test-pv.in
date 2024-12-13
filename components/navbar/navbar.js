@@ -7,6 +7,7 @@ import NavItems from "./nav-items";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { RainbowButton } from "../buttons/rainbow-btn";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -52,14 +53,16 @@ export default function Navbar() {
       <div className="fixed top-0 z-50 w-full shadow bg-white">
         <MaxWidthWrapper>
           <nav className="flex items-center justify-between py-2">
-            <div className="relative h-[3.3rem] w-[3.3rem]">
-              <Image
-                src="https://pvadvisory.in/wp-content/uploads/2020/03/PV_Logo.png"
-                alt="PV Logo"
-                fill
-                objectFit="contain"
-              />
-            </div>
+            <Link href="/" legacyBehavior passHref>
+              <div className="relative h-[3.3rem] w-[3.3rem]">
+                <Image
+                  src="https://pvadvisory.in/wp-content/uploads/2020/03/PV_Logo.png"
+                  alt="PV Logo"
+                  fill
+                  objectFit="contain"
+                />
+              </div>
+            </Link>
 
             <NavItems />
 

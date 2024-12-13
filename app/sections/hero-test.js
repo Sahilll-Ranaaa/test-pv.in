@@ -68,7 +68,7 @@ export default function HeroSectionTest() {
       }}
     >
       <div className="max-w-5xl mx-auto h-screen">
-        <div className=" h-full w-1/2">
+        <div className=" h-full w-1/2 relative">
           <Carousel
             opts={{
               align: "start",
@@ -82,7 +82,7 @@ export default function HeroSectionTest() {
             orientation="vertical"
             className="w-full max-w-5xl backdrop-blur-3xl"
           >
-            <CarouselContent className="-mt-1 h-screen relative">
+            <CarouselContent className="-mt-0 h-screen">
               {carouselItems.map((item, index) => (
                 <CarouselItem key={index} className="">
                   <div className="p-10 pt-32 flex flex-col justify-center items-center text-white">
@@ -96,7 +96,6 @@ export default function HeroSectionTest() {
                         />
                       ))}
                     </div>
-
                     <TextFade className="" direction="up">
                       <p>{item.description.text}</p>
                     </TextFade>
@@ -112,12 +111,12 @@ export default function HeroSectionTest() {
                   </div>
                 </CarouselItem>
               ))}
-              {/* <div className="absolute bottom-0 left-0 text-white px-3 flex items-center gap-2">
-                <ArrowDown />
-                See how we help
-              </div> */}
             </CarouselContent>
           </Carousel>
+          <div className="absolute bottom-0 left-0 text-white p-3 flex items-center gap-2 text-xs">
+            <ArrowDown size={14} />
+            See how we help
+          </div>
         </div>
       </div>
     </section>

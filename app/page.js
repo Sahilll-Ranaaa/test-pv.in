@@ -29,29 +29,21 @@ import OurStory from "./sections/our-story";
 import RecentProjectsTest from "./sections/recent-projects_test";
 import HeroSectionTest from "./sections/hero-test";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
 export default function Home() {
   return (
-    <div className={cn("min-h-screen", poppins.className)}>
-      <main className="">
-        <HeroSectionTest />
-        {/* <HeroSection /> */}
-        <ClientsSection />
-        <WhatWeDoSectionTest />
+    <main className={cn("min-h-screen")}>
+      <HeroSectionTest />
+      {/* <HeroSection /> */}
+      <ClientsSection />
+      <WhatWeDoSectionTest />
 
-        <AboutSection />
-        {/* <WhatWeDoSection /> */}
-        <RecentProjects />
-        <RecentProjectsTest />
-        <OurStory />
+      <AboutSection />
+      {/* <WhatWeDoSection /> */}
+      <RecentProjects />
+      <RecentProjectsTest />
+      <OurStory />
 
-        {/* <StackedCarousel /> */}
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
-    </div>
+      {/* <StackedCarousel /> */}
+    </main>
   );
 }
