@@ -29,29 +29,29 @@ export default function NavItems() {
             <NavigationMenuContent>
               <ul className="grid gap-3 p-4 lg:grid-cols-[.75fr_1fr]">
                 <ListItem
-                  href="/docs"
-                  title="Finance Transformation"
+                  href="/consulting"
+                  title="Consulting"
                   className="w-[200px]"
                 >
                   lorem ipsum dolor sit amet consectetur adipiscing elit
                 </ListItem>
                 <ListItem
-                  href="/docs/installation"
-                  title="Virtual CFO"
+                  href="/outsourcing"
+                  title="Outsourcing"
                   className="w-[200px]"
                 >
                   lorem ipsum dolor sit amet consectetur adipiscing elit
                 </ListItem>
                 <ListItem
-                  href="/docs/primitives/typography"
-                  title="Analytics"
+                  href="/technology"
+                  title="Technology"
                   className="w-[200px]"
                 >
                   lorem ipsum dolor sit amet consectetur adipiscing elit
                 </ListItem>
                 <ListItem
-                  href="/docs/primitives/typography"
-                  title="Start up Solution"
+                  href="/start-up-solution"
+                  title="Start-up Solution"
                   className="w-[200px]"
                 >
                   lorem ipsum dolor sit amet consectetur adipiscing elit
@@ -74,7 +74,12 @@ export default function NavItems() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/about" legacyBehavior passHref>
+            <Link
+              href="https://thepvhub.com"
+              target="_blank"
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 ThePVhub
               </NavigationMenuLink>

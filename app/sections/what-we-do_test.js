@@ -1,6 +1,7 @@
 import WhatWeDoCard from "@/components/cards/what-we-do-card";
 import { TextFade } from "@/components/text-animations/text-fade";
 import { WordsPullUp } from "@/components/text-animations/words-pull-up";
+import Link from "next/link";
 
 const whatWeDo = [
   {
@@ -9,6 +10,7 @@ const whatWeDo = [
     description:
       "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory",
     image: "/CONSULTING.webp",
+    url: "/consulting",
   },
   {
     id: 2,
@@ -16,12 +18,14 @@ const whatWeDo = [
     description:
       "Finance & Accounts, Assurance, Data Analytics, Technology, Other Back-office services",
     image: "/OUTSOURCING.webp",
+    url: "/outsourcing",
   },
   {
     id: 3,
     title: "Technology",
     description: "This box will redirect to thepvhub website.",
     image: "/TECHNOLOGY.webp",
+    url: "/technology",
   },
   {
     id: 4,
@@ -29,6 +33,7 @@ const whatWeDo = [
     description:
       "Managed Services, Virtual CFO, Financial Planning and Analysis, Facilitate Business Strategy, Analytics, Policies, Processes and Procedures, Due Diligence, Investment Memorandum.",
     image: "/START-UP SOLUTION.webp",
+    url: "/start-up-solutions",
   },
 ];
 
@@ -78,13 +83,15 @@ export default function WhatWeDoSectionTest() {
         </div>
         <div className="flex items-center justify-center gap-8">
           {whatWeDo.map((item) => (
-            <WhatWeDoCard
-              key={item.id}
-              title={item.title}
-              backgroundImage={item.image}
-              className="w-[250px] h-[300px] rounded-md"
-              description={item.description}
-            />
+            <Link key={item.id} href={item.url}>
+              <WhatWeDoCard
+                key={item.id}
+                title={item.title}
+                backgroundImage={item.image}
+                className="w-[250px] h-[300px] rounded-md"
+                description={item.description}
+              />
+            </Link>
           ))}
         </div>
       </div>

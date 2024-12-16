@@ -40,7 +40,7 @@ export default function Home() {
       <AboutSection />
       {/* <WhatWeDoSection /> */}
       <RecentProjects />
-      <RecentProjectsTest />
+      {/* <RecentProjectsTest /> */}
       <OurStory />
 
       {/* <StackedCarousel /> */}
