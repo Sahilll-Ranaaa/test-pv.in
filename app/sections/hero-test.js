@@ -9,6 +9,7 @@ import {
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowDown } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const carouselItems = [
@@ -59,12 +60,19 @@ export default function HeroSectionTest() {
   }, []);
   return (
     <section
-      className="w-full bg-cover bg-center transition-all duration-1000"
-      style={{
-        backgroundImage: `url(${carouselItems[currentImageIndex].image})`,
-        // filter: "grayscale(100%)",
-      }}
+      className="w-full relative"
+      // style={{
+      //   backgroundImage: `url(${carouselItems[currentImageIndex].image})`,
+      // }}
     >
+      <Image
+        src={carouselItems[currentImageIndex].image}
+        alt={carouselItems[currentImageIndex].title}
+        width={2000}
+        height={1500}
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      />
+      {/* <AnimatedImage /> */}
       <div className="max-w-5xl mx-auto h-screen">
         <div className=" h-full w-1/2 relative">
           <Carousel
