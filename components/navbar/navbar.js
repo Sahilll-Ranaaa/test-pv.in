@@ -50,7 +50,7 @@ export default function Navbar() {
         zIndex: 1000,
       }}
     >
-      <div className="fixed top-0 z-50 w-full shadow bg-white">
+      <div className="fixed top-0 z-40 w-full shadow bg-white">
         <MaxWidthWrapper>
           <nav className="flex items-center justify-between py-2">
             <Link href="/">

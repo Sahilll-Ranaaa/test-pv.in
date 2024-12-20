@@ -1,3 +1,5 @@
+import BlurIn from "@/components/text-animations/blur-in";
+import { FadeText } from "@/components/text-animations/fade-text";
 import Image from "next/image";
 
 export default function HeroSection() {
@@ -12,12 +14,19 @@ export default function HeroSection() {
         priority
       />
       <div className="max-w-screen-lg mx-auto ">
-        <div className="max-w-md mr-auto bg-app p-10 pt-20 h-[90vh] my-auto space-y-3 flex flex-col justify-center">
-          <h1 className="text-6xl font-bold text-white">About Us</h1>
-          <p className="text-white text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+        <div className="max-w-sm mr-auto bg-app pl-10 pr-5 pt-20 pb-10 h-[90vh] my-auto space-y-3 flex flex-col justify-center">
+          <BlurIn
+            className="md:text-5xl font-bold text-white text-left"
+            word="About Us"
+            duration={0.5}
+          ></BlurIn>
+
+          <FadeText
+            direction="up"
+            duration={0.5}
+            className="text-white text-sm"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          ></FadeText>
         </div>
       </div>
     </section>

@@ -1,5 +1,50 @@
 import { ArrowRight, ChevronRight, MoveRight } from "lucide-react";
 import Image from "next/image";
+import ServicesCard from "./services-card";
+
+const keyServices = [
+  {
+    title: "Finance & Accounts",
+    list: [
+      "Procure to Pay",
+      "Record to Report",
+      "Treasury Management",
+      "Reporting",
+      "Transactions",
+    ],
+  },
+  {
+    title: "Assurance",
+    list: [
+      "Data Organising",
+      "Vouching",
+      "Number crunching",
+      "SOX Compliances",
+    ],
+  },
+  {
+    title: "Data Analytics",
+    list: [
+      "Business Intelligence Dashboards",
+      "Data Cleansing",
+      "Data Migration",
+      "Data analytics using Microsoft and other tools",
+    ],
+  },
+  {
+    title: "Technology",
+    list: [
+      "Customized Application Development",
+      "Application Support Services",
+      "Managed IT Services",
+      "Software-as-a-Service (SaaS)",
+    ],
+  },
+  {
+    title: "Other Back-Office Services",
+    list: ["Report writing and preparations", "Customer support"],
+  },
+];
 
 export default function Outsourcing() {
   return (
@@ -61,9 +106,25 @@ export default function Outsourcing() {
           </div>
         </div>
       </section>
-      {/* <section className="min-h-screen py-10">
-
-      </section> */}
+      <section className="p-10 space-y-4">
+        <h1 className="text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-4xl md:leading-[5rem]">
+          Key Services
+        </h1>
+        <div className="m-auto flex justify-center flex-wrap gap-3">
+          {/* <div className=" w-[380px] py-10 space-y-4 border-black bg-white flex flex-col items-center">
+            <h1 className="text-4xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl">
+              Key <br /> Services
+            </h1>
+          </div> */}
+          {keyServices.map((service, index) => (
+            <ServicesCard
+              key={index}
+              title={service.title}
+              list={service.list}
+            />
+          ))}
+        </div>
+      </section>
       <section></section>
     </main>
   );

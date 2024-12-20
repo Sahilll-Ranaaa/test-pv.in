@@ -1,15 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export default function WhatWeDoCard({
-  title,
-  description,
-  backgroundImage,
-  className,
-}) {
+export default function ServicesCard({ title, description }) {
   const backDropOverlayVariants = {
     hidden: { top: "100%" },
     visible: { top: "0%" },
@@ -19,7 +12,6 @@ export default function WhatWeDoCard({
     hidden: { maxHeight: "0px" },
     visible: { maxHeight: "400px" },
   };
-
   return (
     <motion.div
       className={cn("w-52 h-52 relative group overflow-hidden", className)}

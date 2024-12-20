@@ -32,7 +32,7 @@ const whatWeDo = [
     title: "Start-Up Solutions",
     description:
       "Managed Services, Virtual CFO, Financial Planning and Analysis, Facilitate Business Strategy, Analytics, Policies, Processes and Procedures, Due Diligence, Investment Memorandum.",
-    image: "/START-UP SOLUTION.webp",
+    image: "/s2 (2).webp",
     url: "/start-up-solutions",
   },
 ];

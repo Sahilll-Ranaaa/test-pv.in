@@ -28,9 +28,9 @@ export default function OurMethodologySection() {
   return (
     <section className="p-10">
       <div className="max-w-screen-lg mx-auto">
-        <div className="grid grid-cols-4 w-full mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full mx-auto">
           <div
-            className="col-span-4 p-10 relative "
+            className="col-span-1 md:col-span-2 lg:col-span-4 p-10 relative "
             style={{
               backgroundImage:
                 "url(https://pvadvisory.in/wp-content/uploads/2022/12/image.webp)",
@@ -38,7 +38,7 @@ export default function OurMethodologySection() {
               backgroundSize: "cover",
             }}
           >
-            <div className="w-2/5 h-full bg-app p-6 text-white space-y-4">
+            <div className="md:w-2/5 h-full bg-app p-6 text-white space-y-4">
               <h2 className="capitalize text-3xl">Our Methodology - DDIM</h2>
               <p className="text-gray-100">
                 At each stage, we collaborate with your teams to ensure that the
@@ -52,7 +52,9 @@ export default function OurMethodologySection() {
               key={item.title}
               className={cn(
                 "h-[300px] p-6 space-y-3",
-                idx % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
+                idx % 2 === 0
+                  ? "bg-gray-100 hover:bg-gray-50"
+                  : "bg-gray-300 hover:bg-gray-200"
               )}
             >
               <h3 className="text-xl text-app font-semibold">{item.title}</h3>

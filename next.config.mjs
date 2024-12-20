@@ -9,6 +9,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "thepvhub.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "fiserv.scene7.com",
         pathname: "/**",
       },

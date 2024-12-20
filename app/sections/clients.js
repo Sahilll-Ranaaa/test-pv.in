@@ -82,11 +82,11 @@ const ourClients = [
 export default function ClientsSection() {
   return (
     <section className="bg-gray-100">
-      <div className="mx-auto pt-3 max-w-screen-lg">
+      <div className="mx-auto py-3 max-w-screen-lg">
         {/* <h1 className="text-app text-4xl font-bold text-center">
         Our Clients
       </h1> */}
-        <h3 className="text-center text-gray-500">TRUSTED BY</h3>
+        {/* <h3 className="text-center text-gray-500">TRUSTED BY</h3> */}
         <div className="relative">
           <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none z-10"></div>
           <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none z-10"></div>
@@ -109,13 +109,13 @@ export default function ClientsSection() {
           >
             <CarouselContent>
               {ourClients.map((client) => (
-                <CarouselItem key={client.id} className="basis-[10%]">
-                  <div className="relative w-20 h-20 hover:scale-125 transition-all">
+                <CarouselItem key={client.id} className="basis-[14%]">
+                  <div className="relative w-24 h-24 hover:scale-125 transition-all">
                     <Image
                       src={client.imageUrl}
                       alt="logo"
                       objectFit="contain"
-                      className="grayscale hover:grayscale-0 mix-blend-normal"
+                      className="hover:grayscale-0 mix-blend-normal"
                       fill
                     />
                   </div>
