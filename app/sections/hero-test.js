@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 const carouselItems = [
   {
     id: 1,
-    image: "/slide1.webp",
+    image: "/slide1.png",
     title: ["Your Finance", "Transformation Partner"],
     description: {
       text: "We are an implementation consulting firm. In the ever-evolving business landscape, we help you achieve full potential of your strategy and add long-term value to your business.",
@@ -70,7 +70,7 @@ export default function HeroSectionTest() {
         alt={carouselItems[currentImageIndex].title}
         width={2000}
         height={1500}
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover object-right-top "
       />
       {/* <AnimatedImage /> */}
       <div className="max-w-5xl mx-auto h-screen">

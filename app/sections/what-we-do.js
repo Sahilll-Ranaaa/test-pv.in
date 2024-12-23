@@ -8,7 +8,7 @@ const whatWeDo = [
     title: "Consulting",
     description:
       "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
+    image: "what-we-do-card1.webp",
   },
   {
     id: 2,

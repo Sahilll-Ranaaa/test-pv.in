@@ -9,7 +9,7 @@ const whatWeDo = [
     title: "Consulting",
     description:
       "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory",
-    image: "/CONSULTING.webp",
+    image: "/what-we-do-consulting.webp",
     url: "/consulting",
   },
   {
@@ -24,7 +24,7 @@ const whatWeDo = [
     id: 3,
     title: "Technology",
     description: "This box will redirect to thepvhub website.",
-    image: "/TECHNOLOGY.webp",
+    image: "/what-we-do-technology.webp",
     url: "/technology",
   },
   {
