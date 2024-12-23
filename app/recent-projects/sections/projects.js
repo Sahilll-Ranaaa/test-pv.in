@@ -113,13 +113,14 @@ const projects = [
 export default function Projects() {
   return (
     <section className="py-10">
-      <div className="max-w-screen-lg mx-auto flex flex-col">
+      <div className=" mx-auto flex flex-col">
         {projects.map((project, idx) => (
           <div
             key={idx}
             className={cn(
               "flex",
-              idx % 2 === 0 ? "flex-row" : "flex-row-reverse"
+              idx % 2 === 0 ? "flex-row" : "flex-row-reverse",
+              "max-h-72"
             )}
           >
             <div
@@ -129,13 +130,14 @@ export default function Projects() {
               )}
             >
               <div className="space-y-2">
-                <h2 className="text-3xl">{project.title}</h2>
-                <h3 className="text-lg">{project.subTitle}</h3>
+                {/* <h2 className="text-3xl">{project.title}</h2> */}
+                <h3 className="text-2xl">{project.subTitle}</h3>
               </div>
 
               <p
                 className={cn(
-                  idx % 2 === 0 ? "text-gray-700" : "text-gray-300"
+                  idx % 2 === 0 ? "text-gray-700" : "text-gray-300",
+                  "text-sm"
                 )}
               >
                 {project.description}

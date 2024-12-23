@@ -28,6 +28,7 @@ import RecentProjects from "./sections/recent-projects";
 import OurStory from "./sections/our-story";
 import RecentProjectsTest from "./sections/recent-projects_test";
 import HeroSectionTest from "./sections/hero-test";
+import CTA from "./sections/cta";
 
 export default function Home() {
   return (
@@ -38,10 +39,12 @@ export default function Home() {
       <WhatWeDoSectionTest />
 
       <AboutSection />
-      {/* <WhatWeDoSection /> */}
-      <RecentProjects />
-      <RecentProjectsTest />
       <OurStory />
+
+      {/* <CTA /> */}
+      {/* <WhatWeDoSection /> */}
+      {/* <RecentProjects /> */}
+      <RecentProjectsTest />
 
       {/* <StackedCarousel /> */}
     </main>

@@ -27,35 +27,27 @@ export default function NavItems() {
           <NavigationMenuItem>
             <NavigationMenuTrigger>What We Do?</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 lg:grid-cols-[.75fr_1fr]">
+              <ul className="flex flex-col gap-3 p-3">
                 <ListItem
                   href="/consulting"
                   title="Consulting"
                   className="w-[200px]"
-                >
-                  lorem ipsum dolor sit amet consectetur adipiscing elit
-                </ListItem>
+                ></ListItem>
                 <ListItem
                   href="/outsourcing"
                   title="Outsourcing"
                   className="w-[200px]"
-                >
-                  lorem ipsum dolor sit amet consectetur adipiscing elit
-                </ListItem>
+                ></ListItem>
                 <ListItem
                   href="/technology"
                   title="Technology"
                   className="w-[200px]"
-                >
-                  lorem ipsum dolor sit amet consectetur adipiscing elit
-                </ListItem>
+                ></ListItem>
                 <ListItem
                   href="/start-up-solution"
                   title="Start-up Solution"
                   className="w-[200px]"
-                >
-                  lorem ipsum dolor sit amet consectetur adipiscing elit
-                </ListItem>
+                ></ListItem>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -110,9 +102,9 @@ const ListItem = ({ className, title, children, ...props }) => {
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {/* <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
-          </p>
+          </p> */}
         </a>
       </NavigationMenuLink>
     </li>

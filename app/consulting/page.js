@@ -36,10 +36,10 @@ export default function Consulting() {
             <span>Consulting</span>
           </div>
           <h1 className="text-6xl font-bold text-white">Consulting</h1>
-          <p className="text-white text-sm space-y-2 w-1/2">
+          {/* <p className="text-white text-sm space-y-2 w-1/2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          </p> */}
         </div>
       </section>
       <section className="h-[80vh]">
@@ -79,7 +79,7 @@ export default function Consulting() {
           </div>
           <div className="flex-1 overflow-hidden h-full">
             <Image
-              src="/slide3.jpg"
+              src="/slide3.webp"
               alt="logo"
               width={600}
               height={600}
@@ -89,7 +89,7 @@ export default function Consulting() {
         </div>
       </section>
       <section className="flex justify-center items-center p-11">
-        <div className="max-w-screen-xl m-auto flex flex-wrap gap-8 ">
+        <div className="max-w-screen-xl m-auto flex flex-wrap gap-3 ">
           {keyServices.map((service) => (
             <ServicesCard
               key={service.title}

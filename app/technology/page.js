@@ -12,10 +12,10 @@ export default function FinanceTransformation() {
             <span>Technology</span>
           </div>
           <h1 className="text-6xl font-bold text-white">Technology</h1>
-          <p className="text-white text-sm space-y-2 w-1/2">
+          {/* <p className="text-white text-sm space-y-2 w-1/2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          </p> */}
         </div>
       </section>
       <section className="">

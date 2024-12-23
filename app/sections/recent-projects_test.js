@@ -150,7 +150,7 @@ export default function RecentProjectsTest({ autoplay = true }) {
     <section>
       <div className="max-w-screen-lg mx-auto py-11">
         <h1 className=" text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl md:leading-[5rem]">
-          Recent Projects
+          Case Studies
         </h1>
         {/* <p className="text-center text-gray-500 mx-auto text-sm mb-7 max-w-md">
           We measure our success by the success of our clients and strive to
@@ -261,10 +261,7 @@ export default function RecentProjectsTest({ autoplay = true }) {
                       ))}
                   </motion.p>
                 </motion.div>
-                <button className="text-sm font-normal text-primary flex items-center gap-1">
-                  Read more
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+
                 <div className="flex gap-4 pt-12 md:pt-0">
                   <button
                     onClick={handlePrev}
@@ -279,6 +276,12 @@ export default function RecentProjectsTest({ autoplay = true }) {
                     <ArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
                   </button>
                 </div>
+              </div>
+              <div className="">
+                <button className="text-sm font-normal text-primary flex items-center gap-1">
+                  Read more
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>

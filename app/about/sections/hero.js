@@ -25,7 +25,7 @@ export default function HeroSection() {
             direction="up"
             duration={0.5}
             className="text-white text-sm"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            text="Learn Who We Are, What Drives Us, and How We Deliver Excellence"
           ></FadeText>
         </div>
       </div>

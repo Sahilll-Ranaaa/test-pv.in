@@ -17,7 +17,7 @@ export default function HeroSection() {
         <div className="max-w-sm mr-auto bg-app pl-10 pr-5 pt-20 pb-10 h-[90vh] my-auto space-y-3 flex flex-col justify-center">
           <BlurIn
             className="md:text-5xl font-bold text-white text-left"
-            word="Recent Projects"
+            word="Case&nbsp;&nbsp; Studies"
             duration={0.5}
           ></BlurIn>
 
@@ -25,7 +25,7 @@ export default function HeroSection() {
             direction="up"
             duration={0.5}
             className="text-white text-sm"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            text="Turning Challenges into Opportunities"
           ></FadeText>
         </div>
       </div>

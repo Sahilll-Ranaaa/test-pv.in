@@ -39,12 +39,15 @@ const whatWeDo = [
 
 export default function WhatWeDoSectionTest() {
   return (
-    <section className="min-h-screen flex items-center justify-center py-12">
+    <section
+      className="min-h-screen flex items-center justify-center py-12"
+      id="what-we-do"
+    >
       <div className="max-w-screen-xl mx-auto space-y-5">
         <div className="flex items-center flex-col col-span-2 row-span-2 py-3 px-5 ">
           <h1>
             <WordsPullUp
-              className=" text-2xl font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl md:leading-[5rem]"
+              className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
               text="What We Do ?"
             />
           </h1>

@@ -1,16 +1,23 @@
+"use client";
+
 import { BackgroundBeamsWithCollision } from "@/components/backgound/background-beams-with-collision";
 import { GradualSpacing } from "@/components/text-animations/gradual-spacing";
 import { TextFade } from "@/components/text-animations/text-fade";
+import { AnimatePresence, motion } from "framer-motion";
+
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import {} from "motion";
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AnimatedImage from "@/components/animate/animated-image";
+import Link from "next/link";
 
 const carouselItems = [
   {
@@ -55,7 +62,7 @@ export default function HeroSectionTest() {
       setCurrentImageIndex(
         (prevIndex) => (prevIndex + 1) % carouselItems.length
       );
-    }, 3000); // Change every 3 seconds
+    }, 5000); // Change every 3 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
   return (
@@ -65,13 +72,21 @@ export default function HeroSectionTest() {
       //   backgroundImage: `url(${carouselItems[currentImageIndex].image})`,
       // }}
     >
-      <Image
-        src={carouselItems[currentImageIndex].image}
-        alt={carouselItems[currentImageIndex].title}
-        width={2000}
-        height={1500}
-        className="absolute top-0 left-0 w-full h-full object-cover object-right-top "
-      />
+      <AnimatePresence>
+        <AnimatedImage
+          className="absolute w-full h-full top-0 left-0"
+          key={currentImageIndex}
+        >
+          <Image
+            src={carouselItems[currentImageIndex].image}
+            alt={carouselItems[currentImageIndex].title}
+            width={2000}
+            height={1500}
+            className="w-full h-full object-cover object-right-top "
+          />
+        </AnimatedImage>
+      </AnimatePresence>
+
       {/* <AnimatedImage /> */}
       <div className="max-w-5xl mx-auto h-screen">
         <div className=" h-full w-1/2 relative">
@@ -119,10 +134,13 @@ export default function HeroSectionTest() {
               ))}
             </CarouselContent>
           </Carousel>
-          <div className="absolute bottom-0 left-0 text-white p-3 flex items-center gap-2 text-xs">
+          <Link
+            className="absolute bottom-0 left-0 text-white p-3 flex items-center gap-2 text-xs"
+            href={"#what-we-do"}
+          >
             <ArrowDown size={14} />
             See how we help
-          </div>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import ReadMoreBtn from "@/components/buttons/read-more";
 import { TextFade } from "@/components/text-animations/text-fade";
 import { WordsPullUp } from "@/components/text-animations/words-pull-up";
 
@@ -5,10 +6,10 @@ export default function AboutSection() {
   return (
     <section className="flex items-center justify-center py-16 bg-gray-100">
       <div className="max-w-screen-lg mx-auto flex gap-4 items-center">
-        <div className="flex-1 flex items-center flex-col">
+        <div className="flex-1 flex items-center flex-col gap-5">
           <h1>
             <WordsPullUp
-              className=" text-2xl font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl md:leading-[5rem]"
+              className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
               text="About Us"
             />
           </h1>
@@ -32,6 +33,7 @@ export default function AboutSection() {
               </p>
             </TextFade>
           </div>
+          <ReadMoreBtn link={"/about"} />
         </div>
       </div>
     </section>
