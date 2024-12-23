@@ -50,7 +50,7 @@ export default function WhoWeAreSection() {
         </div>
         <div className="flex-1 h-full hidden md:block">
           <Image
-            src="/slide3.jpg"
+            src="/about-us-description.png"
             alt="logo"
             width={600}
             height={600}

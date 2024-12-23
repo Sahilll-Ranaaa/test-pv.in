@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <section className="relative">
       <Image
-        src={"/slide3.jpg"}
+        src={"/about-us-hero.webp"}
         alt={"slide"}
         width={2000}
         height={1500}

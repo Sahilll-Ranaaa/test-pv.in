@@ -1,3 +1,5 @@
+"use client";
+
 import { BackgroundBeamsWithCollision } from "@/components/backgound/background-beams-with-collision";
 import { GradualSpacing } from "@/components/text-animations/gradual-spacing";
 import { TextFade } from "@/components/text-animations/text-fade";

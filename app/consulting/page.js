@@ -4,22 +4,22 @@ import ServicesCard from "./services-card";
 
 const keyServices = [
   {
-    title: "FINANCE TRANSFORMATION",
+    title: "Finance Transformation",
     description:
       "Finance Function Effectiveness, Designing of Finance processes, Performance Improvements, Power Apps Automations.",
   },
   {
-    title: "VIRTUAL CFO",
+    title: "Virtual CFO",
     description:
       "Oversight of finance function, Business partnering with CEOs, Culture building, Finance Function Effectiveness, Assistance in Fund Raising, Preparation of Pitch deck & Information Memorandum, Business plan creation",
   },
   {
-    title: "MANAGED SERVICES",
+    title: "Managed Services",
     description:
       "Corporate Secretarial Compliances, Bookkeeping and Accounting Services, Financial Planning & Analysis, Indirect Tax Advisory and Compliances, Business Intelligence and Data Visualization and Analysis",
   },
   {
-    title: "FINANCIAL RISK ADVISORY",
+    title: "Financial Risk Advisory",
     description:
       "Due Diligence Review, Internal Audit, Internal Controls and SOP Implementation",
   },
@@ -88,14 +88,15 @@ export default function Consulting() {
           </div>
         </div>
       </section>
-      <section className="min-h-screen bg-gray-100 flex justify-center items-center">
-        <div className="max-w-screen-lg m-auto flex flex-wrap gap-5">
-          {keyServices.map((service) => {
+      <section className="flex justify-center items-center p-11">
+        <div className="max-w-screen-xl m-auto flex flex-wrap gap-8 ">
+          {keyServices.map((service) => (
             <ServicesCard
+              key={service.title}
               title={service.title}
               description={service.description}
-            />;
-          })}
+            />
+          ))}
         </div>
       </section>
     </main>

@@ -67,7 +67,7 @@ export default function NavItems() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/about" legacyBehavior passHref>
+            <Link href="/recent-projects" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Recent Projects
               </NavigationMenuLink>

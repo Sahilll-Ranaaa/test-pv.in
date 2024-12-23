@@ -1,8 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export default function ServicesCard({ title, description }) {
+export default function ServicesCard({ title, description, className }) {
   const backDropOverlayVariants = {
     hidden: { top: "100%" },
     visible: { top: "0%" },
@@ -13,48 +15,11 @@ export default function ServicesCard({ title, description }) {
     visible: { maxHeight: "400px" },
   };
   return (
-    <motion.div
-      className={cn("w-52 h-52 relative group overflow-hidden", className)}
-      initial="hidden"
-      whileHover="visible"
-    >
-      <Image
-        src={backgroundImage || "/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"}
-        alt="PV Logo"
-        width={500}
-        height={500}
-        className="object-cover position h-full w-full -z-10 transition-all duration-200 group-hover:scale-105"
-      />
-
-      <motion.div
-        className="absolute w-full h-full bg-gradient-to-b from-[rgba(0,0,0,0.3)] to-black"
-        variants={backDropOverlayVariants}
-        transition={{
-          type: "spring",
-          duration: 0.5,
-          // stiffness: 120,
-          damping: 20,
-        }}
-      />
-      <div className="absolute top-0 p-4">
-        <h2 className=" text-xl text-white">{title ?? "Consulting"}</h2>
+    <div className="flex-1 max-w-sm bg-app bg-opacity-70">
+      <div className="bg-white space-y-3 p-5 h-full translate-x-2 -translate-y-2 shadow-lg border border-black">
+        <h1 className="text-app text-xl">{title}</h1>
+        <p className="text-gray-700 text-sm">{description}</p>
       </div>
-      {/* <div className="absolute w-full h-full bg-gradient-to-b duration-200 transition-all from-[rgba(0,0,0,0.3)] to-black top-full group-hover:top-0"></div> */}
-      <motion.div
-        className="absolute w-full duration-500 overflow-hidden bottom-0"
-        variants={textOverlayVariants}
-        transition={{
-          type: "spring",
-          duration: 0.5,
-          // stiffness: 120,
-          damping: 20,
-        }}
-      >
-        <p className="text-xs text-white p-4">
-          {description ??
-            "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory"}
-        </p>
-      </motion.div>
-    </motion.div>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 const carouselItems = [
   {
     id: 1,
-    image: "/slide1.jpg",
+    image: "/slide1.webp",
     title: ["Your Finance", "Transformation Partner"],
     description: {
       text: "We are an implementation consulting firm. In the ever-evolving business landscape, we help you achieve full potential of your strategy and add long-term value to your business.",
@@ -24,7 +24,7 @@ const carouselItems = [
   },
   {
     id: 2,
-    image: "/slide2.jpg",
+    image: "/slide2.webp",
     title: ["What do we bring", "to the table?"],
     description: {
       text: "With an overall combined expertise of over 65+ years in diverse industry verticals, we offer services in the space of business restructuring, finance effectiveness, performance improvement, tax and human resources to businesses of all sizes.",
@@ -33,7 +33,7 @@ const carouselItems = [
   },
   {
     id: 3,
-    image: "/slide3.jpg",
+    image: "/slide3.webp",
     title: ["Leverage", "Transformation!"],
     description: {
       text: "We understand the importance of execution in your transformation journey. With our approach, we help you:",
