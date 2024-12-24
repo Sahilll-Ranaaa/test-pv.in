@@ -66,16 +66,13 @@ export default function NavItems() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link
+            <NavigationMenuLink
               href="https://thepvhub.com"
               target="_blank"
-              legacyBehavior
-              passHref
+              className={navigationMenuTriggerStyle()}
             >
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                ThePVhub
-              </NavigationMenuLink>
-            </Link>
+              ThePVhub
+            </NavigationMenuLink>
           </NavigationMenuItem>
           {/* <NavigationMenuItem>
             <Link href="/about" legacyBehavior passHref>

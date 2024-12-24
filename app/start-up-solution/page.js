@@ -1,5 +1,20 @@
+"use client";
+
 import { ArrowRight, ChevronRight, MoveRight } from "lucide-react";
 import Image from "next/image";
+import ServicesCard from "./services-card";
+import { WordsPullUp } from "@/components/text-animations/words-pull-up";
+
+const items = [
+  "Managed Services",
+  "Virtual CFO",
+  "Financial Planning and Analysis",
+  "Facilitate Business Strategy",
+  "Analytics",
+  "Policies, Processes and Procedures",
+  "Due Diligence",
+  "Investment Memorandum",
+];
 
 export default function StartUpSolution() {
   return (
@@ -12,17 +27,13 @@ export default function StartUpSolution() {
             <span>Start-up Solution</span>
           </div>
           <h1 className="text-6xl font-bold text-white">Start-up Solution</h1>
-          {/* <p className="text-white text-sm space-y-2 w-1/2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p> */}
         </div>
       </section>
       <section className=" py-10">
         <div className="h-full max-w-screen-lg mx-auto flex items-center justify-center direction-reverse gap-8">
           <div className="flex-1 overflow-hidden h-full">
             <Image
-              src="/slide3.jpg"
+              src="/start-up-solution-description.jpg"
               alt="logo"
               width={600}
               height={600}
@@ -49,7 +60,33 @@ export default function StartUpSolution() {
           </div>
         </div>
       </section>
-      <section></section>
+      <section>
+        <div className="max-w-screen-lg mx-auto py-10 space-y-5">
+          <h1>
+            <WordsPullUp
+              className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
+              text="Key Services?"
+            />
+          </h1>
+          <ul className="grid grid-cols-2 gap-3 text-left text-xl px-4">
+            {items.map((item, idx) => (
+              <ServicesCard key={idx} title={item} />
+            ))}
+          </ul>
+          {/* <div className="mx-auto max-w-screen-lg  py-10"> */}
+          {/* <div className="flex-1 overflow-hidden h-full">
+              <Image
+                src="/technology-description.webp"
+                alt="logo"
+                width={600}
+                height={600}
+                className="h-full w-full object-cover"
+              />
+            </div> */}
+
+          {/* </div> */}
+        </div>
+      </section>
     </main>
   );
 }

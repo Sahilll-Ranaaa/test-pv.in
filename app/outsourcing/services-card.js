@@ -1,25 +1,34 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
-export default function ServicesCard({ title, list }) {
+export default function ServicesCard({ title, list, className }) {
   return (
-    <div className=" w-[300px] py-5 pb-24 space-y-4 bg-white">
-      {/* <Image
-        src={"/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif"}
-        alt="PV Logo"
-        width={500}
-        height={500}
-        className="object-cover  h-60 w-full"
-      /> */}
-      <div className="relative px-7 py-1.5 bg-app">
-        <h1 className="text-xl font-semibold text-white">{title}</h1>
-        {/* <div className="absolute h-full w-1.5 top-0 left-0 bg-app"></div> */}
-      </div>
-
-      <ul className="list-[square] px-11 text-gray-600">
-        {list.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
+    <motion.div
+      className="relative w-[250px] min-h-60 overflow-hidden flex items-center justify-center group"
+      initial={{ padding: "1rem" }}
+      whileHover={{ padding: "0rem" }}
+    >
+      <Image
+        src={"/slide2.webp"}
+        alt="Card Background"
+        width={600}
+        height={600}
+        className="absolute object-cover h-full w-full -z-10"
+      />
+      <motion.div
+        className="bg-white w-full h-full p-5 space-y-4"
+        initial={{ background: "#fff" }}
+        whileHover={{ background: "#f3f3f2e6" }}
+      >
+        <h1 className="text-app text-[16px]">{title}</h1>
+        <ul className="text-xs list-disc px-4">
+          {list.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </motion.div>
+    </motion.div>
   );
 }

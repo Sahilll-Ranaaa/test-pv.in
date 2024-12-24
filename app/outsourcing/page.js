@@ -57,25 +57,21 @@ export default function Outsourcing() {
             <span>Outsourcing</span>
           </div>
           <h1 className="text-6xl font-bold text-white">Outsourcing</h1>
-          {/* <p className="text-white text-sm space-y-2 w-1/2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p> */}
         </div>
       </section>
       <section className="min-h-[80vh] py-10">
-        <div className="h-full max-w-screen-lg mx-auto flex items-center justify-center direction-reverse gap-8">
+        <div className="h-full max-w-screen-lg p-10 md:p-0 mx-auto flex flex-col md:flex-row items-center justify-center direction-reverse gap-8">
           <div className="flex-1 overflow-hidden h-full">
             <Image
-              src="/slide3.jpg"
+              src="/outsourcing-description.webp"
               alt="logo"
               width={600}
               height={600}
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="text-sm w-1/2 py-10">
-            <div className="space-y-2 max-w-lg">
+          <div className="flex-1 text-sm">
+            <div className="space-y-2">
               <p>
                 Outsourcing services is a business practice where a company
                 delegates specific tasks or functions to external service
@@ -106,16 +102,12 @@ export default function Outsourcing() {
           </div>
         </div>
       </section>
-      <section className="p-10 space-y-4">
-        <h1 className="text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-4xl md:leading-[5rem]">
+      <section className="p-10 space-y-12">
+        <h1 className="text-center text-4xl font-bold text-app">
           Key Services
         </h1>
-        <div className="m-auto flex justify-center flex-wrap gap-3">
-          {/* <div className=" w-[380px] py-10 space-y-4 border-black bg-white flex flex-col items-center">
-            <h1 className="text-4xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl">
-              Key <br /> Services
-            </h1>
-          </div> */}
+
+        <div className="m-auto max-w-screen-lg flex justify-center flex-wrap gap-10">
           {keyServices.map((service, index) => (
             <ServicesCard
               key={index}

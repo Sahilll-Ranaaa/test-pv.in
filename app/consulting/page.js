@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronRight, MoveRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import ServicesCard from "./services-card";
 
@@ -36,48 +36,43 @@ export default function Consulting() {
             <span>Consulting</span>
           </div>
           <h1 className="text-6xl font-bold text-white">Consulting</h1>
-          {/* <p className="text-white text-sm space-y-2 w-1/2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p> */}
         </div>
       </section>
-      <section className="h-[80vh]">
-        <div className="h-full flex items-center justify-center direction-reverse gap-8">
-          <div className="text-sm w-1/2 py-10">
-            <div className="ml-auto space-y-2 max-w-lg">
-              <p>
-                In today&apos;s dynamic business landscape, it has become
-                increasingly crucial for companies to equip themselves with the
-                necessary tools and resources to adapt to the ever-changing
-                market demands.
-              </p>
-              <p>
-                Consulting services are essential for businesses seeking to
-                navigate the complex world of finance while pursuing
-                organizational growth and change. These services encompass a
-                range of strategic and advisory solutions aimed at optimizing
-                financial processes, enhancing operational efficiency, and
-                driving sustainable transformation. We bring expertise to help
-                clients make informed decisions, manage risk, improve financial
-                performance, and adapt to evolving market dynamics. Through a
-                combination of financial analysis, technology integration, and
-                strategic planning, our services enable companies to stay
-                competitive, resilient, and agile in an ever-changing business
-                landscape.
-              </p>
-              <p>
-                There is a huge gap in the market between demand and supply of
-                implementation services and we have the right mix of passion,
-                expertise and self-belief that we can tremendously contribute to
-                our customer’s businesses. We have been at the forefront of
-                providing services to clients in various industries. Our goal is
-                to help organizations streamline their finance functions and
-                enhance their overall efficiency and effectiveness.
-              </p>
-            </div>
+      <section className="">
+        <div className="max-w-screen-xl mx-auto p-10 flex flex-col md:flex-row items-center justify-center direction-reverse gap-10">
+          <div className="space-y-2 text-sm flex-1">
+            <p>
+              In today&apos;s dynamic business landscape, it has become
+              increasingly crucial for companies to equip themselves with the
+              necessary tools and resources to adapt to the ever-changing market
+              demands.
+            </p>
+            <p>
+              Consulting services are essential for businesses seeking to
+              navigate the complex world of finance while pursuing
+              organizational growth and change. These services encompass a range
+              of strategic and advisory solutions aimed at optimizing financial
+              processes, enhancing operational efficiency, and driving
+              sustainable transformation. We bring expertise to help clients
+              make informed decisions, manage risk, improve financial
+              performance, and adapt to evolving market dynamics. Through a
+              combination of financial analysis, technology integration, and
+              strategic planning, our services enable companies to stay
+              competitive, resilient, and agile in an ever-changing business
+              landscape.
+            </p>
+            <p>
+              There is a huge gap in the market between demand and supply of
+              implementation services and we have the right mix of passion,
+              expertise and self-belief that we can tremendously contribute to
+              our customer’s businesses. We have been at the forefront of
+              providing services to clients in various industries. Our goal is
+              to help organizations streamline their finance functions and
+              enhance their overall efficiency and effectiveness.
+            </p>
           </div>
-          <div className="flex-1 overflow-hidden h-full">
+
+          <div className="flex-1 overflow-hidden">
             <Image
               src="/slide3.webp"
               alt="logo"
@@ -88,8 +83,11 @@ export default function Consulting() {
           </div>
         </div>
       </section>
-      <section className="flex justify-center items-center p-11">
-        <div className="max-w-screen-xl m-auto flex flex-wrap gap-3 ">
+      <section className="p-11 space-y-12">
+        <h1 className="text-center text-4xl font-bold text-app">
+          Key Services
+        </h1>
+        <div className="max-w-screen-xl m-auto flex justify-center flex-wrap gap-3 ">
           {keyServices.map((service) => (
             <ServicesCard
               key={service.title}
