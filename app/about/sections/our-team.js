@@ -9,7 +9,7 @@ const items = [
   {
     name: "Abhishek Jain",
     designation: "Associate Director",
-    image: "https://thepvhub.com/assets/team/Abhishek%20Jain.png",
+    image: "/team/abhishek-jain.jpg",
     linkedIn: "https://www.linkedin.com/in/abhishek-jain-351094b4/",
     longDescription: [
       "Abhishek Jain, (ex-Genpact and ex-EY India) is an Associate Director with PV with experience of 10 years in Finance & Accounts.",
@@ -23,7 +23,7 @@ const items = [
   {
     name: "Uditi Shah",
     designation: "Strategic Growth Partner",
-    image: "https://thepvhub.com/assets/team/Uditi.jpg",
+    image: "/team/uditi-shah.jpg",
     linkedIn: "http://www.linkedin.com/in/uditi-shah",
     longDescription: [
       "Uditi Shah is Strategic Growth Partner at PV with Over 12 years of experience in training, learning and development and proactive in driving positive change by partnering with business leaders and stakeholders for learning initiatives.",
@@ -38,7 +38,7 @@ const items = [
   {
     name: "Jyoti Batra Dhall",
     designation: "Assistant Manager",
-    image: "https://thepvhub.com/assets/team/Jyoti%20Batra.jpg",
+    image: "/team/jyoti-batra-dhall.jpg",
     linkedIn: "https://www.linkedin.com/in/jyoti-batra-dhall-a265b59a",
     longDescription: [
       "Jyoti Batra Dhall is an assistant manager at PV with strong project management capabilities.",
@@ -51,7 +51,7 @@ const items = [
   {
     name: "Umesh Chandra Dani",
     designation: "Senior Consultant",
-    image: "https://thepvhub.com/assets/team/Umesh.jpg",
+    image: "/team/umesh-chandra-dani.jpg",
     linkedIn: "https://www.linkedin.com/in/umesh-chandra-dani-35b044253/",
     longDescription: [
       "Umesh Chandra Dani is a Senior consultant at PV Advisory.",
@@ -64,7 +64,7 @@ const items = [
   {
     name: "Anant Jain",
     designation: "Senior Consultant",
-    image: "https://thepvhub.com/assets/team/Anant%20Jain.jpg",
+    image: "/team/anant-jain.jpg",
     linkedIn: "https://www.linkedin.com/in/anant-jain-",
     longDescription: [
       "Anant Jain works at PV Advisory as a senior consultant.",
@@ -78,7 +78,7 @@ const items = [
   {
     name: "Saurav Bhandari",
     designation: "Senior Consultant",
-    image: "https://thepvhub.com/assets/team/Saurav%20Bhandari.jpg",
+    image: "/team/saurav-bhandari.JPG",
     linkedIn: "http://www.linkedin.com/in/sauravbhandari93",
     longDescription: [
       "Saurav Bhandari (Ex-LNT) is a senior consultant at PV Advisory with strong problem-solving capabilities.",
@@ -90,7 +90,7 @@ const items = [
   {
     name: "Duwesh Kumar",
     designation: "Consultant",
-    image: "https://thepvhub.com/assets/team/Duwesh%20Kumar.jpeg",
+    image: "/team/duwesh-kumar.png",
     linkedIn: "https://www.linkedin.com/in/duwesh-kumar",
     longDescription: [
       "Duwesh Kumar is a Consultant at PV Advisory.",
@@ -103,7 +103,7 @@ const items = [
   {
     name: "Ashutosh Kumbhkar",
     designation: "Consultant",
-    image: "https://thepvhub.com/assets/team/Duwesh%20Kumar.jpeg",
+    image: "/team/ashutosh-kumbhkar.jpeg",
     linkedIn: "https://www.linkedin.com/in/duwesh-kumar",
     longDescription: [
       "Ashutosh is a Consultant at PV Advisory with strong expertise in business process design, analysis, and optimization.",
@@ -115,7 +115,7 @@ const items = [
   {
     name: "Swati Gupta",
     designation: "Associate Consultant",
-    image: "https://thepvhub.com/assets/team/Swati%20Gupta.png",
+    image: "/team/swati-gupta.jpeg",
     linkedIn: "http://www.linkedin.com/in/swati-gupta-5b30262b",
     longDescription: [
       "Swati Gupta is a qualified Chartered Accountant and holds an honors degree in commerce. She has worked with leading consulting firm Ernst & Young (2015 -2021) and has gained extensive experience in the field of Indirect Taxes. She played a vital role in smooth transitioning from old indirect tax regime to the GST regime.",
@@ -127,7 +127,7 @@ const items = [
   {
     name: "Jayanth Vellal",
     designation: "Associate Consultant",
-    image: "https://thepvhub.com/assets/team/Jayanth%20Team.jpeg",
+    image: "/team/jayanth-vellal.jpeg",
     linkedIn: "http://www.linkedin.com/in/jayanthvellal",
     longDescription: [
       "Jayanth Vellal, is Finance transformation specialist at PV.",

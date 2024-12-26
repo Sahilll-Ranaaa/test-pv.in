@@ -18,31 +18,17 @@ const projects = [
     description:
       "Engaged to redesign and document finance workflows, identified process inefficiencies, and delivered an actionable implementation plan that significantly cut finance operational costs.",
   },
-  {
-    title: "Standardization of Processes",
-    image: "/p1.png",
 
-    subTitle: "Unified Finance Operations Across 5 Nations",
-    description:
-      "Standardized finance processes across 8 cities in 5 countries, bringing consistency and efficiency to global operations for a seamless cross-border financial framework.",
-  },
   {
     title: "Virtual CFO",
-    image: "/p2.png",
+    image: "/p1.png",
 
     subTitle:
       "Dual-Nation CFO Excellence: Enabled Tax-Smart Operations in Singapore & India",
     description:
       "Implemented robust forecasting, planning, and treasury management for a mid-sized firm, optimizing tax structures under the Double Taxation Avoidance Agreement and leveraging Special Economic Zone benefits.",
   },
-  {
-    title: "Internal Audits",
-    image: "/p1.png",
 
-    subTitle: "Recovered $1 Million Through Asset Management Overhaul",
-    description:
-      "Revamped fixed asset management processes, delivering $1 million in savings by optimizing asset disposal strategies and ensuring accurate tracking.",
-  },
   {
     title: "Development of Compliance Tracking Tool",
     image: "/p2.png",
@@ -112,7 +98,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section className="py-10">
+    <section className="pt-10">
       <div className=" mx-auto flex flex-col">
         {projects.map((project, idx) => (
           <div
@@ -125,8 +111,8 @@ export default function Projects() {
           >
             <div
               className={cn(
-                "w-1/2 p-12 space-y-6",
-                idx % 2 === 0 ? "bg-gray-100 text-black" : "bg-app text-white"
+                "w-1/2 p-12 space-y-6 bg-gray-100 text-black"
+                // idx % 2 === 0 ? "bg-gray-100 text-black" : "bg-app text-white"
               )}
             >
               <div className="space-y-2">
@@ -136,7 +122,8 @@ export default function Projects() {
 
               <p
                 className={cn(
-                  idx % 2 === 0 ? "text-gray-700" : "text-gray-300",
+                  "text-gray-700",
+                  // idx % 2 === 0 ? "text-gray-700" : "text-gray-300",
                   "text-sm"
                 )}
               >

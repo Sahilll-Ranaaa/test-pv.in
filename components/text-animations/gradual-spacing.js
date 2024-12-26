@@ -8,13 +8,19 @@ export function GradualSpacing({
   text = "Gradual Spacing",
   duration = 0.5,
   className,
+  containerClassName,
 }) {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: false });
   return (
-    <div className="flex flex-wrap space-x-1">
+    <div
+      className={cn(
+        "flex justify-start flex-wrap space-x-1",
+        containerClassName
+      )}
+    >
       {text.split(" ").map((word) => (
-        <div key={word} className="flex space-x-1">
+        <div key={word} className="flex gap-1">
           <AnimatePresence key={word}>
             {word.split("").map((char, i) => (
               <motion.p

@@ -1,29 +1,33 @@
+"use client";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { MenuIcon } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function NavItems() {
+  const [isHamburgerMenuVisible, setIsHamburgerMenuVisible] = useState(false);
   return (
     <div>
-      <NavigationMenu>
+      <Button size={"icon"} variant={"ghost"} className="md:hidden">
+        <MenuIcon />
+      </Button>
+      <motion.div className="bg-black bg-opacity-70 fixed top-0 left-0 w-full h-full z-20 hidden">
+        <motion.div className="bg-white h-full w-[300px] rounded-tl-xl rounded-bl-xl float-right"></motion.div>
+      </motion.div>
+      <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
-          {/* <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Home
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem> */}
           <NavigationMenuItem>
             <NavigationMenuTrigger>What We Do?</NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -59,7 +63,7 @@ export default function NavItems() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/recent-projects" legacyBehavior passHref>
+            <Link href="/case-studies" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Recent Projects
               </NavigationMenuLink>
@@ -74,13 +78,6 @@ export default function NavItems() {
               ThePVhub
             </NavigationMenuLink>
           </NavigationMenuItem>
-          {/* <NavigationMenuItem>
-            <Link href="/about" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Career
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem> */}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

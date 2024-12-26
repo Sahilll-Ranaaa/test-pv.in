@@ -1,3 +1,4 @@
+import ReadMoreBtn from "@/components/buttons/read-more";
 import ProjectCard from "@/components/cards/project-carousel-card";
 import EmblaCarousel, {
   EmblaCarouselItem,
@@ -10,112 +11,31 @@ import { useEffect, useState } from "react";
 
 const recentProjects = [
   {
-    id: 1,
-    title: "Finance Function Effectiveness",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
+    image: "/projects/p1.png",
+    title:
+      "Revolutionizing Accounting: Managing $500M+ Finances for Manufacturing Giant",
+    description:
+      "Handled the entire accounting process for a major manufacturing organization, streamlining financial reporting and ensuring secretarial compliance, enhancing operational accuracy and governance.",
+  },
+  {
+    image: "/projects/p2.png",
 
+    title:
+      "Dual-Nation CFO Excellence: Enabled Tax-Smart Operations in Singapore & India",
     description:
-      "We were engaged to review key finance processes to reduce the finance cost by bringing in efficiencies. During the project, we mapped and reviewed the AS IS processes and created process documents for all the existing finance processes. We also identified the areas of improvement in existing finance processes, policies, and systems and prepared the implementation plan for improvements.",
-  },
-
-  {
-    id: 2,
-    title: "Virtual CFO",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-2.png",
-    description:
-      "We implemented forecasting and planning function, working capital management and treasury processes for a medium sized organisation based in Singapore and in India. We were also engaged to lay down a billing structure in line with Double Taxation Avoidance Agreement between India and Singapore. We assisted the client in setting up operations in the Special Economic Zone to benefit from direct and indirect tax exemptions. We also created Business Intelligence Dashboards for the management.",
+      "Implemented robust forecasting, planning, and treasury management for a mid-sized firm, optimizing tax structures under the Double Taxation Avoidance Agreement and leveraging Special Economic Zone benefits.",
   },
   {
-    id: 3,
-    title: "Optimizing Accounts Receivables - Outsourcing for Billing",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-3.png",
+    image: "/projects/p3.png",
+    title: "Pay-ally P2P Tool: 40% Cost Savings in Procurement Processes",
     description:
-      "Using the Oracle application, we analysed various revenue models and their billing process and ensured timely and accurate processing of 250+ invoices. In addition, we ensured regular reporting and required follow-up with the end customer to ensure faster invoice processing.",
+      "Deployed Pay-ally, a SaaS-based P2P tool that automated requisitions, vendor selection, orders, and payments. Integrated with existing systems, it enhanced visibility and reduced procurement cycle times by 50%, driving measurable cost savings.",
   },
   {
-    id: 4,
-    title: "Turnaround Strategy",
-    image: "/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif",
-
+    image: "/p2.png",
+    title: "Automated Cash Application: Reduced AR Cycle by 60%",
     description:
-      "We diagnosed the financial health of sick company which was running into financial trouble. We assisted the client in creating a turnaround strategy, formulating and implementing a comprehensive business plan for 5 years.",
-  },
-  {
-    id: 5,
-    title: "Restructuring",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
-    description:
-      "We managed the implementation of a large restructuring project spanning across 5 countries and 10,000 employees.",
-  },
-  {
-    id: 6,
-    title: "Conversion into LLP",
-    image: "/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif",
-    description:
-      "We assisted the client in managing conversion of 3 companies into a Limited Liability Partnership.",
-  },
-  {
-    id: 7,
-    title: "COVID - 19 Preparedness",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-3.png",
-    description:
-      "We were engaged to perform scenario analysis, considering various shutdown periods, and to advise and implement, immediate cost cutting measures to conserve cash.",
-  },
-  {
-    id: 8,
-    title: "Performance Improvement",
-    image: "/e2fd35a8-8b88-486d-9ff1-41a184962e5d.avif",
-    description:
-      "We reviewed the Order to Cash process and advised recommendations to increase efficiencies.",
-  },
-  {
-    id: 9,
-    title: "Start-up Solution",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
-    description:
-      "We assisted a start-up in selecting the right form of legal entity, incorporating the company and providing Virtual CFO services.",
-  },
-  {
-    id: 10,
-    title: "Stock Audit",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-2.png",
-    description:
-      "We performed the Physical verification of Fixed Assets and reconciliation of the fixed assets along with assisting in tagging of fixed assets with QR codes.",
-  },
-  {
-    id: 11,
-    title: "Conceptualization of a workflow tool",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-3.png",
-    description:
-      "We were engaged to conceptualize a workflow tool for preparation of proposals, tracking engagement deliverables, invoicing and management reporting.",
-  },
-  {
-    id: 12,
-    title: "Setup of HR Function",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
-    description:
-      "We formulated the HR policies & procedures and the HR manual. We also designed and implemented the Performance Management System.",
-  },
-  {
-    id: 13,
-    title: "Standardization of Processes",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
-    description:
-      "We were engaged to review, identify the scope for improvement and standardise finance processes across 8 cities in 5 countries to bring in consistencies.",
-  },
-  {
-    id: 14,
-    title: "Fixed Asset Register",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-2.png",
-    description:
-      "We reviewed and finalised the FAR of the organization and carried out the physical verification of fixed assets. Additionally, we assisted with tagging fixed assets with QR codes and reconciled the fixed assets.",
-  },
-  {
-    id: 15,
-    title: "Lower Tax Deduction",
-    image: "https://pvadvisory.in/wp-content/uploads/2022/12/Slider-1.png",
-    description:
-      "We assisted the client in preparing financial statements along with filing of Lower tax Deduction application with the Assessing Officer.",
+      "Automated the cash application process by eliminating manual effort through interface creation. Optimized receipt matching and receivables accounting, improving accuracy and accelerating cash flow turnaround by 60%.",
   },
 ];
 
@@ -230,9 +150,6 @@ export default function RecentProjectsTest({ autoplay = true }) {
                   <h3 className="text-2xl font-bold dark:text-white text-black">
                     {recentProjects[active].title}
                   </h3>
-                  {/* <p className="text-sm text-gray-500 dark:text-neutral-500">
-              {recentProjects[active].description}
-            </p> */}
                   <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300 line-clamp-4">
                     {recentProjects[active].description
                       .split(" ")
@@ -277,13 +194,10 @@ export default function RecentProjectsTest({ autoplay = true }) {
                   </button>
                 </div>
               </div>
-              <div className="">
-                <button className="text-sm font-normal text-primary flex items-center gap-1">
-                  Read more
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
             </div>
+          </div>
+          <div className="flex justify-center">
+            <ReadMoreBtn link="/case-studies" />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <section className="relative">
       <Image
-        src={"/recent-projects-hero.png"}
+        src={"/case-studies-hero.png"}
         alt={"slide"}
         width={2000}
         height={1500}

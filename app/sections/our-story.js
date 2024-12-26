@@ -388,7 +388,7 @@ export default function OurStory() {
     <section className="bg-[#9f0202]">
       <div className="max-w-screen-lg space-y-10 mx-auto py-10">
         <h1 className="text-center text-4xl font-bold text-white">Our Story</h1>
-        <div className="flex items-center justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-10">
           {ourStory.map((i) => (
             <div
               key={i.id}

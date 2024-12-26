@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <motion.div
       initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -80 }} // Adjust -80 to navbar height
+      animate={{ y: isVisible ? 0 : -80 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       style={{
         position: "fixed",
@@ -52,7 +52,7 @@ export default function Navbar() {
     >
       <div className="fixed top-0 z-40 w-full shadow bg-white">
         <MaxWidthWrapper>
-          <nav className="flex items-center justify-between py-2">
+          <nav className="flex w-full items-center justify-between py-2">
             <Link href="/">
               <div className="relative h-[3.3rem] w-[3.3rem]">
                 <Image
@@ -65,8 +65,9 @@ export default function Navbar() {
             </Link>
 
             <NavItems />
-
-            <RainbowButton className="h-9 px-4">Contact Us</RainbowButton>
+            <RainbowButton className="hidden md:flex h-9 px-4">
+              Contact Us
+            </RainbowButton>
           </nav>
         </MaxWidthWrapper>
       </div>
