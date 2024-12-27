@@ -64,7 +64,7 @@ export default function WhatWeDoCard({
         </p> */}
         {
           <ul className="text-xs list-[circle]  text-white p-8">
-            {description?.split(",")?.map((item, index) => (
+            {description?.split("$")?.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>

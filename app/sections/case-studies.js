@@ -32,7 +32,7 @@ const recentProjects = [
       "Deployed Pay-ally, a SaaS-based P2P tool that automated requisitions, vendor selection, orders, and payments. Integrated with existing systems, it enhanced visibility and reduced procurement cycle times by 50%, driving measurable cost savings.",
   },
   {
-    image: "/p2.png",
+    image: "/projects/p4.webp",
     title: "Automated Cash Application: Reduced AR Cycle by 60%",
     description:
       "Automated the cash application process by eliminating manual effort through interface creation. Optimized receipt matching and receivables accounting, improving accuracy and accelerating cash flow turnaround by 60%.",
@@ -69,7 +69,7 @@ export default function RecentProjectsTest({ autoplay = true }) {
   return (
     <section>
       <div className="max-w-screen-lg mx-auto py-11">
-        <h1 className=" text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-5xl md:leading-[5rem]">
+        <h1 className=" text-2xl text-center font-bold tracking-[-0.02em] text-app dark:text-white md:text-4xl md:leading-[5rem]">
           Case Studies
         </h1>
         {/* <p className="text-center text-gray-500 mx-auto text-sm mb-7 max-w-md">
@@ -79,7 +79,7 @@ export default function RecentProjectsTest({ autoplay = true }) {
         </p> */}
         <div>
           <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
-            <div className="relative grid grid-cols-1 md:grid-cols-2  gap-20">
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
               <div>
                 <div className="relative h-80 w-full">
                   <AnimatePresence>

@@ -56,7 +56,7 @@ export default function Navbar() {
             <Link href="/">
               <div className="relative h-[3.3rem] w-[3.3rem]">
                 <Image
-                  src="https://pvadvisory.in/wp-content/uploads/2020/03/PV_Logo.png"
+                  src="/pv-logo.png"
                   alt="PV Logo"
                   fill
                   objectFit="contain"

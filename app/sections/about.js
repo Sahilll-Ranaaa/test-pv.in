@@ -16,7 +16,7 @@ export default function AboutSection() {
             height={400}
           />
         </div>
-        <div className="flex-1 flex flex-col items-center md:items-start space-y-4 md:space-y-0">
+        <div className="flex-1 flex flex-col items-center md:items-start">
           <h1>
             <WordsPullUp
               className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"

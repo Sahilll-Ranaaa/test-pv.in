@@ -42,7 +42,7 @@ export default function Footer() {
               <div className="space-y-6">
                 <div className="relative h-16 w-16 right-3">
                   <Image
-                    src="https://pvadvisory.in/wp-content/uploads/2020/03/PV_Logo.png"
+                    src="/pv-logo.png"
                     alt="PV Logo"
                     fill
                     objectFit="contain"

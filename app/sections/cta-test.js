@@ -4,11 +4,11 @@ export default function CTATest() {
   return (
     <section className="relative">
       <Image
-        src="/slide2.webp"
+        src="/home-engage-us-section.jpg"
         alt="slide"
         width={1000}
         height={100}
-        className="absolute w-full h-full -z-10 top-0 left-0 object-cover "
+        className="absolute w-full h-full -z-10 top-0 left-0 object-cover"
       />
       <div className="backdrop-blur-sm">
         <div className="max-w-screen-lg mx-auto px-10 py-14 backdrop-blur-md">

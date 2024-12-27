@@ -1,24 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "pvadvisory.in",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "thepvhub.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "fiserv.scene7.com",
-        pathname: "/**",
-      },
-    ],
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;
