@@ -12,6 +12,7 @@ const keyServices = [
       "Reporting",
       "Transactions",
     ],
+    image: "/services/outsourcing-key-service-1.webp",
   },
   {
     title: "Assurance",
@@ -21,6 +22,7 @@ const keyServices = [
       "Number crunching",
       "SOX Compliances",
     ],
+    image: "/services/outsourcing-key-service-2.webp",
   },
   {
     title: "Data Analytics",
@@ -30,6 +32,7 @@ const keyServices = [
       "Data Migration",
       "Data analytics using Microsoft and other tools",
     ],
+    image: "/services/outsourcing-key-service-3.webp",
   },
   {
     title: "Technology",
@@ -39,10 +42,12 @@ const keyServices = [
       "Managed IT Services",
       "Software-as-a-Service (SaaS)",
     ],
+    image: "/services/outsourcing-key-service-4.webp",
   },
   {
     title: "Other Back-Office Services",
     list: ["Report writing and preparations", "Customer support"],
+    image: "/services/outsourcing-key-service-5.webp",
   },
 ];
 
@@ -63,7 +68,7 @@ export default function Outsourcing() {
         <div className="h-full max-w-screen-lg p-10 md:p-0 mx-auto flex flex-col md:flex-row items-center justify-center direction-reverse gap-8">
           <div className="flex-1 overflow-hidden h-full">
             <Image
-              src="/outsourcing-description.webp"
+              src="/outsourcing-main-page-description.webp"
               alt="logo"
               width={600}
               height={600}
@@ -111,6 +116,7 @@ export default function Outsourcing() {
           {keyServices.map((service, index) => (
             <ServicesCard
               key={index}
+              image={service.image}
               title={service.title}
               list={service.list}
             />

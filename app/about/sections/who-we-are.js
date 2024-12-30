@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export default function WhoWeAreSection() {
   return (
-    <section className="min-h-screen lg:h-screen">
+    <section className="min-h-screen lg:h-screen box-content py-10">
       <div className="flex justify-center flex-col lg:flex-row items-stretch gap-8 h-full">
-        <div className="lg:w-1/2 px-6 md:px-4 py-10 overflow-auto">
+        <div className="lg:w-1/2 px-6 md:px-4 py-10 overflow-auto flex flex-col justify-center">
           <div className="mx-auto lg:ml-auto space-y-5 max-w-lg">
             <h1 className="flex justify-center lg:justify-start">
               <WordsPullUp

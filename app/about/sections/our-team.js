@@ -9,7 +9,7 @@ const items = [
   {
     name: "Abhishek Jain",
     designation: "Associate Director",
-    image: "/team/abhishek-jain.jpg",
+    image: "/team/abhishek-jain.png",
     linkedIn: "https://www.linkedin.com/in/abhishek-jain-351094b4/",
     longDescription: [
       "Abhishek Jain, (ex-Genpact and ex-EY India) is an Associate Director with PV with experience of 10 years in Finance & Accounts.",
@@ -113,9 +113,23 @@ const items = [
     ],
   },
   {
+    name: "Vidushi Sharma",
+    designation: "Consultant",
+    image: "/team/vidushi-sharma.jpg",
+    linkedIn: "https://www.linkedin.com/in/vidushi-sharma-387154171",
+    longDescription: [
+      "Vidushi is a consultant with PV Advisory and has strong analytical skills.",
+      "She has worked for clients within the telecommunication, retail, healthcare, and wellness sector.",
+      "Her interest and skill lie in understanding business and finance processes, financial reporting, automation, research, and design.",
+      "She has experience to assist clients with implementation of GST, optimization of accounts receivables, and preparation and analysis of financial statements.",
+      "With her interpersonal skills, she collaborates to improve the performance of given task.",
+      "She holds a bachelor’s degree in management studies, with a finance major, from University of Delhi.",
+    ],
+  },
+  {
     name: "Swati Gupta",
     designation: "Associate Consultant",
-    image: "/team/swati-gupta.jpeg",
+    image: "/team/swati-gupta.png",
     linkedIn: "http://www.linkedin.com/in/swati-gupta-5b30262b",
     longDescription: [
       "Swati Gupta is a qualified Chartered Accountant and holds an honors degree in commerce. She has worked with leading consulting firm Ernst & Young (2015 -2021) and has gained extensive experience in the field of Indirect Taxes. She played a vital role in smooth transitioning from old indirect tax regime to the GST regime.",
@@ -124,10 +138,11 @@ const items = [
       "She is providing financial and tax advisory to various MSMEs in diversified Industries like: Healthcare & Life sciences, Iron & Steel, Hospitality, Construction equipment's, Engineering, procurement & construction, Consumer, etc.",
     ],
   },
+
   {
     name: "Jayanth Vellal",
     designation: "Associate Consultant",
-    image: "/team/jayanth-vellal.jpeg",
+    image: "/team/jayanth-vellal.webp",
     linkedIn: "http://www.linkedin.com/in/jayanthvellal",
     longDescription: [
       "Jayanth Vellal, is Finance transformation specialist at PV.",

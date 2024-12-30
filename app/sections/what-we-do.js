@@ -7,32 +7,57 @@ const whatWeDo = [
   {
     id: 1,
     title: "Consulting",
-    description:
-      "Finance Transformation$Virtual CFO$Managed Services$Financial Risk Advisory",
+    description: [
+      "Finance Transformation",
+      "Virtual CFO",
+      "Managed Services",
+      "Financial Risk Advisory",
+    ],
+
     image: "/what-we-do-consulting.webp",
     url: "/consulting",
   },
   {
     id: 2,
     title: "Outsourcing",
-    description:
-      "Finance & Accounts$Assurance$Data Analytics$Technology$Other Back-office services",
+    description: [
+      "Finance & Accounts",
+      "Assurance",
+      "Data Analytics",
+      "Technology",
+      "Other Back-office services",
+    ],
     image: "/what-we-do-outsourcing.webp",
     url: "/outsourcing",
   },
   {
     id: 3,
     title: "Technology",
-    description:
-      "Products: Com-Ally, Pay-Ally, Fam-Ally$Services: Customized Application Development, Customized Application Development ",
+    description: {
+      Products: ["Com-Ally", "Pay-Ally", "Fam-Ally"],
+      Services: [
+        "Customized Application Development",
+        "Application Support Services",
+      ],
+    },
     image: "/what-we-do-technology.webp",
     url: "/technology",
   },
   {
     id: 4,
     title: "Start-Up Solutions",
-    description:
-      "Managed Services$Virtual CFO$Financial Planning and Analysis$Facilitate Business Strategy$Analytics$Policies$Processes and Procedures$Due Diligence$Investment Memorandum.",
+    description: [
+      "Managed Services",
+      "Virtual CFO",
+      "Financial Planning and Analysis",
+      "Facilitate Business Strategy",
+      "Analytics",
+      "Policies",
+      "Processes and Procedures",
+      "Due Diligence",
+      "Investment Memorandum",
+    ],
+
     image: "/what-we-do-start-up-solution.webp",
     url: "/start-up-solutions",
   },

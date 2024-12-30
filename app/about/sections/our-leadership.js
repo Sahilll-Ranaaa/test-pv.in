@@ -8,8 +8,7 @@ import { WordsPullUp } from "@/components/text-animations/words-pull-up";
 const items = [
   {
     id: 1,
-    image:
-      "https://pvadvisory.in/wp-content/uploads/elementor/thumbs/Kapil-Bagadia-1-q1144xgivl040tf8sm8uvco6lbckdeeuj47xkj3x4g.jpeg",
+    image: "/team/kapil-bagadia.jpeg",
     designation: "Country Managing Partner",
     name: "Kapil Bagadia",
     description:
@@ -24,8 +23,7 @@ const items = [
   },
   {
     id: 2,
-    image:
-      "https://pvadvisory.in/wp-content/uploads/elementor/thumbs/sumit-Kukreja-e1675410827397-q1lvx3vjp8p47ad1v0gzc4zuux7t5pnjpmmokgair4.png",
+    image: "/team/sumit-kukreja.png",
     designation: "Founding and Managing Partner",
     name: "Sumit Kukreja",
     description:
@@ -40,8 +38,7 @@ const items = [
   },
   {
     id: 3,
-    image:
-      "https://pvadvisory.in/wp-content/uploads/elementor/thumbs/Namita-Arora-q114517vmx59b99s6nvd5bq0yuu186trvmtvhmycfk.jpeg",
+    image: "/team/namita-arora.jpeg",
     designation: "Associate Consultant",
     name: "Namita Arora",
     description:
@@ -57,8 +54,7 @@ const items = [
   },
   {
     id: 4,
-    image:
-      "https://pvadvisory.in/wp-content/uploads/elementor/thumbs/Ankur-Goyal-q1144enr2wadkm6jue4bhheyplx83gc7sj67yzvskw.jpeg",
+    image: "/team/ankur-goyal.jpeg",
     designation: "Partner",
     name: "Ankur Goyal",
     description:

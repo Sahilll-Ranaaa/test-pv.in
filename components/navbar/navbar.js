@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { RainbowButton } from "../buttons/rainbow-btn";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +67,13 @@ export default function Navbar() {
             </Link>
 
             <NavItems />
-            <RainbowButton className="hidden md:flex h-9 px-4">
+
+            <RainbowButton
+              className="hidden md:flex h-9 px-4"
+              onClick={() => {
+                router.push("/engage-us");
+              }}
+            >
               Contact Us
             </RainbowButton>
           </nav>

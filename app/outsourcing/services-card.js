@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function ServicesCard({ title, list, className }) {
+export default function ServicesCard({ title, list, image, className }) {
   return (
     <motion.div
       className="relative w-[250px] min-h-60 overflow-hidden flex items-center justify-center group"
@@ -11,7 +11,7 @@ export default function ServicesCard({ title, list, className }) {
       whileHover={{ padding: "0rem" }}
     >
       <Image
-        src={"/slide2.webp"}
+        src={image}
         alt="Card Background"
         width={600}
         height={600}

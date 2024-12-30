@@ -33,7 +33,7 @@ export default function StartUpSolution() {
         <div className="h-full max-w-screen-lg mx-auto flex items-center justify-center direction-reverse gap-8">
           <div className="flex-1 overflow-hidden h-full">
             <Image
-              src="/start-up-solution-description.jpg"
+              src="/start-up-solution-main-page-description.webp"
               alt="logo"
               width={600}
               height={600}
@@ -68,23 +68,32 @@ export default function StartUpSolution() {
               text="Key Services?"
             />
           </h1>
-          <ul className="grid grid-cols-2 gap-3 text-left text-xl px-4">
-            {items.map((item, idx) => (
-              <ServicesCard key={idx} title={item} />
-            ))}
-          </ul>
-          {/* <div className="mx-auto max-w-screen-lg  py-10"> */}
-          {/* <div className="flex-1 overflow-hidden h-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left text-xl px-4">
+            <div className="flex flex-col gap-4 relative">
               <Image
-                src="/technology-description.webp"
-                alt="logo"
+                src="/services/start-up-solution-key-service-1.webp"
+                alt="Key Service Section Image"
                 width={600}
                 height={600}
-                className="h-full w-full object-cover"
+                className="absolute h-full w-full object-cover"
               />
-            </div> */}
-
-          {/* </div> */}
+              {items.slice(0, 4).map((item, idx) => (
+                <ServicesCard key={idx} title={item} />
+              ))}
+            </div>
+            <div className="flex flex-col gap-4 relative">
+              <Image
+                src="/services/start-up-solution-key-service-2.webp"
+                alt="Key Service Section Image"
+                width={600}
+                height={600}
+                className="absolute h-full w-full object-cover"
+              />
+              {items.slice(4, 8).map((item, idx) => (
+                <ServicesCard key={idx} title={item} />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </main>

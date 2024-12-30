@@ -58,15 +58,20 @@ export default function WhatWeDoCard({
           damping: 20,
         }}
       >
-        {/* <p className="text-xs text-white p-4">
-          {description ??
-            "Finance Transformation, Virtual CFO, Managed Services, Financial Risk Advisory"}
-        </p> */}
         {
-          <ul className="text-xs list-[circle]  text-white p-8">
-            {description?.split("$")?.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
+          <ul className="text-xs list-[circle]  text-white p-8 space-y-1">
+            {description?.length
+              ? description?.map((item, index) => <li key={index}>{item}</li>)
+              : Object.keys(description).map((key) => (
+                  <li key={key}>
+                    <h3>{key}</h3>
+                    <ul className="list-disc pl-5">
+                      {description[key].map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
           </ul>
         }
       </motion.div>

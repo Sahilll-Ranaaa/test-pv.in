@@ -7,21 +7,25 @@ const keyServices = [
     title: "Finance Transformation",
     description:
       "Finance Function Effectiveness, Designing of Finance processes, Performance Improvements, Power Apps Automations.",
+    image: "/services/consulting-key-service-1.webp",
   },
   {
     title: "Virtual CFO",
     description:
       "Oversight of finance function, Business partnering with CEOs, Culture building, Finance Function Effectiveness, Assistance in Fund Raising, Preparation of Pitch deck & Information Memorandum, Business plan creation",
+    image: "/services/consulting-key-service-2.webp",
   },
   {
     title: "Managed Services",
     description:
       "Corporate Secretarial Compliances, Bookkeeping and Accounting Services, Financial Planning & Analysis, Indirect Tax Advisory and Compliances, Business Intelligence and Data Visualization and Analysis",
+    image: "/services/consulting-key-service-3.webp",
   },
   {
     title: "Financial Risk Advisory",
     description:
       "Due Diligence Review, Internal Audit, Internal Controls and SOP Implementation",
+    image: "/services/consulting-key-service-4.webp",
   },
 ];
 
@@ -74,7 +78,7 @@ export default function Consulting() {
 
           <div className="flex-1 overflow-hidden">
             <Image
-              src="/slide3.webp"
+              src="/consulting-main-page-description.webp"
               alt="logo"
               width={600}
               height={600}
@@ -92,6 +96,7 @@ export default function Consulting() {
             <ServicesCard
               key={service.title}
               title={service.title}
+              image={service.image}
               description={service.description}
             />
           ))}

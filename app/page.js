@@ -20,7 +20,7 @@ export default function Home() {
       <OurStory />
       <RecentProjectsTest />
       <CTA />
-      <CTATest />
+      {/* <CTATest /> */}
     </main>
   );
 }
