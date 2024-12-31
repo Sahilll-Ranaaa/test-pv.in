@@ -4,7 +4,7 @@ import Image from "next/image";
 const items = [
   {
     title: "Standardization of Processes",
-    image: "/p1.png",
+    image: "/projects/project-square-1.webp",
 
     subTitle: "Unified Finance Operations Across 5 Nations",
     description:
@@ -12,15 +12,14 @@ const items = [
   },
   {
     title: "Internal Audits",
-    image: "/p2.png",
-
+    image: "/projects/project-square-2.webp",
     subTitle: "Recovered $1 Million Through Asset Management Overhaul",
     description:
       "Revamped fixed asset management processes, delivering $1 million in savings by optimizing asset disposal strategies and ensuring accurate tracking.",
   },
   {
     title: "Standardization of Processes",
-    image: "/p1.png",
+    image: "/projects/project-square-3.webp",
 
     subTitle: "HR Excellence: From Policies to Performance Management",
     description:
@@ -28,7 +27,7 @@ const items = [
   },
   {
     title: "Virtual CFO",
-    image: "/p2.png",
+    image: "/projects/project-square-4.webp",
 
     subTitle: "Fixed Assets Tagged & Reconciled: QR Codes Bringing Precision",
     description:

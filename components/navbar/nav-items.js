@@ -1,5 +1,3 @@
-"use client";
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,22 +8,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { motion } from "framer-motion";
-import { useState } from "react";
 
 export default function NavItems() {
-  const [isHamburgerMenuVisible, setIsHamburgerMenuVisible] = useState(false);
   return (
     <div>
-      <Button size={"icon"} variant={"ghost"} className="md:hidden">
-        <MenuIcon />
-      </Button>
-      <motion.div className="bg-black bg-opacity-70 fixed top-0 left-0 w-full h-full z-20 hidden">
-        <motion.div className="bg-white h-full w-[300px] rounded-tl-xl rounded-bl-xl float-right"></motion.div>
-      </motion.div>
       <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
           <NavigationMenuItem>

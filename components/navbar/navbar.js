@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 import { RainbowButton } from "../buttons/rainbow-btn";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import HamburgerSideNavbar from "./hamburger-side-navbar";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -67,6 +68,7 @@ export default function Navbar() {
             </Link>
 
             <NavItems />
+            <HamburgerSideNavbar />
 
             <RainbowButton
               className="hidden md:flex h-9 px-4"

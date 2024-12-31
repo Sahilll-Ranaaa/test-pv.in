@@ -4,7 +4,7 @@ import Image from "next/image";
 const projects = [
   {
     title: "Managed Services",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-1.webp",
     subTitle:
       "Revolutionizing Accounting: Managing $500M+ Finances for Manufacturing Giant",
     description:
@@ -12,8 +12,7 @@ const projects = [
   },
   {
     title: "Finance Function Effectiveness",
-    image: "/p2.png",
-
+    image: "/projects/project-section-tile-2.webp",
     subTitle: "Boosted Finance Efficiency: Reduced Costs Across Core Processes",
     description:
       "Engaged to redesign and document finance workflows, identified process inefficiencies, and delivered an actionable implementation plan that significantly cut finance operational costs.",
@@ -21,7 +20,7 @@ const projects = [
 
   {
     title: "Virtual CFO",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-3.webp",
 
     subTitle:
       "Dual-Nation CFO Excellence: Enabled Tax-Smart Operations in Singapore & India",
@@ -31,21 +30,21 @@ const projects = [
 
   {
     title: "Development of Compliance Tracking Tool",
-    image: "/p2.png",
+    image: "/projects/project-section-tile-4.webp",
     subTitle: "Comp-ally: 100% Compliance Tracked with Automated Alerts",
     description:
       "Developed and implemented Comp-ally, an automated compliance-tracking tool. It eliminated manual monitoring by generating real-time compliance reports, sending automated alerts, and consolidating data for leadership. Result: 30% reduction in compliance breaches and improved regulatory adherence.",
   },
   {
     title: "Designing and Implementation of P2P tool",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-5.webp",
     subTitle: "Pay-ally P2P Tool: 40% Cost Savings in Procurement Processes",
     description:
       "Deployed Pay-ally, a SaaS-based P2P tool that automated requisitions, vendor selection, orders, and payments. Integrated with existing systems, it enhanced visibility and reduced procurement cycle times by 50%, driving measurable cost savings.",
   },
   {
     title: "Customized CRM",
-    image: "/p2.png",
+    image: "/projects/project-section-tile-6.webp",
     subTitle:
       "Custom CRM Boosts Funnel Management & Customer Acquisition by 25%",
     description:
@@ -53,42 +52,42 @@ const projects = [
   },
   {
     title: "Automation of Cash Application Process",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-7.webp",
     subTitle: "Automated Cash Application: Reduced AR Cycle by 60%",
     description:
       "Automated the cash application process by eliminating manual effort through interface creation. Optimized receipt matching and receivables accounting, improving accuracy and accelerating cash flow turnaround by 60%.",
   },
   {
     title: "Data Analytics",
-    image: "/p2.png",
+    image: "/projects/project-section-tile-8.webp",
     subTitle: "Real-Time Decisions with Data Dashboards: 25% Faster Insights",
     description:
       "Built a customized analytics dashboard for centralized KPI monitoring and trend analysis. Provided real-time insights to drive business growth, improving decision-making timelines by 25% and aligning operations with strategic goals.",
   },
   {
     title: "Setup of Global Capability Centre",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-9.webp",
     subTitle: "Global Capability Centre for 150+ Countries: 300+ FTEs Deployed",
     description:
       "Setting up a Global Capability Centre (GCC) for a leading global accounting firm in India. Expected to employ 300+ FTEs, the GCC supports operations across 150+ countries, enhancing scalability and service efficiency globally.",
   },
   {
     title: "F&A Shared Services Centre",
-    image: "/p2.png",
+    image: "/projects/project-section-tile-10.webp",
     subTitle: "Finance SSC Delivers 30% Efficiency Gains for MNC",
     description:
       "Established a Finance & Accounts Shared Services Centre in India for a multinational corporation, employing 150+ FTEs. Standardized processes reduced overhead costs and improved financial service delivery efficiency by 30%.",
   },
   {
     title: "SaaS - Procure to Pay",
-    image: "/p1.png",
+    image: "/projects/project-section-tile-11.webp",
     subTitle: "SaaS-Based P2P Revolution: Supporting Indonesia & Vietnam",
     description:
       "Conceptualized and implemented a SaaS-based P2P solution, providing end-to-end procurement and payment support for businesses in Indonesia and Vietnam, seamlessly managed from India. Enhanced accuracy, reduced turnaround time, and drove regional process efficiency.",
   },
   {
     title: "Project: Start-up Solution",
-    image: "/p2.png",
+    image: "/projects/project-section-tile-12.webp",
     subTitle:
       "From Incorporation to CFO Services: Start-Up Success Built from Day 1",
     description:

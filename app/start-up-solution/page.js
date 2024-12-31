@@ -65,7 +65,7 @@ export default function StartUpSolution() {
           <h1>
             <WordsPullUp
               className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
-              text="Key Services?"
+              text="Key Services"
             />
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left text-xl px-4">

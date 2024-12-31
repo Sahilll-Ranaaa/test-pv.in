@@ -147,7 +147,7 @@ export default function RecentProjectsTest({ autoplay = true }) {
                     ease: "easeInOut",
                   }}
                 >
-                  <h3 className="text-2xl font-bold dark:text-white text-black">
+                  <h3 className="text-2xl font-bold dark:text-white text-gray-800">
                     {recentProjects[active].title}
                   </h3>
                   <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300 line-clamp-4">
