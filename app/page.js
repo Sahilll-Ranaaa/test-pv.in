@@ -8,7 +8,6 @@ import WhatWeDoSection from "./sections/what-we-do";
 import OurStory from "./sections/our-story";
 import RecentProjectsTest from "./sections/case-studies";
 import CTA from "./sections/cta";
-import CTATest from "./sections/cta-test";
 
 export default function Home() {
   return (
@@ -16,11 +15,10 @@ export default function Home() {
       <HeroSection />
       <ClientsSection />
       <WhatWeDoSection />
+      <CTA />
       <AboutSection />
       <OurStory />
       <RecentProjectsTest />
-      <CTA />
-      {/* <CTATest /> */}
     </main>
   );
 }

@@ -20,9 +20,9 @@ export default function EngageUs() {
             <div className="space-y-3">
               <div>
                 <h2 className="text-lg font-semibold">Chat with us</h2>
-                <p className="text-gray-700 text-sm">
+                {/* <p className="text-gray-700 text-sm">
                   Speak to our friendly team via live chat
-                </p>
+                </p> */}
               </div>
               <div className="space-y-1.5">
                 <div className="flex items-center gap-3 text-sm">
@@ -53,9 +53,9 @@ export default function EngageUs() {
             <div className="space-y-3">
               <div>
                 <h2 className="text-lg font-semibold">Contact Us</h2>
-                <p className="text-gray-700 text-sm">
+                {/* <p className="text-gray-700 text-sm">
                   Call our team Mon-Fri from 8am to 5pm
-                </p>
+                </p> */}
               </div>
 
               <div className="flex items-center gap-3 text-sm">
@@ -80,9 +80,9 @@ export default function EngageUs() {
             <div className="space-y-3">
               <div>
                 <h2 className="text-lg font-semibold">Visit Us</h2>
-                <p className="text-gray-700 text-sm">
+                {/* <p className="text-gray-700 text-sm">
                   Chat to us in person in our office
-                </p>
+                </p> */}
               </div>
 
               <div className="flex items-center gap-3 text-sm">

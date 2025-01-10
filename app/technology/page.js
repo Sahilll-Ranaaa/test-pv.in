@@ -1,6 +1,17 @@
 import { WordsPullUp } from "@/components/text-animations/words-pull-up";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Products from "./products";
+import Services from "./services";
+
+const services = [
+  {
+    title: "Customized Application Development",
+  },
+  {
+    title: "Customized Application Development",
+  },
+];
 
 export default function FinanceTransformation() {
   return (
@@ -48,6 +59,8 @@ export default function FinanceTransformation() {
           </div>
         </div>
       </section>
+      <Services />
+      <Products />
     </main>
   );
 }
