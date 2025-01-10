@@ -52,7 +52,7 @@ export default function NavItems() {
           <NavigationMenuItem>
             <Link href="/case-studies" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Recent Projects
+                Case Studies
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

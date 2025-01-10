@@ -32,8 +32,10 @@ const projects = [
     title: "Development of Compliance Tracking Tool",
     image: "/projects/project-section-tile-4.webp",
     subTitle: "Comp-ally: 100% Compliance Tracked with Automated Alerts",
-    description:
-      "Developed and implemented Comp-ally, an automated compliance-tracking tool. It eliminated manual monitoring by generating real-time compliance reports, sending automated alerts, and consolidating data for leadership. Result: 30% reduction in compliance breaches and improved regulatory adherence.",
+    description: [
+      "Developed and implemented Comp-ally, an automated compliance-tracking tool. It eliminated manual monitoring by generating real-time compliance reports, sending automated alerts, and consolidating data for leadership.",
+      "Result: 30% reduction in compliance breaches and improved regulatory adherence.",
+    ],
   },
   {
     title: "Designing and Implementation of P2P tool",
@@ -119,15 +121,20 @@ export default function Projects() {
                 <h3 className="text-2xl">{project.subTitle}</h3>
               </div>
 
-              <p
-                className={cn(
-                  "text-gray-700",
-                  // idx % 2 === 0 ? "text-gray-700" : "text-gray-300",
-                  "text-sm"
-                )}
-              >
-                {project.description}
-              </p>
+              {typeof project.description === "object" &&
+              project.description.length ? (
+                <div className="space-y-2">
+                  {project.description.map((p, index) => (
+                    <p key={index} className={cn("text-gray-700", "text-sm")}>
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className={cn("text-gray-700", "text-sm")}>
+                  {project.description}
+                </p>
+              )}
             </div>
             <div className="w-1/2">
               <Image

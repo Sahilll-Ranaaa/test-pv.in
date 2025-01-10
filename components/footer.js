@@ -19,7 +19,7 @@ const quickLinks = [
     url: "/about",
   },
   {
-    label: "Recent Projects",
+    label: "Case Studies",
     url: "/case-studies",
   },
   {

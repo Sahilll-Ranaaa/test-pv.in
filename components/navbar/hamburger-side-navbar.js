@@ -124,7 +124,7 @@ export default function HamburgerSideNavbar() {
                     onClick={() => setIsHamburgerMenuVisible(false)}
                     className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
                   >
-                    Recent Projects
+                    Case Studies
                   </Link>
                   <Link
                     href="https://thepvhub.com"
