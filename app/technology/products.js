@@ -35,7 +35,7 @@ const products = [
 
 export default function Products({ className }) {
   return (
-    <section className="relative">
+    <section className="relative mb-8">
       <Image
         src="/home-engage-us-section.jpg"
         alt="slide"

@@ -4,17 +4,17 @@ import Image from "next/image";
 
 export default function WhoWeAreSection() {
   return (
-    <section className="min-h-screen lg:h-screen box-content py-10">
-      <div className="flex justify-center flex-col lg:flex-row items-stretch gap-8 h-full">
-        <div className="lg:w-1/2 px-6 md:px-4 py-10 overflow-auto flex flex-col justify-center">
-          <div className="mx-auto lg:ml-auto space-y-5 max-w-lg">
+    <section className="py-10">
+      <div className="flex justify-center items-center flex-col lg:flex-row gap-8 max-w-screen-lg mx-auto">
+        <div className="flex-1">
+          <div className="space-y-4 p-10 lg:p-0">
             <h1 className="flex justify-center lg:justify-start">
               <WordsPullUp
                 text="Who We Are?"
                 className="text-left md:text-4xl text-app"
               />
             </h1>
-            <div className="space-y-3">
+            <div className="space-y-3 text-sm">
               <TextFade>
                 <p>
                   PV Advisory is an implementation consulting firm that stands
@@ -48,7 +48,7 @@ export default function WhoWeAreSection() {
             </div>
           </div>
         </div>
-        <div className="flex-1 h-full hidden md:block">
+        <div className="flex-1 overflow-hidden h-full">
           <Image
             src="/about-us-hero.webp"
             alt="logo"

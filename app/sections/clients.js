@@ -126,8 +126,8 @@ export default function ClientsSection() {
     <section className="bg-gray-100">
       <div className="mx-auto py-3 max-w-screen-lg">
         <div className="relative">
-          <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none z-10"></div>
-          <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none z-10"></div>
+          <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none z-10"></div>
 
           <Carousel
             opts={{
@@ -160,8 +160,7 @@ export default function ClientsSection() {
                     <Image
                       src={client.imageUrl}
                       alt="logo"
-                      objectFit="contain"
-                      className=""
+                      className="object-contain"
                       fill
                     />
                   </div>

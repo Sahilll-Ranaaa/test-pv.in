@@ -24,11 +24,11 @@ const services = [
 
 export default function Services({ className }) {
   return (
-    <section className="py-10 space-y-8">
+    <section className="py-10 space-y-3">
       <div className="text-center py-2">
-        <hr />
+        {/* <hr /> */}
         <h1 className="inline-block text-center text-3xl font-bold bg-white text-app relative -top-5 px-3">
-          Services
+          Key Services
         </h1>
       </div>
       <div className="max-w-screen-lg mx-auto flex flex-wrap gap-6 flex-row items-center justify-center">

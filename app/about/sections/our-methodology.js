@@ -32,8 +32,7 @@ export default function OurMethodologySection() {
           <div
             className="col-span-1 md:col-span-2 lg:col-span-4 p-10 relative "
             style={{
-              backgroundImage:
-                "url(https://pvadvisory.in/wp-content/uploads/2022/12/image.webp)",
+              backgroundImage: "url(/about-our-methodology-section.webp)",
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}

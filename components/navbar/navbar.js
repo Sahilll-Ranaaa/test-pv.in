@@ -62,7 +62,7 @@ export default function Navbar() {
                   src="/pv-logo.png"
                   alt="PV Logo"
                   fill
-                  objectFit="contain"
+                  className="object-contain"
                 />
               </div>
             </Link>

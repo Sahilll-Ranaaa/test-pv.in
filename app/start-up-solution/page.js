@@ -64,7 +64,7 @@ export default function StartUpSolution() {
         <div className="max-w-screen-lg mx-auto py-10 space-y-5">
           <h1>
             <WordsPullUp
-              className="text-4xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
+              className="text-3xl md:text-4xl font-bold tracking-[-0.02em] text-app dark:text-white md:leading-[5rem]"
               text="Key Services"
             />
           </h1>

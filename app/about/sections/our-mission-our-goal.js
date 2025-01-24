@@ -8,7 +8,7 @@ const items = [
     title: "Our Vision",
     subTitle: "Lorem Ipsum",
     description:
-      "To be a preferred and trusted change implementation partner by 2025, recognized for quality and customer delight, and to be a great place to work where people matter.",
+      "To be a preferred and trusted change implementation partner by 2030, recognized for quality and customer delight, and to be a great place to work where people matter.",
   },
   {
     title: "Our Mission",

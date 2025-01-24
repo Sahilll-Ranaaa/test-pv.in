@@ -108,7 +108,7 @@ export default function Outsourcing() {
         </div>
       </section>
       <section className="p-10 space-y-12">
-        <h1 className="text-center text-4xl font-bold text-app">
+        <h1 className="text-center text-3xl font-bold text-app">
           Key Services
         </h1>
 

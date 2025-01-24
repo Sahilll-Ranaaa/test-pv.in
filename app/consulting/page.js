@@ -10,7 +10,7 @@ const keyServices = [
     image: "/services/consulting-key-service-1.webp",
   },
   {
-    title: "Virtual CFO",
+    title: "Strategic CFO",
     description:
       "Oversight of finance function, Business partnering with CEOs, Culture building, Finance Function Effectiveness, Assistance in Fund Raising, Preparation of Pitch deck & Information Memorandum, Business plan creation",
     image: "/services/consulting-key-service-2.webp",
@@ -88,7 +88,7 @@ export default function Consulting() {
         </div>
       </section>
       <section className="p-11 space-y-12">
-        <h1 className="text-center text-4xl font-bold text-app">
+        <h1 className="text-center text-3xl font-bold text-app">
           Key Services
         </h1>
         <div className="max-w-screen-xl m-auto flex justify-center flex-wrap gap-3 ">

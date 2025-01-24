@@ -48,19 +48,19 @@ export default function FinanceTransformation() {
             </p>
           </div>
 
-          <div className="flex-1 overflow-hidden h-full">
+          <div className="flex-1 overflow-hidden">
             <Image
               src="/technology-description.webp"
               alt="logo"
               width={600}
               height={600}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
             />
           </div>
         </div>
       </section>
-      <Services />
       <Products />
+      <Services />
     </main>
   );
 }
