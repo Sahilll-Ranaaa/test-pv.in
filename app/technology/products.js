@@ -37,7 +37,7 @@ export default function Products({ className }) {
   return (
     <section className="relative mb-8">
       <Image
-        src="/home-engage-us-section.jpg"
+        src="/tech-project-background.webp"
         alt="slide"
         width={1000}
         height={100}

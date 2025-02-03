@@ -15,7 +15,7 @@ const whatWeDoLinks = [
     url: "/outsourcing",
   },
   {
-    label: "Tech Solutions",
+    label: "Technology",
     url: "/technology",
   },
   {
@@ -88,10 +88,10 @@ export default function Footer() {
                   Solutions and Start-up Solutions.
                 </p> */}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 md:grid-cols-4 mb-7">
-                <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 md:grid-cols-13 mb-7">
+                <div className="space-y-4 md:col-span-3">
                   <h1 className="text-white">Company</h1>
-                  <ul className="space-y-3   text-xs">
+                  <ul className="space-y-3  text-xs">
                     {quickLinks.map(({ label, url }) => (
                       <li key={label}>
                         <Link href={url} className="text-white hover:underline">
@@ -101,7 +101,7 @@ export default function Footer() {
                     ))}
                   </ul>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 md:col-span-3">
                   <h1 className="text-white">What we do</h1>
                   <ul className="space-y-3   text-xs">
                     {whatWeDoLinks.map(({ label, url }) => (
@@ -113,7 +113,7 @@ export default function Footer() {
                     ))}
                   </ul>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 md:col-span-3">
                   <h1 className="text-white">Resources</h1>
                   <ul className="space-y-3   text-xs">
                     {resourcesLinks.map(({ label, url }) => (
@@ -125,7 +125,7 @@ export default function Footer() {
                     ))}
                   </ul>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 md:col-span-4">
                   <h1 className="text-white">Engage Us</h1>
                   <ul className="space-y-3 text-xs sm:max-w-[270px]">
                     <li className="flex items-center gap-3 text-sm text-white">
