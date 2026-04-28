@@ -1,22 +1,27 @@
 "use client";
 
 import Image from "next/image";
-
 import MaxWidthWrapper from "../max-width-wrapper";
 import NavItems from "./nav-items";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { RainbowButton } from "../buttons/rainbow-btn";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import HamburgerSideNavbar from "./hamburger-side-navbar";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Completely hide navbar on assessment page
+  const isAssessmentPage = pathname === "/assessment";
 
   useEffect(() => {
+    if (isAssessmentPage) return;
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -36,7 +41,9 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isAssessmentPage]);
+
+  if (isAssessmentPage) return null;
 
   return (
     <motion.div

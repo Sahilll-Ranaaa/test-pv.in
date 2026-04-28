@@ -7,6 +7,7 @@ import AboutSection from "./sections/about";
 import WhatWeDoSection from "./sections/what-we-do";
 import OurStory from "./sections/our-story";
 import RecentProjectsTest from "./sections/case-studies";
+import AssessmentCTA from "./sections/assessment-cta";
 import CTA from "./sections/cta";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <AboutSection />
       <OurStory />
       <RecentProjectsTest />
+      <AssessmentCTA />
     </main>
   );
 }
