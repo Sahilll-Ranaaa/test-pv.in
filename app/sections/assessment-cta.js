@@ -68,7 +68,7 @@ export default function AssessmentCTA() {
                 <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-[#9f0202] mb-5 group-hover:bg-[#9f0202] group-hover:text-white transition-all">
                   <BarChart3 size={24} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Finance Strategy</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Finance Health Checkup</h3>
                 <p className="text-gray-500 text-xs mb-6 leading-relaxed">
                   Deep dive into governance and technology readiness.
                 </p>

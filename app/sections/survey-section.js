@@ -84,8 +84,15 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
     const results = {};
     currentSurvey.dimensions.forEach(dim => {
       const dimQuestions = currentSurvey.questions.filter(q => q.dimension === dim);
-      const score = dimQuestions.reduce((acc, q) => acc + (answers[q.id] || 0), 0);
-      results[dim] = (score / dimQuestions.length) * 5; 
+      const scoreSum = dimQuestions.reduce((acc, q) => acc + (answers[q.id] || 0), 0);
+      
+      if (selectedSurvey === 'finance') {
+        // Finance: 5 questions * max 5 = 25
+        results[dim] = scoreSum;
+      } else {
+        // Pay-ally: 2 questions * max 5 = 10. Scale to 25.
+        results[dim] = (scoreSum / 10) * 25;
+      }
     });
     return results;
   };
