@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { BLOGS } from "@/lib/blog-data";
 import { getCustomBlogs } from "@/lib/admin-store";
@@ -8,7 +8,7 @@ import BlogPostContent from "@/components/blog/blog-post-content";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Loader2 } from "lucide-react";
 
-export default function BlogReaderPage() {
+function BlogReader() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [blog, setBlog] = useState(null);
@@ -20,7 +20,6 @@ export default function BlogReaderPage() {
       return;
     }
 
-    // 1. Check static blogs
     const staticBlog = BLOGS.find(b => b.id.toString() === id);
     if (staticBlog) {
       setBlog(staticBlog);
@@ -28,7 +27,6 @@ export default function BlogReaderPage() {
       return;
     }
 
-    // 2. Check local blogs
     const localBlogs = getCustomBlogs();
     const localBlog = localBlogs.find(b => b.id.toString() === id);
     if (localBlog) {
@@ -58,4 +56,16 @@ export default function BlogReaderPage() {
   }
 
   return <BlogPostContent blog={blog} />;
+}
+
+export default function BlogReaderPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#9f0202]" size={32} />
+      </div>
+    }>
+      <BlogReader />
+    </Suspense>
+  );
 }
