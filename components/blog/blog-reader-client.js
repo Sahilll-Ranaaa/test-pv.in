@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { BLOGS } from "@/lib/blog-data";
 import { getCustomBlogs } from "@/lib/admin-store";
 import BlogPostContent from "@/components/blog/blog-post-content";
@@ -9,12 +8,13 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Loader2 } from "lucide-react";
 
 export default function BlogReaderClient() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    
     if (!id) {
       setLoading(false);
       return;

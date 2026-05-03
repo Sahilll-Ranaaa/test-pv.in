@@ -1,11 +1,15 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import SurveySection from "../../app/sections/survey-section";
 
 export default function AssessmentClient() {
-  const searchParams = useSearchParams();
-  const type = searchParams.get("type");
+  const [type, setType] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setType(params.get("type"));
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col relative">
