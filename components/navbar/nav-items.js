@@ -65,6 +65,20 @@ export default function NavItems() {
               ThePVhub
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/resources" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Resources
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/thought-leadership" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Thought Leadership
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </div>

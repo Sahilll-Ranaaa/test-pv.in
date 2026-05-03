@@ -134,6 +134,20 @@ export default function HamburgerSideNavbar() {
                   >
                     ThePVhub
                   </Link>
+                  <Link
+                    href="/resources"
+                    onClick={() => setIsHamburgerMenuVisible(false)}
+                    className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
+                  >
+                    Resources
+                  </Link>
+                  <Link
+                    href="/thought-leadership"
+                    onClick={() => setIsHamburgerMenuVisible(false)}
+                    className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
+                  >
+                    Thought Leadership
+                  </Link>
                 </div>
               </div>
               <div className="p-2 flex justify-center">

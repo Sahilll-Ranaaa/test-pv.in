@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { generateReport, generateInternalReport } from "@/lib/generate-report";
 import emailjs from "@emailjs/browser";
+import { saveLead } from "@/lib/admin-store";
 
 // --- CONFIGURATION FROM ENV ---
 const NOTIFICATION_EMAILS = process.env.NEXT_PUBLIC_SURVEY_NOTIFICATION_EMAIL || "sahil.rana@pvadvisory.in";
@@ -111,12 +112,18 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
       answers 
     };
 
+    // Save lead to local admin store
+    saveLead(reportData);
+
     try {
-      // 1. Generate PDFs
-      await generateReport(reportData, true); 
+      // 1. Generate and Download User PDF immediately
+      console.log("Starting PDF generation...");
+      const userReportUri = await generateReport(reportData, true); 
+      
+      // 2. Generate Internal Audit PDF
       const internalAuditUri = await generateInternalReport(reportData, questions); 
 
-      // 2. Prepare text-based Q&A for fail-safe (in case PDF is stripped or too big)
+      // 3. Prepare text-based Q&A for fail-safe
       let qaText = "";
       questions.forEach((q, i) => {
         const score = answers[q.id] || 0;
@@ -124,7 +131,7 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
         qaText += `${i+1}. ${q.question}\n   Answer: ${selected ? selected.text : "Skipped"} (${score} pts)\n\n`;
       });
 
-      // 3. Prepare Email Parameters
+      // 4. Prepare Email Parameters
       const emailParams = {
         name: data.name,
         email: data.email,
@@ -132,46 +139,34 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
         survey_type: surveyData[selectedSurvey].title,
         total_score: totalScore,
         to_email: NOTIFICATION_EMAILS,
-        internal_audit: internalAuditUri, // PDF Attachment
+        internal_audit: internalAuditUri,
         message: `
           New Survey Completed!
-          ====================
           User: ${data.name}
           Email: ${data.email}
           Phone: ${data.mobile}
           Total Score: ${Math.round(totalScore)}/150
-
-          DIMENSION SCORES:
-          ${JSON.stringify(dimensionScores, null, 2)}
-
-          DETAILED ANSWERS (Backup):
-          ------------------------
-          ${qaText}
+          QA: ${qaText}
         `
       };
 
-      const result = await emailjs.send(
+      // 5. Send Email in background and show success immediately to user
+      emailjs.send(
         EMAILJS_SERVICE_ID, 
         EMAILJS_TEMPLATE_ID, 
         emailParams, 
         EMAILJS_PUBLIC_KEY
-      );
+      ).then(res => console.log("Email sent:", res.status))
+       .catch(err => console.error("Email fail:", err));
 
-      if (result.status === 200) {
-        setStep(101); 
-        setTimeout(() => { 
-           window.location.href = "/";
-        }, 6000);
-      } else {
-        throw new Error("Failed to send email");
-      }
+      setStep(101); 
+      setTimeout(() => { 
+         window.location.href = "/";
+      }, 6000);
 
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Note: We encountered an issue sending the PDF report. However, your lead data and assessment results have been captured. Please check your EmailJS logs.");
-      // Even if email fails, we show success if the lead was at least attempted
-      setStep(101);
-      setTimeout(() => { window.location.href = "/"; }, 6000);
+      alert("Notice: There was a technical glitch triggering the auto-download. Please try clicking 'Get Detailed Report' again or contact support.");
     } finally {
       setIsGenerating(false);
     }
