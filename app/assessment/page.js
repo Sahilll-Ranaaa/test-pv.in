@@ -35,6 +35,10 @@ function AssessmentContent() {
 }
 
 export default function AssessmentPage() {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => { setIsClient(true); }, []);
+  if (!isClient) return null;
+
   return (
     <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50">Loading...</div>}>
       <AssessmentContent />
