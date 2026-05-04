@@ -524,7 +524,7 @@ export default function ResourcesPage() {
                     </motion.div>
                     <div className="space-y-2">
                        <h2 className="text-xl font-bold text-gray-900">Success!</h2>
-                       <p className="text-xs text-gray-500 leading-relaxed">Your download for <span className="font-bold text-gray-900">"{selectedResource.title}"</span> has started.</p>
+                       <p className="text-xs text-gray-500 leading-relaxed">Your download for <span className="font-bold text-gray-900">&quot;{selectedResource.title}&quot;</span> has started.</p>
                     </div>
                     <Button 
                       variant="outline" 
