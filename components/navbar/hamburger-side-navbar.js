@@ -110,21 +110,75 @@ export default function HamburgerSideNavbar() {
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
+
+                  <AccordionItem
+                    value="resources"
+                    className="border-none hover:no-underline"
+                  >
+                    <AccordionTrigger className="font-normal px-2 py-2 hover:no-underline hover:bg-gray-100 rounded">
+                      Resources
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <ul className="space-y-1 w-full">
+                        <li>
+                          <Link
+                            href="/resources"
+                            onClick={() => setIsHamburgerMenuVisible(false)}
+                            className="py-2 px-4 inline-block hover:bg-gray-100 rounded w-full"
+                          >
+                            Knowledge Repository
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/thought-leadership"
+                            onClick={() => setIsHamburgerMenuVisible(false)}
+                            className="py-2 px-4 inline-block hover:bg-gray-100 rounded w-full text-sm"
+                          >
+                            Thought Leadership
+                          </Link>
+                        </li>
+                        <li>
+                           <Link
+                            href="/case-studies"
+                            onClick={() => setIsHamburgerMenuVisible(false)}
+                            className="py-2 px-4 inline-block hover:bg-gray-100 rounded w-full text-sm"
+                          >
+                            Case Studies
+                          </Link>
+                        </li>
+                        <li className="pt-2">
+                           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4">Free Tools</span>
+                        </li>
+                        <li>
+                          <Link
+                            href="/resources"
+                            onClick={() => setIsHamburgerMenuVisible(false)}
+                            className="py-2 px-4 inline-block hover:bg-gray-100 rounded w-full text-sm"
+                          >
+                            Procurement Jobs
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/resources"
+                            onClick={() => setIsHamburgerMenuVisible(false)}
+                            className="py-2 px-4 inline-block hover:bg-gray-100 rounded w-full text-sm"
+                          >
+                            PO Generator
+                          </Link>
+                        </li>
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
                 </Accordion>
-                <div>
+                <div className="mt-2">
                   <Link
                     href="/about"
                     onClick={() => setIsHamburgerMenuVisible(false)}
                     className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
                   >
-                    About
-                  </Link>
-                  <Link
-                    href="/case-studies"
-                    onClick={() => setIsHamburgerMenuVisible(false)}
-                    className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
-                  >
-                    Case Studies
+                    About Us
                   </Link>
                   <Link
                     href="https://thepvhub.com"
@@ -134,27 +188,14 @@ export default function HamburgerSideNavbar() {
                   >
                     ThePVhub
                   </Link>
-                  <Link
-                    href="/resources"
-                    onClick={() => setIsHamburgerMenuVisible(false)}
-                    className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
-                  >
-                    Resources
-                  </Link>
-                  <Link
-                    href="/thought-leadership"
-                    onClick={() => setIsHamburgerMenuVisible(false)}
-                    className="text-sm py-2 px-2 inline-block hover:bg-gray-100 rounded w-full"
-                  >
-                    Thought Leadership
-                  </Link>
                 </div>
               </div>
-              <div className="p-2 flex justify-center">
+              <div className="p-4 flex justify-center">
                 <RainbowButton
-                  className="flex h-9 px-4"
+                  className="w-full h-11"
                   onClick={() => {
-                    router.push("/engage-us");
+                    setIsHamburgerMenuVisible(false);
+                    window.location.href = "/engage-us";
                   }}
                 >
                   Contact Us
