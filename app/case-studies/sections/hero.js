@@ -4,29 +4,33 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="relative">
+    <section className="relative h-[90vh] flex items-center">
       <Image
         src={"/case-studies-hero.png"}
-        alt={"slide"}
+        alt={"Case Studies Background"}
         width={2000}
         height={1500}
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        className="absolute top-0 left-0 w-full h-full object-cover -z-20"
         priority
       />
-      <div className="max-w-screen-lg mx-auto ">
-        <div className="max-w-sm mr-auto bg-app pl-10 pr-5 pt-20 pb-10 h-[90vh] my-auto space-y-3 flex flex-col justify-center">
-          <BlurIn
-            className="md:text-5xl font-bold text-white text-left"
-            word="Case&nbsp;&nbsp; Studies"
-            duration={0.5}
-          ></BlurIn>
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black/80 via-black/50 to-transparent -z-10" />
+      
+      <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12">
+        <div className="max-w-xl space-y-6">
+          <div className="inline-block border-l-4 border-app pl-4">
+            <BlurIn
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight"
+              word="Case Studies"
+              duration={0.5}
+            />
+          </div>
 
           <FadeText
             direction="up"
-            duration={0.5}
-            className="text-white text-sm"
+            duration={0.6}
+            className="text-gray-200 text-lg md:text-xl font-light leading-relaxed"
             text="Turning Challenges into Opportunities"
-          ></FadeText>
+          />
         </div>
       </div>
     </section>

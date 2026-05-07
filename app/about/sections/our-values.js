@@ -1,101 +1,43 @@
-import { FadeChild } from "@/components/animate/fade-child";
-import { WordsPullUp } from "@/components/text-animations/words-pull-up";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-
-const items = [
-  {
-    id: 1,
-    title: "Customer delight",
-    description: "Provide more than what customer expects",
-    bg: "#cd6a65",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Customer-feedback-amico-e1676913686472.png",
-  },
-  {
-    id: 2,
-    title: "Quality",
-    description: "Whatever we do, we do it well",
-    bg: "#378c77",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Product-quality-pana-e1676907784256.png",
-  },
-  {
-    id: 3,
-    title: "Passion",
-    description: "Commitment and love for our work",
-    bg: "#d38135",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Passionate-rafiki-e1676913559640.png",
-  },
-  {
-    id: 4,
-    title: "Integrity",
-    description: "Do the right thing",
-    bg: "#5a79d6",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Software-integration-rafiki-e1676907629791.png",
-  },
-  {
-    id: 5,
-    title: "Growth mindset",
-    description: "Think and act like an entrepreneur",
-    bg: "#8c68c8",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Holding-the-arrow-rafiki-e1676907319618.png",
-  },
-  {
-    id: 6,
-    title: "Teaming",
-    description: "Collaborate and help each other",
-    bg: "#d46fa9",
-    image:
-      "https://pvadvisory.in/wp-content/uploads/2023/02/Strategic-consulting-bro-e1676906974399.png",
-  },
+const values = [
+  { title: "Customer Delight", desc: "Provide more than what the customer expects, consistently exceeding the bar." },
+  { title: "Quality", desc: "Whatever we do, we do it well. There are no shortcuts at PV Advisory." },
+  { title: "Passion", desc: "Commitment and genuine love for our work fuels everything we create." },
+  { title: "Integrity", desc: "Do the right thing. Our credibility depends on it, and we guard it fiercely." },
+  { title: "Growth Mindset", desc: "Think and act like an entrepreneur. Stay hungry, stay curious, stay bold." },
+  { title: "Teaming", desc: "Collaborate and help each other. Great outcomes are always a team sport." },
 ];
 
 export default function OurValuesSection() {
   return (
-    <section className="">
-      <div className="space-y-4 flex flex-col md:flex-row gap-6">
-        <div className="md:w-1/2">
-          <Image
-            src="/s2 (2).webp"
-            alt="logo"
-            width={600}
-            height={600}
-            className="h-full w-full object-cover"
-          />
+    <section className="py-24 bg-[#F8F6F2]">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-app/10 text-app text-xs font-semibold uppercase tracking-widest rounded-full mb-4">
+          Our Values
         </div>
-        <div className="flex-1">
-          <div className="space-y-3 mx-auto max-w-lg">
-            <h1 className="flex justify-center md:justify-start">
-              <WordsPullUp
-                text="Our Values"
-                className="text-left md:text-4xl text-app"
-              />
-            </h1>
+        <h2 className="text-3xl md:text-4xl lg:text-[40px] font-semibold text-gray-900 leading-[1.2] mb-12 -tracking-[0.02em]">
+          The principles that define<br />
+          how we <span className="text-app">work and grow.</span>
+        </h2>
 
-            <div className="grid grid-cols-2 gap-4">
-              {items.map((item, idx) => (
-                <FadeChild key={idx} direction="right" delay={0.1 * idx}>
-                  <div
-                    key={item.id}
-                    className={cn("flex-1 p-3 flex gap-3 ")}
-                    // style={{ backgroundColor: item.bg }}
-                  >
-                    <div className="w-2 py-1 text-center bg-app"></div>
-                    <div className="space-y-2 flex-1">
-                      <h3 className="font-semibold">{item.title}</h3>
-                      <p className="text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                </FadeChild>
-              ))}
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-20 items-start">
+          {/* Left Intro */}
+          <div className="lg:col-span-1">
+            <p className="text-gray-500 text-[15px] leading-[1.8]">
+              These six core values aren't aspirations — they're the standards we hold ourselves to every day, in every engagement, with every client and team member.
+            </p>
+          </div>
+
+          {/* Right Cards Grid */}
+          <div className="lg:col-span-1 grid grid-cols-1 md:grid-cols-2 gap-5">
+            {values.map((val, idx) => (
+              <div key={idx} className="bg-white border border-gray-200 rounded-[10px] p-6 relative overflow-hidden group hover:border-app transition-all hover:-translate-y-1">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-app transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                <h3 className="text-[14px] font-semibold text-gray-900 mb-2 group-hover:text-app transition-colors">{val.title}</h3>
+                <p className="text-gray-500 text-[13px] leading-[1.65]">{val.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
-        {/* <h1 className="text-center text-4xl font-bold text-app">Our Values</h1> */}
       </div>
     </section>
   );

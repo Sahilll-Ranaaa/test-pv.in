@@ -80,7 +80,6 @@ export default function NavItems() {
                       <MegaMenuItem href="/resources" title="Knowledge Repository" />
                       <MegaMenuItem href="/thought-leadership" title="Thought Leadership" />
                       <MegaMenuItem href="/case-studies" title="Case Studies" />
-                      <MegaMenuItem href="/resources/e-books" title="E-books" />
                     </ul>
                   </div>
                   
@@ -91,8 +90,6 @@ export default function NavItems() {
                       <div className="absolute bottom-0 left-0 w-8 h-[2px] bg-[#9f0202]" />
                     </h4>
                     <ul className="space-y-4">
-                      <MegaMenuItem href="/resources" title="Procurement Jobs" />
-                      <MegaMenuItem href="/resources" title="Vendor Finder" />
                       <MegaMenuItem href="/resources" title="PO Generator" />
                       <MegaMenuItem href="/resources" title="Invoice Generator" />
                     </ul>

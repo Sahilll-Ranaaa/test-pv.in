@@ -14,6 +14,10 @@ import * as z from "zod";
 import { generateReport, generateInternalReport } from "@/lib/generate-report";
 import emailjs from "@emailjs/browser";
 import { saveLead } from "@/lib/admin-store";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import { validateProfessionalEmail } from "@/lib/email-validator";
+import { supabase } from "@/lib/supabase";
 
 // --- CONFIGURATION FROM ENV ---
 const NOTIFICATION_EMAILS = process.env.NEXT_PUBLIC_SURVEY_NOTIFICATION_EMAIL || "sahil.rana@pvadvisory.in";
@@ -24,8 +28,13 @@ const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "9Ano0X
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid business email"),
-  mobile: z.string().min(10, "Valid mobile number is required"),
+  email: z.string().email("Invalid email format").refine(val => {
+    const res = validateProfessionalEmail(val);
+    return res.isValid;
+  }, {
+    message: "Please provide a valid professional email address"
+  }),
+  mobile: z.string().min(10, "Phone number must be at least 10 digits"),
 });
 
 export default function SurveySection({ preselectedType = null, isStandalone = false }) {
@@ -33,6 +42,23 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
   const [step, setStep] = useState(preselectedType ? 1 : -1); 
   const [answers, setAnswers] = useState({});
   const [isGenerating, setIsGenerating] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+
+  useEffect(() => {
+    let timer;
+    if (step === 101 && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      
+      if (countdown === 1) {
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
+    }
+    return () => clearInterval(timer);
+  }, [step, countdown]);
 
   useEffect(() => {
     if (preselectedType && surveyData[preselectedType]) {
@@ -46,8 +72,15 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
+    trigger, // Added trigger for manual re-validation
   } = useForm({
     resolver: zodResolver(formSchema),
+    mode: "onChange", // Enable real-time validation
+    defaultValues: {
+      mobile: "",
+    }
   });
 
   const currentQuestions = selectedSurvey ? surveyData[selectedSurvey].questions : [];
@@ -99,30 +132,105 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
   };
 
   const handleFinalSubmit = async (data) => {
+    console.log("handleFinalSubmit triggered with data:", data);
     setIsGenerating(true);
     const dimensionScores = calculateDimensionScores();
     const totalScore = Object.values(dimensionScores).reduce((acc, curr) => acc + curr, 0);
     const questions = surveyData[selectedSurvey].questions;
 
-    const reportData = { 
-      ...data, 
-      surveyType: surveyData[selectedSurvey].title, 
+    const reportData = {
+      name: data.name,
+      email: data.email,
+      mobile: data.mobile,
       score: totalScore, 
       dimensionScores, 
-      answers 
+      answers,
+      surveyType: surveyData[selectedSurvey].title
     };
+
+    console.log("Submission Started. Report Data:", reportData);
 
     // Save lead to local admin store
     saveLead(reportData);
 
+    // 1. Generate PDF
+    let pdfResult;
     try {
-      // 1. Generate and Download User PDF immediately
-      console.log("Starting PDF generation...");
-      const userReportUri = await generateReport(reportData, true); 
+      console.log("STEP 1: Starting PDF Generation...");
+      if (!reportData.surveyType) throw new Error("Missing surveyType in report data");
       
-      // 2. Generate Internal Audit PDF
-      const internalAuditUri = await generateInternalReport(reportData, questions); 
+      pdfResult = await generateReport(reportData, false); // Set to false to prevent automatic download on spot
+      console.log("STEP 1 SUCCESS: PDF Generated. Size:", pdfResult.blob?.size);
+    } catch (err) {
+      console.error("CRITICAL ERROR in STEP 1:", err);
+      alert("Error generating report: " + err.message);
+      setIsGenerating(false);
+      return;
+    }
 
+    // 2. Save lead to local admin store (Backup)
+    try {
+      console.log("STEP 2: Saving to Local Storage...");
+      saveLead(reportData);
+    } catch (err) {
+      console.error("STEP 2 ERROR:", err);
+    }
+
+    // 2. Save lead to Supabase (Database + Storage)
+    let reportUrl = null;
+    try {
+      if (supabase) {
+        console.log("STEP 3: Supabase detected. Starting Storage upload...");
+        const fileName = `report_${Date.now()}_${data.name.replace(/\s+/g, '_')}.pdf`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('pvadvisory-reports')
+          .upload(fileName, pdfResult.blob, {
+            contentType: 'application/pdf',
+            cacheControl: '3600',
+            upsert: false
+          });
+
+        if (uploadError) {
+          console.error("Supabase Storage Error:", uploadError.message);
+        } else {
+          const { data: { publicUrl } } = supabase.storage
+            .from('pvadvisory-reports')
+            .getPublicUrl(fileName);
+          reportUrl = publicUrl;
+          console.log("PDF uploaded to Storage. URL:", reportUrl);
+        }
+
+        console.log("STEP 4: Inserting record into PvAdvisoryLeadData...");
+        const { error: dbError } = await supabase
+          .from('PvAdvisoryLeadData')
+          .insert([{
+            name: data.name,
+            email: data.email,
+            mobile: data.mobile,
+            activity_title: reportData.surveyType,
+            activity_type: "Survey Assessment",
+            score: totalScore,
+            dimension_scores: dimensionScores,
+            answers: answers,
+            report_url: reportUrl
+          }]);
+        
+        if (dbError) console.error("Supabase DB Error:", dbError.message);
+        else console.log("Lead record saved to DB successfully.");
+      } else {
+        console.warn("Supabase not configured, skipping cloud storage.");
+      }
+    } catch (supaErr) {
+      console.error("Unexpected Supabase Error:", supaErr);
+    }
+
+    try {
+      console.log("STEP 5: Sending Emails...");
+      const userReportUri = pdfResult.dataUri;
+      const internalAuditUri = await generateInternalReport(reportData, questions); 
+      
+      console.log("Email PDFs ready. Sending now...");
       // 3. Prepare text-based Q&A for fail-safe
       let qaText = "";
       questions.forEach((q, i) => {
@@ -134,19 +242,24 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
       // 4. Prepare Email Parameters
       const emailParams = {
         name: data.name,
-        email: data.email,
+        user_email: data.email, // Use user_email for the recipient
         phone: data.mobile,
-        survey_type: surveyData[selectedSurvey].title,
-        total_score: totalScore,
-        to_email: NOTIFICATION_EMAILS,
-        internal_audit: internalAuditUri,
+        survey_type: reportData.surveyType,
+        total_score: Math.round(totalScore),
+        report_link: reportUrl || "Attached to this email",
+        admin_email: NOTIFICATION_EMAILS, // Keep admin in loop if needed
         message: `
-          New Survey Completed!
-          User: ${data.name}
-          Email: ${data.email}
-          Phone: ${data.mobile}
-          Total Score: ${Math.round(totalScore)}/150
-          QA: ${qaText}
+          Dear ${data.name},
+
+          Thank you for completing the ${reportData.surveyType}. 
+
+          Your CFO Health Score is ${Math.round(totalScore)}/150.
+          
+          You can download your detailed PDF report anytime using the link below:
+          ${reportUrl || "Your report is attached below."}
+
+          Best Regards,
+          PV Advisory Team
         `
       };
 
@@ -162,7 +275,7 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
       setStep(101); 
       setTimeout(() => { 
          window.location.href = "/";
-      }, 6000);
+      }, 10000);
 
     } catch (error) {
       console.error("Submission error:", error);
@@ -170,6 +283,10 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const onInvalid = (errors) => {
+    console.warn("Form Validation Errors:", errors);
   };
 
   return (
@@ -201,14 +318,12 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
               <motion.div key="selection" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
                 <h2 className="text-[9px] font-bold text-gray-400 text-center uppercase tracking-widest">Select Assessment</h2>
                 <div className="grid grid-cols-1 gap-3">
-                  <button onClick={() => handleSurveySelect('payally')} className="group flex items-center p-4 bg-gray-50 border border-transparent rounded-xl hover:border-[#9f0202] hover:bg-white transition-all text-left shadow-sm">
-                    <div className="w-10 h-10 bg-[#9f0202]/5 rounded-xl flex items-center justify-center text-[#9f0202] mr-3 group-hover:scale-105 transition-transform"><Wallet size={20} /></div>
-                    <div><h4 className="text-gray-900 font-bold text-base">Pay-ally P2P Survey</h4><p className="text-gray-500 text-[10px]">Procurement Lifecycle</p></div>
-                    <ArrowRight className="ml-auto text-gray-300 group-hover:text-[#9f0202]" size={18} />
-                  </button>
                   <button onClick={() => handleSurveySelect('finance')} className="group flex items-center p-4 bg-gray-50 border border-transparent rounded-xl hover:border-[#9f0202] hover:bg-white transition-all text-left shadow-sm">
                     <div className="w-10 h-10 bg-[#9f0202]/5 rounded-xl flex items-center justify-center text-[#9f0202] mr-3 group-hover:scale-105 transition-transform"><BarChart3 size={20} /></div>
-                    <div><h4 className="text-gray-900 font-bold text-base">Finance Transformation</h4><p className="text-gray-500 text-[10px]">Strategy Assessment</p></div>
+                    <div>
+                      <h4 className="text-gray-900 font-bold text-base">Finance Health Checkup</h4>
+                      <p className="text-gray-500 text-[10px]">Deep dive into governance and technology readiness.</p>
+                    </div>
                     <ArrowRight className="ml-auto text-gray-300 group-hover:text-[#9f0202]" size={18} />
                   </button>
                 </div>
@@ -249,10 +364,30 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
                   <h2 className="text-xl font-bold text-gray-900">You&apos;re almost there!</h2>
                   <p className="text-xs text-gray-500 max-w-xs mx-auto leading-relaxed">Fill in your details to generate your detailed business health report.</p>
                 </div>
-                <form onSubmit={handleSubmit(handleFinalSubmit)} className="space-y-3">
-                  <div className="space-y-1.5"><Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Full Name*</Label><Input {...register("name")} className="bg-gray-50 border-transparent h-10 rounded-lg focus:border-[#9f0202] text-sm px-4" placeholder="Enter your name" />{errors.name && <p className="text-[9px] text-red-500">{errors.name.message}</p>}</div>
-                  <div className="space-y-1.5"><Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Business Email*</Label><Input {...register("email")} className="bg-gray-50 border-transparent h-10 rounded-lg focus:border-[#9f0202] text-sm px-4" placeholder="name@company.com" />{errors.email && <p className="text-[9px] text-red-500">{errors.email.message}</p>}</div>
-                  <div className="space-y-1.5"><Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Mobile Number*</Label><Input {...register("mobile")} className="bg-gray-50 border-transparent h-10 rounded-lg focus:border-[#9f0202] text-sm px-4" placeholder="+91" />{errors.mobile && <p className="text-[9px] text-red-500">{errors.mobile.message}</p>}</div>
+                <form onSubmit={handleSubmit(handleFinalSubmit, onInvalid)} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Full Name*</Label>
+                    <Input {...register("name")} className="bg-gray-50 border-transparent h-10 rounded-lg focus:border-[#9f0202] text-sm px-4" placeholder="Enter your name" />
+                    {errors.name && <p className="text-[9px] text-red-500 mt-1">{errors.name.message}</p>}
+                  </div>
+                  
+                  <div className="space-y-1.5">
+                    <Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Email*</Label>
+                    <Input {...register("email")} className="bg-gray-50 border-transparent h-10 rounded-lg focus:border-[#9f0202] text-sm px-4" placeholder="name@company.com" />
+                    {errors.email && <p className="text-[9px] text-red-500 mt-1">{errors.email.message}</p>}
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Mobile Number*</Label>
+                    <PhoneInput 
+                      defaultCountry="IN"
+                      value={watch("mobile")}
+                      onChange={(val) => setValue("mobile", val, { shouldValidate: true })}
+                      className="bg-gray-50 rounded-lg border-transparent h-10 flex items-center overflow-hidden focus-within:ring-1 focus-within:ring-[#9f0202]"
+                    />
+                    {errors.mobile && <p className="text-[9px] text-red-500 mt-1">{errors.mobile.message}</p>}
+                  </div>
+
                   <div className="flex items-center gap-3 pt-3">
                       <Button type="button" onClick={() => setStep(currentQuestions.length)} variant="ghost" className="text-gray-400 h-10 px-4 text-xs">Back</Button>
                       <Button type="submit" disabled={isGenerating} className="flex-1 bg-[#9f0202] hover:bg-[#7a0101] text-white h-10 font-bold rounded-lg text-sm shadow-lg shadow-[#9f0202]/10">
@@ -269,7 +404,10 @@ export default function SurveySection({ preselectedType = null, isStandalone = f
                 <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center text-green-600 shadow-inner"><CheckCircle2 size={32} /></div>
                 <div className="space-y-1">
                   <h2 className="text-xl font-bold text-gray-900">Success!</h2>
-                  <p className="text-xs text-gray-500">Your report has been downloaded. Redirecting soon...</p>
+                  <p className="text-xs text-gray-500">Thank you! Your detailed report has been sent to your email address.</p>
+                  <p className="text-[10px] font-bold text-[#9f0202] uppercase tracking-tighter mt-2">
+                    Redirecting to home in {countdown} seconds...
+                  </p>
                 </div>
                 <Button variant="outline" onClick={() => { window.location.href = "/"; }} className="border-gray-200 text-gray-500 h-9 px-6 rounded-lg text-xs hover:bg-gray-50">Back to Home Now</Button>
               </motion.div>

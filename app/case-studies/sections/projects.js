@@ -1,153 +1,93 @@
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 const projects = [
   {
     title: "Managed Services",
-    image: "/projects/project-section-tile-1.webp",
-    subTitle:
-      "Revolutionizing Accounting: Managing $500M+ Finances for Manufacturing Giant",
-    description:
-      "Handled the entire accounting process for a major manufacturing organization, streamlining financial reporting and ensuring secretarial compliance, enhancing operational accuracy and governance.",
+    subTitle: "Managing $500M+ Finances",
+    result: "Streamlined financial reporting and secretarial compliance for a manufacturing giant, enhancing operational accuracy and governance.",
   },
   {
-    title: "Finance Function Effectiveness",
-    image: "/projects/project-section-tile-2.webp",
-    subTitle: "Boosted Finance Efficiency: Reduced Costs Across Core Processes",
-    description:
-      "Engaged to redesign and document finance workflows, identified process inefficiencies, and delivered an actionable implementation plan that significantly cut finance operational costs.",
+    title: "Finance Function",
+    subTitle: "Reduced Core Process Costs",
+    result: "Redesigned finance workflows, identified inefficiencies, and delivered a plan that significantly cut operational costs.",
   },
-
   {
     title: "Virtual CFO",
-    image: "/projects/project-section-tile-3.webp",
-
-    subTitle:
-      "Dual-Nation CFO Excellence: Enabled Tax-Smart Operations in Singapore & India",
-    description:
-      "Implemented robust forecasting, planning, and treasury management for a mid-sized firm, optimizing tax structures under the Double Taxation Avoidance Agreement and leveraging Special Economic Zone benefits.",
-  },
-
-  {
-    title: "Development of Compliance Tracking Tool",
-    image: "/projects/project-section-tile-4.webp",
-    subTitle: "Comp-ally: 100% Compliance Tracked with Automated Alerts",
-    description: [
-      "Developed and implemented Comp-ally, an automated compliance-tracking tool. It eliminated manual monitoring by generating real-time compliance reports, sending automated alerts, and consolidating data for leadership.",
-      "Result: 30% reduction in compliance breaches and improved regulatory adherence.",
-    ],
+    subTitle: "Tax-Smart Operations in SG & IN",
+    result: "Optimized tax structures under DTAA and leveraged SEZ benefits, enabling robust treasury management.",
   },
   {
-    title: "Designing and Implementation of P2P tool",
-    image: "/projects/project-section-tile-5.webp",
-    subTitle: "Pay-ally P2P Tool: 40% Cost Savings in Procurement Processes",
-    description:
-      "Deployed Pay-ally, a SaaS-based P2P tool that automated requisitions, vendor selection, orders, and payments. Integrated with existing systems, it enhanced visibility and reduced procurement cycle times by 50%, driving measurable cost savings.",
+    title: "Compliance Tool",
+    subTitle: "100% Compliance Tracked",
+    result: "Developed Comp-ally, leading to a 30% reduction in breaches and eliminating manual tracking via automated alerts.",
   },
   {
-    title: "Customized CRM",
-    image: "/projects/project-section-tile-6.webp",
-    subTitle:
-      "Custom CRM Boosts Funnel Management & Customer Acquisition by 25%",
-    description:
-      "Designed a tailor-made CRM to streamline customer onboarding, contract creation, and funnel management. Integrated with existing systems, it improved customer profiling and visibility, resulting in a 25% increase in customer acquisition efficiency.",
+    title: "P2P Implementation",
+    subTitle: "40% Cost Savings",
+    result: "Deployed Pay-ally SaaS, reducing procurement cycle times by 50% and driving measurable savings.",
   },
   {
-    title: "Automation of Cash Application Process",
-    image: "/projects/project-section-tile-7.webp",
-    subTitle: "Automated Cash Application: Reduced AR Cycle by 60%",
-    description:
-      "Automated the cash application process by eliminating manual effort through interface creation. Optimized receipt matching and receivables accounting, improving accuracy and accelerating cash flow turnaround by 60%.",
+    title: "Custom CRM",
+    subTitle: "25% Increase in Acquisition",
+    result: "Streamlined customer onboarding and contract creation, vastly improving funnel management efficiency.",
+  },
+  {
+    title: "Cash Application",
+    subTitle: "Reduced AR Cycle by 60%",
+    result: "Automated manual cash application efforts, optimizing receipt matching and accelerating cash flow turnaround.",
   },
   {
     title: "Data Analytics",
-    image: "/projects/project-section-tile-8.webp",
-    subTitle: "Real-Time Decisions with Data Dashboards: 25% Faster Insights",
-    description:
-      "Built a customized analytics dashboard for centralized KPI monitoring and trend analysis. Provided real-time insights to drive business growth, improving decision-making timelines by 25% and aligning operations with strategic goals.",
+    subTitle: "25% Faster Insights",
+    result: "Built a centralized KPI dashboard providing real-time trend analysis to drive immediate business growth decisions.",
   },
   {
-    title: "Setup of Global Capability Centre",
-    image: "/projects/project-section-tile-9.webp",
-    subTitle: "Global Capability Centre for 150+ Countries: 300+ FTEs Deployed",
-    description:
-      "Setting up a Global Capability Centre (GCC) for a leading global accounting firm in India. Expected to employ 300+ FTEs, the GCC supports operations across 150+ countries, enhancing scalability and service efficiency globally.",
+    title: "Global Capability",
+    subTitle: "300+ FTEs Deployed",
+    result: "Setup a GCC supporting operations across 150+ countries for a leading global accounting firm.",
   },
   {
-    title: "F&A Shared Services Centre",
-    image: "/projects/project-section-tile-10.webp",
-    subTitle: "Finance SSC Delivers 30% Efficiency Gains for MNC",
-    description:
-      "Established a Finance & Accounts Shared Services Centre in India for a multinational corporation, employing 150+ FTEs. Standardized processes reduced overhead costs and improved financial service delivery efficiency by 30%.",
+    title: "F&A Shared Services",
+    subTitle: "30% Efficiency Gains",
+    result: "Standardized processes and reduced overhead for an MNC by establishing an F&A Shared Services Centre in India.",
   },
   {
-    title: "SaaS - Procure to Pay",
-    image: "/projects/project-section-tile-11.webp",
-    subTitle: "SaaS-Based P2P Revolution: Supporting Indonesia & Vietnam",
-    description:
-      "Conceptualized and implemented a SaaS-based P2P solution, providing end-to-end procurement and payment support for businesses in Indonesia and Vietnam, seamlessly managed from India. Enhanced accuracy, reduced turnaround time, and drove regional process efficiency.",
+    title: "SaaS P2P",
+    subTitle: "Supporting ID & VN",
+    result: "Managed end-to-end procurement and payment support seamlessly from India for regional process efficiency.",
   },
   {
-    title: "Project: Start-up Solution",
-    image: "/projects/project-section-tile-12.webp",
-    subTitle:
-      "From Incorporation to CFO Services: Start-Up Success Built from Day 1",
-    description:
-      "Guided a start-up through legal entity selection, seamless company incorporation, and ongoing Virtual CFO services. Delivered structured financial planning and strategic support to accelerate growth and investor readiness.",
+    title: "Start-up Solution",
+    subTitle: "From Incorporation to CFO",
+    result: "Delivered structured financial planning and strategic support to accelerate investor readiness.",
   },
 ];
 
 export default function Projects() {
   return (
-    <section className="pt-10">
-      <div className=" mx-auto flex flex-col">
-        {projects.map((project, idx) => (
-          <div
-            key={idx}
-            className={cn(
-              "flex",
-              idx % 2 === 0 ? "flex-row" : "flex-row-reverse",
-              "max-h-72"
-            )}
-          >
-            <div
-              className={cn(
-                "w-1/2 p-12 space-y-6 bg-gray-100 text-black"
-                // idx % 2 === 0 ? "bg-gray-100 text-black" : "bg-app text-white"
-              )}
-            >
-              <div className="space-y-2">
-                {/* <h2 className="text-3xl">{project.title}</h2> */}
-                <h3 className="text-2xl">{project.subTitle}</h3>
+    <section className="py-12 bg-white border-b border-gray-100">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+        <div className="mb-10 flex items-center justify-between">
+          <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Core Transformations</h2>
+          <div className="hidden sm:block h-px flex-1 bg-gray-200 ml-8"></div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+          {projects.map((project, idx) => (
+            <div key={idx} className="group p-4 rounded-lg bg-gray-50 border border-gray-100 hover:border-app hover:bg-white hover:shadow-lg transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-bold text-app uppercase tracking-wider">{project.title}</span>
+                <h3 className="text-lg font-bold text-gray-900 mt-1 leading-tight group-hover:text-app transition-colors">{project.subTitle}</h3>
               </div>
-
-              {typeof project.description === "object" &&
-              project.description.length ? (
-                <div className="space-y-2">
-                  {project.description.map((p, index) => (
-                    <p key={index} className={cn("text-gray-700", "text-sm")}>
-                      {p}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <p className={cn("text-gray-700", "text-sm")}>
-                  {project.description}
+              <div className="mt-4 pt-3 border-t border-gray-200 group-hover:border-app/20">
+                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
+                  <strong className="text-gray-900 font-semibold mr-1">Result:</strong>
+                  {project.result}
                 </p>
-              )}
+              </div>
             </div>
-            <div className="w-1/2">
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={400}
-                height={400}
-                className="left-0 w-full h-full object-cover"
-                priority
-              />
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

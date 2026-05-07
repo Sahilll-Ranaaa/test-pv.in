@@ -93,6 +93,11 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontFamily: {
+        syne: ["var(--font-syne)"],
+        instrument: ["var(--font-instrument)"],
+        poppins: ["var(--font-poppins)"],
+      },
     },
     animation: {
       "meteor-effect": "meteor 5s linear infinite",

@@ -5,41 +5,54 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Calendar, Clock, ArrowRight, ChevronRight, ChevronLeft } from "lucide-react";
-import { BLOGS } from "@/lib/blog-data";
+import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { getCustomBlogs } from "@/lib/admin-store";
 
 export default function ThoughtLeadershipPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [allBlogs, setAllBlogs] = useState(BLOGS);
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const blogsPerPage = 6;
 
   useEffect(() => {
-    // Merge static blogs with custom blogs from admin store
-    const custom = getCustomBlogs();
-    const merged = [...custom, ...BLOGS];
-    setAllBlogs(merged);
+    const fetchBlogs = async () => {
+      if (!supabase) return;
+      setIsLoading(true);
+      try {
+        const { data } = await supabase
+          .from('PvAdvisoryBlogs')
+          .select('*')
+          .eq('is_published', true)
+          .order('created_at', { ascending: false });
+        setAllBlogs(data || []);
+      } catch (err) {
+        console.error("Fetch blogs failed:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlogs();
   }, []);
 
   const filteredBlogs = useMemo(() => {
     return allBlogs.filter(blog => 
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+      (blog.description || "").toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery, allBlogs]);
 
   const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
   const currentBlogs = filteredBlogs.slice((currentPage - 1) * blogsPerPage, currentPage * blogsPerPage);
 
-  const featuredBlogs = allBlogs.slice(0, 3);
-  const latestBlogs = allBlogs.slice(3, 6);
+  // Get up to 6 featured blogs for the sidebar
+  const featuredBlogs = allBlogs.filter(b => b.is_featured).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#fafafa] pt-32 pb-24">
+    <div className="min-h-screen bg-[#fafafa] pt-24 pb-16">
       {/* Centered Header Section */}
       <section className="mb-16">
         <MaxWidthWrapper className="text-center">
@@ -48,8 +61,8 @@ export default function ThoughtLeadershipPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6 max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
-              Discover our <span className="text-[#9f0202]">latest news</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+              Discover our <span className="text-[#8b0202]">latest news</span>
             </h1>
             <p className="text-gray-500 text-base leading-relaxed">
               Explore the latest insights, industry breakthroughs, and consulting frameworks from the PV Advisory team.
@@ -81,13 +94,13 @@ export default function ThoughtLeadershipPage() {
           <aside className="w-full lg:w-[280px] space-y-12 order-2 lg:order-1">
             {/* Featured List */}
             <div className="space-y-6">
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 pb-4 border-b border-gray-100">Featured</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 pb-4 border-b border-gray-100">Featured Insights</h3>
               <div className="space-y-5">
                 {featuredBlogs.map((blog) => (
                   <Link key={blog.id} href={`/thought-leadership/post?id=${blog.id}`} className="flex gap-4 group">
                     <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden shadow-sm">
-                      {blog.image ? (
-                        <Image src={blog.image} alt={blog.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                      {blog.image_url ? (
+                        <Image src={blog.image_url} alt={blog.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 font-bold">PVA</div>
                       )}
@@ -100,30 +113,7 @@ export default function ThoughtLeadershipPage() {
                     </div>
                   </Link>
                 ))}
-              </div>
-            </div>
-
-            {/* Latest List */}
-            <div className="space-y-6">
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 pb-4 border-b border-gray-100">Latest</h3>
-              <div className="space-y-5">
-                {latestBlogs.map((blog) => (
-                  <Link key={blog.id} href={`/thought-leadership/post?id=${blog.id}`} className="flex gap-4 group">
-                    <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden shadow-sm">
-                      {blog.image ? (
-                        <Image src={blog.image} alt={blog.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 font-bold">PVA</div>
-                      )}
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-[9px] text-gray-400 font-bold uppercase tracking-tight">{blog.date}</p>
-                      <h4 className="text-xs font-bold text-gray-900 group-hover:text-[#9f0202] transition-colors line-clamp-2 leading-snug">
-                        {blog.title}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                {featuredBlogs.length === 0 && <p className="text-[10px] text-gray-400 italic">No featured insights yet.</p>}
               </div>
             </div>
           </aside>
@@ -137,7 +127,11 @@ export default function ThoughtLeadershipPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
-                {currentBlogs.map((blog, index) => (
+                {isLoading ? (
+                  [...Array(3)].map((_, i) => (
+                    <div key={i} className="h-[400px] bg-gray-100 animate-pulse rounded-2xl" />
+                  ))
+                ) : currentBlogs.map((blog, index) => (
                   <motion.article 
                     layout
                     key={blog.id}
@@ -150,9 +144,9 @@ export default function ThoughtLeadershipPage() {
                   >
                     {/* Compact Image Section */}
                     <div className="relative aspect-[16/10] overflow-hidden">
-                      {blog.image ? (
+                      {blog.image_url ? (
                         <Image 
-                          src={blog.image} 
+                          src={blog.image_url} 
                           alt={blog.title}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -171,7 +165,7 @@ export default function ThoughtLeadershipPage() {
                     <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-[8px] text-gray-400 font-bold uppercase tracking-widest">
-                           <span>{blog.date}</span>
+                           <span>{new Date(blog.created_at).toLocaleDateString()}</span>
                            <span>•</span>
                            <span>{blog.readTime || "5 MIN READ"}</span>
                         </div>
@@ -179,7 +173,7 @@ export default function ThoughtLeadershipPage() {
                           {blog.title}
                         </h3>
                         <p className="text-gray-500 text-[11px] leading-relaxed line-clamp-2">
-                          {blog.excerpt}
+                          {blog.description}
                         </p>
                       </div>
                       
@@ -189,6 +183,11 @@ export default function ThoughtLeadershipPage() {
                     </div>
                   </motion.article>
                 ))}
+                {!isLoading && currentBlogs.length === 0 && (
+                  <div className="col-span-full py-20 text-center">
+                    <p className="text-gray-400 font-bold">No insights found matching your search.</p>
+                  </div>
+                )}
               </AnimatePresence>
             </div>
 

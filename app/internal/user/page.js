@@ -17,8 +17,12 @@ import {
   Upload,
   ChevronLeft,
   ChevronRight,
-  Edit2
+  Edit2,
+  LogOut,
+  Loader2
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,15 +36,13 @@ import {
   saveResource, 
   deleteResource,
   updateResource,
-  getLeads, 
-  toggleResourceFeatured 
+  getLeads
 } from "@/lib/admin-store";
 import { cn } from "@/lib/utils";
 
 const TABS = [
   { id: "leads", label: "User Leads", icon: <Users size={18} /> },
   { id: "blogs", label: "Manage Blogs", icon: <BookOpen size={18} /> },
-  { id: "resources", label: "Manage Resources", icon: <Download size={18} /> },
 ];
 
 const LEADS_PER_PAGE = 15;
@@ -57,18 +59,80 @@ export default function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Forms
-  const [blogForm, setBlogForm] = useState({ title: "", description: "", content: "", category: "Business", image: null });
-  const [resourceForm, setResourceForm] = useState({ title: "", description: "", category: "Strategy", type: "PDF Guide", size: "1.0 MB", featured: false, fileName: "", fileData: null });
+  const [blogForm, setBlogForm] = useState({ 
+    title: "", 
+    description: "", 
+    content: "", 
+    category: "Business", 
+    image_url: null,
+    is_published: true,
+    is_featured: false 
+  });
+  const [resourceForm, setResourceForm] = useState({ title: "", description: "", category: "Strategy", type: "PDF Guide", size: "1.0 MB", fileName: "", fileData: null });
+  const [isLoadingLeads, setIsLoadingLeads] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const router = useRouter();
 
-  const refreshData = () => {
-    setLeads(getLeads());
-    setBlogs(getCustomBlogs());
+  const checkAuth = async () => {
+    if (!supabase) {
+      setIsAuthenticating(false);
+      return;
+    }
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      router.push("/internal/login");
+    } else {
+      setIsAuthenticating(false);
+    }
+  };
+
+  const refreshData = async () => {
+    // 1. Fetch Blogs and Resources from local storage (for now)
     setResources(getCustomResources());
+
+    // 2. Fetch Leads from Supabase
+    if (!supabase) {
+      setLeads(getLeads());
+      setBlogs(getCustomBlogs());
+      return;
+    }
+    
+    setIsLoadingLeads(true);
+    try {
+      // Fetch Leads
+      const { data: supabaseLeads } = await supabase
+        .from('PvAdvisoryLeadData')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setLeads(supabaseLeads || []);
+
+      // Fetch Blogs
+      const { data: supabaseBlogs } = await supabase
+        .from('PvAdvisoryBlogs')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setBlogs(supabaseBlogs || []);
+
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setLeads(getLeads());
+      setBlogs(getCustomBlogs());
+    } finally {
+      setIsLoadingLeads(false);
+    }
   };
 
   useEffect(() => {
+    checkAuth();
     refreshData();
   }, []);
+
+  const handleLogout = async () => {
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
+    router.push("/internal/login");
+  };
 
   const handleFileUpload = (e, type) => {
     const file = e.target.files[0];
@@ -90,17 +154,71 @@ export default function AdminPage() {
     reader.readAsDataURL(file);
   };
 
-  const handleSaveBlog = () => {
-    if (!blogForm.title) return;
-    if (editingId) {
-      updateBlog(editingId, blogForm);
-    } else {
-      saveBlog(blogForm);
+  const handleSaveBlog = async () => {
+    if (!blogForm.title || !supabase) return;
+    
+    setIsLoadingLeads(true);
+    try {
+      const payload = {
+        title: blogForm.title,
+        description: blogForm.description,
+        content: blogForm.content,
+        category: blogForm.category,
+        image_url: blogForm.image_url,
+        is_published: blogForm.is_published,
+        is_featured: blogForm.is_featured
+      };
+
+      if (editingId) {
+        await supabase.from('PvAdvisoryBlogs').update(payload).eq('id', editingId);
+      } else {
+        await supabase.from('PvAdvisoryBlogs').insert([payload]);
+      }
+      
+      setBlogForm({ title: "", description: "", content: "", category: "Business", image_url: null, is_published: true, is_featured: false });
+      setIsAdding(false);
+      setEditingId(null);
+      refreshData();
+    } catch (err) {
+      console.error("Save blog failed:", err);
+    } finally {
+      setIsLoadingLeads(false);
     }
-    setBlogForm({ title: "", description: "", content: "", category: "Business", image: null });
-    setIsAdding(false);
-    setEditingId(null);
-    refreshData();
+  };
+
+  const handleBlogImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !supabase) return;
+
+    setIsLoadingLeads(true);
+    try {
+      const fileName = `${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabase.storage
+        .from('pvadvisory-blog-storage')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('pvadvisory-blog-storage')
+        .getPublicUrl(fileName);
+
+      setBlogForm({ ...blogForm, image_url: publicUrl });
+    } catch (err) {
+      console.error("Image upload failed:", err);
+    } finally {
+      setIsLoadingLeads(false);
+    }
+  };
+
+  const handleDeleteBlog = async (id) => {
+    if (!confirm("Are you sure?")) return;
+    try {
+      await supabase.from('PvAdvisoryBlogs').delete().eq('id', id);
+      refreshData();
+    } catch (err) {
+      console.error("Delete failed:", err);
+    }
   };
 
   const handleSaveResource = () => {
@@ -110,7 +228,7 @@ export default function AdminPage() {
     } else {
       saveResource(resourceForm);
     }
-    setResourceForm({ title: "", description: "", category: "Strategy", type: "PDF Guide", size: "1.0 MB", featured: false, fileName: "", fileData: null });
+    setResourceForm({ title: "", description: "", category: "Strategy", type: "PDF Guide", size: "1.0 MB", fileName: "", fileData: null });
     setIsAdding(false);
     setEditingId(null);
     refreshData();
@@ -134,6 +252,17 @@ export default function AdminPage() {
   }, [leads, currentPage]);
 
   const totalPages = Math.ceil(leads.length / LEADS_PER_PAGE);
+
+  if (isAuthenticating) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <Loader2 className="animate-spin h-10 w-10 text-[#9f0202] mx-auto mb-4" />
+          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Verifying Admin Access...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#fafafa] pt-20">
@@ -166,11 +295,18 @@ export default function AdminPage() {
             ))}
           </nav>
           
-          <div className="p-4 mt-auto">
+          <div className="p-4 mt-auto space-y-2">
              <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
                 <p className="text-[10px] font-black uppercase text-gray-400 mb-1">Signed in as</p>
                 <p className="text-xs font-bold text-gray-900 truncate">Administrator</p>
              </div>
+             <Button 
+               variant="ghost" 
+               onClick={handleLogout}
+               className="w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all font-bold text-xs"
+             >
+               <LogOut size={16} /> Logout
+             </Button>
           </div>
         </aside>
 
@@ -204,42 +340,67 @@ export default function AdminPage() {
                         <tr className="bg-gray-50/50 border-b border-gray-100">
                           <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">User Details</th>
                           <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Lead Source / Activity</th>
+                          <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Report</th>
                           <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Timestamp</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {paginatedLeads.map((lead) => (
+                        {isLoadingLeads ? (
+                          <tr>
+                            <td colSpan="4" className="px-8 py-20 text-center">
+                              <Loader2 className="animate-spin mx-auto text-gray-300 mb-2" />
+                              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Loading leads from Supabase...</p>
+                            </td>
+                          </tr>
+                        ) : paginatedLeads.map((lead) => (
                           <tr key={lead.id} className="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
                             <td className="px-8 py-6">
                               <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 bg-[#9f0202]/5 rounded-xl flex items-center justify-center text-[#9f0202] shrink-0 font-bold">
-                                  {lead.name[0]}
+                                  {lead.name ? lead.name[0] : "?"}
                                 </div>
                                 <div>
                                   <p className="text-sm font-black text-gray-900">{lead.name}</p>
                                   <div className="flex items-center gap-3 mt-1">
                                     <span className="text-[10px] text-gray-400 flex items-center gap-1"><FileText size={10} /> {lead.email}</span>
-                                    <span className="text-[10px] text-gray-400 flex items-center gap-1">✆ {lead.phone}</span>
+                                    <span className="text-[10px] text-gray-400 flex items-center gap-1">✆ {lead.mobile || lead.phone}</span>
                                   </div>
                                 </div>
                               </div>
                             </td>
                             <td className="px-8 py-6">
-                              {lead.surveyType?.includes("Download:") ? (
-                                <div className="flex flex-col gap-1">
-                                  <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[8px] font-black uppercase rounded-full w-fit">Resource Download</span>
-                                  <span className="text-sm font-bold text-gray-700">{lead.surveyType.replace("Download: ", "")}</span>
-                                </div>
+                               <div className="flex flex-col gap-1">
+                                 <span className={cn(
+                                   "px-2 py-0.5 text-[8px] font-black uppercase rounded-full w-fit",
+                                   lead.activity_type === "Survey Assessment" ? "bg-green-50 text-green-600" : "bg-blue-50 text-blue-600"
+                                 )}>
+                                   {lead.activity_type || "Unknown Activity"}
+                                 </span>
+                                 <span className={cn(
+                                   "text-sm font-bold",
+                                   lead.activity_type === "Survey Assessment" ? "text-[#9f0202]" : "text-gray-700"
+                                 )}>
+                                   {lead.activity_title}
+                                 </span>
+                               </div>
+                             </td>
+                            <td className="px-8 py-6 text-center">
+                              {lead.report_url ? (
+                                <a 
+                                  href={lead.report_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#9f0202]/5 text-[#9f0202] rounded-lg text-[10px] font-black uppercase hover:bg-[#9f0202] hover:text-white transition-all"
+                                >
+                                  <Download size={12} /> PDF
+                                </a>
                               ) : (
-                                <div className="flex flex-col gap-1">
-                                  <span className="px-2 py-0.5 bg-green-50 text-green-600 text-[8px] font-black uppercase rounded-full w-fit">Survey Assessment</span>
-                                  <span className="text-sm font-bold text-[#9f0202]">{lead.surveyType}</span>
-                                </div>
+                                <span className="text-[10px] text-gray-300 font-bold uppercase">N/A</span>
                               )}
                             </td>
                             <td className="px-8 py-6 text-right">
-                              <p className="text-[10px] text-gray-400 font-bold uppercase">{new Date(lead.timestamp).toLocaleDateString()}</p>
-                              <p className="text-[10px] text-gray-300">{new Date(lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                              <p className="text-[10px] text-gray-400 font-bold uppercase">{new Date(lead.created_at || lead.timestamp).toLocaleDateString()}</p>
+                              <p className="text-[10px] text-gray-300">{new Date(lead.created_at || lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                             </td>
                           </tr>
                         ))}
@@ -323,13 +484,35 @@ export default function AdminPage() {
                            <Label className="text-[10px] font-black uppercase text-gray-400">Post Content (Markdown or HTML supported)</Label>
                            <Textarea value={blogForm.content} onChange={e => setBlogForm({...blogForm, content: e.target.value})} className="h-[280px] bg-gray-50 border-transparent rounded-2xl" placeholder="Write your thought leadership post here..." />
                         </div>
+                        <div className="flex gap-8">
+                          <div className="flex items-center gap-2">
+                            <input 
+                              type="checkbox" 
+                              id="is_published"
+                              checked={blogForm.is_published} 
+                              onChange={e => setBlogForm({...blogForm, is_published: e.target.checked})}
+                              className="w-4 h-4 rounded border-gray-300 text-[#9f0202] focus:ring-[#9f0202]"
+                            />
+                            <Label htmlFor="is_published" className="text-xs font-bold text-gray-700 cursor-pointer">Published</Label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <input 
+                              type="checkbox" 
+                              id="is_featured"
+                              checked={blogForm.is_featured} 
+                              onChange={e => setBlogForm({...blogForm, is_featured: e.target.checked})}
+                              className="w-4 h-4 rounded border-gray-300 text-[#9f0202] focus:ring-[#9f0202]"
+                            />
+                            <Label htmlFor="is_featured" className="text-xs font-bold text-gray-700 cursor-pointer">Featured on Home</Label>
+                          </div>
+                        </div>
                         <div className="space-y-2">
                            <Label className="text-[10px] font-black uppercase text-gray-400">Featured Image</Label>
                            <div className="h-20 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center relative cursor-pointer hover:bg-gray-100 transition-colors">
-                              <input type="file" onChange={e => handleFileUpload(e, 'blog')} className="absolute inset-0 opacity-0 cursor-pointer" />
+                              <input type="file" onChange={handleBlogImageUpload} className="absolute inset-0 opacity-0 cursor-pointer" />
                               <div className="flex items-center gap-3 text-gray-400">
                                 <Upload size={18} />
-                                <span className="text-xs font-bold">{blogForm.image ? "Image Selected" : "Upload Image"}</span>
+                                <span className="text-xs font-bold">{blogForm.image_url ? "Image Uploaded ✅" : "Upload Image to Supabase"}</span>
                               </div>
                            </div>
                         </div>
@@ -344,8 +527,12 @@ export default function AdminPage() {
                     {blogs.map(blog => (
                       <div key={blog.id} className="bg-white rounded-[2rem] border border-gray-100 p-6 space-y-4 group">
                         <div className="h-40 bg-gray-100 rounded-2xl overflow-hidden relative">
-                          {blog.image && <img src={blog.image} className="w-full h-full object-cover" />}
-                          <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-[8px] font-black text-[#9f0202] uppercase tracking-widest">{blog.category}</div>
+                          {blog.image_url && <img src={blog.image_url} className="w-full h-full object-cover" />}
+                          <div className="absolute top-3 left-3 flex gap-2">
+                            <div className="px-3 py-1 bg-white/90 backdrop-blur rounded-full text-[8px] font-black text-[#9f0202] uppercase tracking-widest">{blog.category}</div>
+                            {blog.is_featured && <div className="px-3 py-1 bg-yellow-400 text-black rounded-full text-[8px] font-black uppercase tracking-widest">★ Featured</div>}
+                            {!blog.is_published && <div className="px-3 py-1 bg-gray-500 text-white rounded-full text-[8px] font-black uppercase tracking-widest">Draft</div>}
+                          </div>
                         </div>
                         <div className="space-y-2">
                           <h4 className="font-bold text-gray-900 line-clamp-1">{blog.title}</h4>
@@ -361,7 +548,7 @@ export default function AdminPage() {
                           </Button>
                           <Button 
                             variant="ghost" 
-                            onClick={() => { deleteBlog(blog.id); refreshData(); }}
+                            onClick={() => { handleDeleteBlog(blog.id); }}
                             className="h-10 w-10 rounded-xl bg-gray-50 hover:bg-red-50 hover:text-red-500 text-gray-400 transition-all"
                           >
                             <Trash2 size={16} />
@@ -417,14 +604,6 @@ export default function AdminPage() {
                                 <span className="text-[10px] text-gray-300 mt-1">PDF, Excel, or Zip (Max 10MB)</span>
                              </div>
                           </div>
-                          <div className="flex items-center gap-3 p-4 bg-[#9f0202]/5 rounded-2xl border border-[#9f0202]/10">
-                             <Star size={18} className={cn(resourceForm.featured ? "text-[#9f0202] fill-[#9f0202]" : "text-gray-300")} />
-                             <div className="flex-1">
-                               <p className="text-[10px] font-black uppercase text-[#9f0202]">Featured Framework</p>
-                               <p className="text-[9px] text-gray-500">Showcase this asset at the top of the repository.</p>
-                             </div>
-                             <input type="checkbox" checked={resourceForm.featured} onChange={e => setResourceForm({...resourceForm, featured: e.target.checked})} className="w-5 h-5 rounded accent-[#9f0202]" />
-                          </div>
                        </div>
                     </div>
                     <Button onClick={handleSaveResource} className="w-full h-14 bg-[#9f0202] hover:bg-[#7a0101] text-white font-bold rounded-2xl text-lg shadow-xl shadow-[#9f0202]/10">
@@ -440,19 +619,11 @@ export default function AdminPage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3">
-                            <h4 className="font-bold text-gray-900">{res.title}</h4>
-                            {res.featured && <span className="px-2 py-0.5 bg-[#9f0202]/5 text-[#9f0202] text-[8px] font-black uppercase rounded-full tracking-widest border border-[#9f0202]/10">Featured</span>}
+                             <h4 className="font-bold text-gray-900">{res.title}</h4>
                           </div>
                           <p className="text-xs text-gray-400 mt-0.5">{res.category} • {res.type} • {res.size}</p>
                         </div>
                         <div className="flex items-center gap-2">
-                           <Button 
-                             variant="ghost" 
-                             onClick={() => toggleResourceFeatured(res.id).then(refreshData)}
-                             className={cn("h-10 w-10 rounded-xl transition-all", res.featured ? "bg-[#9f0202]/10 text-[#9f0202]" : "bg-gray-50 text-gray-300")}
-                           >
-                             <Star size={16} className={res.featured ? "fill-[#9f0202]" : ""} />
-                           </Button>
                            <Button 
                              variant="ghost" 
                              onClick={() => startEditingResource(res)}

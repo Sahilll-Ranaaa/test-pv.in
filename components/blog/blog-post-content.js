@@ -43,13 +43,13 @@ export default function BlogPostContent({ blog }) {
                    <User className="text-gray-400" size={20} />
                  </div>
                  <div>
-                   <p className="text-sm font-bold text-gray-900 leading-none">{blog.author}</p>
-                   <p className="text-[10px] text-gray-500 font-medium">PV Advisory Lead</p>
+                   <p className="text-sm font-bold text-gray-900 leading-none">{blog.author || "PV Advisory Team"}</p>
+                   <p className="text-[10px] text-gray-500 font-medium">Finance Experts</p>
                  </div>
                </div>
                <div className="flex items-center gap-3 text-gray-400">
                  <Calendar size={16} />
-                 <span className="text-xs font-medium">{blog.date}</span>
+                 <span className="text-xs font-medium">{new Date(blog.created_at).toLocaleDateString()}</span>
                </div>
             </div>
           </motion.div>
@@ -61,13 +61,17 @@ export default function BlogPostContent({ blog }) {
             transition={{ delay: 0.2 }}
             className="relative aspect-[21/9] rounded-3xl overflow-hidden mb-16 shadow-2xl"
           >
-            <Image 
-              src={blog.image} 
-              alt={blog.title}
-              fill
-              className="object-cover"
-              priority
-            />
+            {blog.image_url ? (
+              <Image 
+                src={blog.image_url} 
+                alt={blog.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 font-bold">PV ADVISORY</div>
+            )}
           </motion.div>
 
           {/* Post Content */}

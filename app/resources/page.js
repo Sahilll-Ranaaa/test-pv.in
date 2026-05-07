@@ -11,15 +11,11 @@ import {
   BarChart,
   BookOpen,
   Search,
-  Filter,
-  ArrowRight,
   ChevronRight,
+  ChevronLeft,
   X,
-  User,
-  Mail,
-  Phone,
-  CheckCircle2,
-  Loader2
+  Loader2,
+  Filter
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,88 +25,171 @@ import { getCustomResources, saveLead } from "@/lib/admin-store";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Link from "next/link";
 import Image from "next/image";
+import "./resources.css";
+import { supabase } from "@/lib/supabase";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import { validateProfessionalEmail } from "@/lib/email-validator";
 
-const CATEGORIES = ["All", "Business life", "Finance management", "Company creation", "Invoicing", "Assessment", "Operations", "Reporting", "Compliance", "Strategy", "Reports", "E-books"];
+const CATEGORIES = ["All", "Business life", "Finance management", "Company creation", "Invoicing", "Assessment", "Operations", "Reporting", "Compliance", "Strategy"];
 
 const STATIC_RESOURCES = [
   {
     title: "CFO Health Score Checklist",
     description: "The complete 30-point diagnostic framework used by our professionals to assess finance function maturity.",
-    icon: <ShieldCheck size={28} />,
-    type: "PDF Guide",
-    size: "1.2 MB",
     category: "Assessment",
-    designedFor: "Medium-sized businesses",
     featured: true
   },
   {
     title: "P2P Efficiency Blueprint",
     description: "A step-by-step guide to automating your procurement-to-pay lifecycle and reducing manual entry by 40%.",
-    icon: <Zap size={28} />,
-    type: "Whitepaper",
-    size: "2.5 MB",
     category: "Operations",
-    designedFor: "Small businesses",
     featured: true
   },
   {
     title: "Monthly MIS Master Template",
     description: "A professional-grade financial reporting structure designed for growth-stage startups and SMEs.",
-    icon: <BarChart size={28} />,
-    type: "Excel Tool",
-    size: "850 KB",
     category: "Reporting",
-    designedFor: "Entrepreneurs",
     featured: false
   },
   {
     title: "2026 Compliance Calendar",
     description: "Stay ahead of statutory deadlines for GST, TDS, and corporate filings across India and SE Asia.",
-    icon: <FileText size={28} />,
-    type: "Interactive PDF",
-    size: "500 KB",
     category: "Compliance",
-    designedFor: "Accountants",
     featured: false
   },
   {
     title: "Virtual CFO Value Guide",
     description: "Understanding the ROI of fractional leadership: Case studies and cost-benefit analysis for founders.",
-    icon: <BookOpen size={28} />,
-    type: "E-Book",
-    size: "3.1 MB",
     category: "Strategy",
-    designedFor: "Medium-sized businesses",
     featured: false
   },
   {
     title: "Corporate Expense Policy Template",
     description: "Take control of team expenditures with this corporate expense policy template.",
-    icon: <FileText size={28} />,
-    type: "Template",
-    size: "450 KB",
     category: "Finance management",
-    designedFor: "Small businesses",
     featured: false
   },
   {
     title: "Business Account Switch Checklist",
     description: "Our essential guide for switching business accounts, so that you're sure to cover all the key steps.",
-    icon: <FileText size={28} />,
-    type: "Checklist",
-    size: "300 KB",
     category: "Business life",
-    designedFor: "Freelancers",
+    featured: false
+  },
+  {
+    title: "Startup Equity Guide",
+    description: "Everything you need to know about cap tables and equity distribution for founders.",
+    category: "Strategy",
+    featured: false
+  },
+  {
+    title: "Inventory Audit Manual",
+    description: "A comprehensive guide to conducting internal inventory audits effectively.",
+    category: "Operations",
+    featured: false
+  },
+  {
+    title: "Cash Flow Forecasting Tool",
+    description: "A dynamic Excel framework for 13-week rolling cash flow projections.",
+    category: "Finance management",
+    featured: false
+  },
+  {
+    title: "Vendor Onboarding Protocol",
+    description: "Standardize your supplier relationship management with this compliance-first protocol.",
+    category: "Operations",
+    featured: false
+  },
+  {
+    title: "Series B Readiness Audit",
+    description: "Is your finance function ready for the next level of institutional funding?",
+    category: "Assessment",
+    featured: false
+  },
+  {
+    title: "Tax Optimization Framework",
+    description: "Strategic tax planning for cross-border operations in the digital economy.",
+    category: "Compliance",
+    featured: false
+  },
+  {
+    title: "Board Reporting Dashboard",
+    description: "Key metrics and visualizations that your board of directors actually cares about.",
+    category: "Reporting",
+    featured: false
+  },
+  {
+    title: "Mergers & Acquisitions Playbook",
+    description: "Financial due diligence and post-merger integration strategies for scaling companies.",
+    category: "Strategy",
+    featured: false
+  },
+  {
+    title: "Employee Stock Option Plan (ESOP)",
+    description: "Designing effective equity incentives to attract and retain top talent.",
+    category: "Business life",
+    featured: false
+  },
+  {
+    title: "Risk Management Matrix",
+    description: "Identify and mitigate operational and financial risks before they impact your bottom line.",
+    category: "Compliance",
+    featured: false
+  },
+  {
+    title: "Working Capital Optimizer",
+    description: "Strategies to reduce your cash conversion cycle and unlock trapped capital.",
+    category: "Finance management",
+    featured: false
+  },
+  {
+    title: "Procurement Policy Template",
+    description: "Establish clear guidelines for purchasing and spend management across your organization.",
+    category: "Operations",
+    featured: false
+  },
+  {
+    title: "Annual Budgeting Framework",
+    description: "A collaborative approach to setting and tracking financial goals for the fiscal year.",
+    category: "Reporting",
+    featured: false
+  },
+  {
+    title: "Strategic Exit Planning",
+    description: "Preparing your business for a successful acquisition or IPO: The financial roadmap.",
+    category: "Strategy",
+    featured: false
+  },
+  {
+    title: "Digital Transformation Guide",
+    description: "Navigating the shift to cloud-based finance systems and automated workflows.",
+    category: "Operations",
+    featured: false
+  },
+  {
+    title: "Internal Controls Checklist",
+    description: "Prevent fraud and ensure data integrity with these essential financial controls.",
+    category: "Compliance",
+    featured: false
+  },
+  {
+    title: "Unit Economics Calculator",
+    description: "Analyze CAC, LTV, and payback periods to ensure sustainable business growth.",
+    category: "Finance management",
     featured: false
   }
 ];
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid business email"),
-  mobile: z.string().min(10, "Valid mobile number is required"),
+  email: z.string().email("Invalid email format").refine(val => {
+    const res = validateProfessionalEmail(val);
+    return res.isValid;
+  }, {
+    message: "Please provide a valid professional email address"
+  }),
+  mobile: z.string().min(10, "Phone number must be at least 10 digits"),
 });
 
 export default function ResourcesPage() {
@@ -123,21 +202,17 @@ export default function ResourcesPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
+    defaultValues: {
+      mobile: "",
+    }
   });
 
   useEffect(() => {
-    // Sync with URL params if any
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get("category");
-    if (cat && CATEGORIES.includes(cat)) {
-      setActiveCategory(cat);
-    }
-
     const custom = getCustomResources().map(r => ({
       ...r,
-      icon: <FileText size={28} />,
     }));
     setAllResources([...custom, ...STATIC_RESOURCES]);
   }, []);
@@ -151,36 +226,9 @@ export default function ResourcesPage() {
     });
   }, [searchQuery, activeCategory, allResources]);
 
-  const handleDownloadClick = (resource) => {
-    setSelectedResource(resource);
-    setIsSuccess(false);
-    reset();
-  };
-
-  const triggerFileDownload = (resource) => {
-    let downloadUrl = "";
-    let fileName = resource.title;
-
-    if (resource.fileData) {
-      downloadUrl = resource.fileData;
-      fileName = resource.fileName || (resource.title + ".pdf");
-    } else {
-      const blob = new Blob([`Asset: ${resource.title}\nDescription: ${resource.description}\n\nThank you for choosing PV Advisory.`], { type: 'text/plain' });
-      downloadUrl = URL.createObjectURL(blob);
-      fileName = resource.title.replace(/\s+/g, '_') + ".txt";
-    }
-
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   // PAGINATION LOGIC
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 20;
   const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
 
   const paginatedResources = useMemo(() => {
@@ -188,193 +236,187 @@ export default function ResourcesPage() {
     return filteredResources.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredResources, currentPage]);
 
-  // Reset to page 1 on search or category change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, activeCategory]);
 
-
   const onLeadSubmit = async (data) => {
     setIsGenerating(true);
     try {
+      // 1. Local storage fallback
       await saveLead({
         ...data,
         resourceId: selectedResource.id,
         resourceTitle: selectedResource.title,
         timestamp: new Date().toISOString()
       });
+
+      // 2. Supabase storage
+      if (supabase) {
+        const { error: supabaseError } = await supabase
+          .from('PvAdvisoryLeadData')
+          .insert([{
+            name: data.name,
+            email: data.email,
+            mobile: data.mobile,
+            activity_title: selectedResource.title,
+            activity_type: "Resource Download",
+            score: null,
+            dimension_scores: null,
+            answers: null,
+            report_url: null
+          }]);
+
+        if (supabaseError) throw supabaseError;
+      }
+
       setIsSuccess(true);
-      // Simulate download
       setTimeout(() => {
         setIsGenerating(false);
       }, 1500);
     } catch (error) {
       console.error("Lead storage failed:", error);
       setIsGenerating(false);
+      // We still show success if it failed but we might want to alert if it's critical
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pb-32">
-
+    <div className="min-h-screen bg-white pb-32">
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-28 bg-white border-b border-gray-100">
-        <MaxWidthWrapper>
-          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="space-y-6"
-            >
-              <h1 className="text-4xl md:text-7xl font-bold text-gray-900 leading-tight">
-                Knowledge <span className="text-[#9f0202]">Repository</span>
-              </h1>
-              <p className="text-gray-500 text-xl leading-relaxed max-w-xl">
-                Expert-vetted frameworks, automated tools, and strategic guides designed to scale your finance operations with precision.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="relative hidden lg:block aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-2xl border-8 border-white"
-            >
-              <Image
-                src="/about-us-hero.webp"
-                alt="Hero Resource"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+      <section className="header-section pt-24 pb-8">
+        <MaxWidthWrapper className="max-w-[1400px] px-8">
+          <div className="max-w-2xl">
+            <div className="hero-badge">RESOURCE LIBRARY</div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+              Knowledge <span className="text-[#8b0202]">Repository</span>
+            </h1>
+            <p className="text-gray-500 text-base leading-relaxed font-medium">
+              Expert-vetted frameworks, automated tools, and strategic guides designed to scale your finance operations with precision.
+            </p>
           </div>
         </MaxWidthWrapper>
       </section>
 
-      {/* SEARCH & FILTERS */}
-      <section className="bg-white border-b border-gray-100 py-10">
-        <MaxWidthWrapper>
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="relative w-full md:w-[400px]">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-              <Input
-                placeholder="Search Knowledge Repository..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-14 bg-gray-50 border-gray-100 rounded-full focus:bg-white focus:border-[#9f0202] transition-all text-sm shadow-sm"
-              />
+      {/* MAIN CONTENT WITH SIDEBAR */}
+      <MaxWidthWrapper className="max-w-[1400px] px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-16">
+
+          {/* SIDEBAR */}
+          <aside className="space-y-12">
+            {/* SEARCH */}
+            <div className="space-y-4">
+              <h3 className="sidebar-label">Search</h3>
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b0202] transition-colors" size={14} />
+                <Input
+                  placeholder="Find a tool or guide..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 h-10 bg-white border-gray-100 rounded-xl shadow-sm focus:border-[#8b0202] focus:ring-0 transition-all text-xs font-medium"
+                />
+              </div>
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide w-full flex-1">
-              {CATEGORIES.map(category => (
+            {/* CATEGORIES */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="sidebar-label">Categories</h3>
+                <Filter size={14} className="text-gray-300" />
+              </div>
+              <div className="flex flex-col">
+                {CATEGORIES.map(category => (
+                  <div
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={cn(
+                      "category-item",
+                      activeCategory === category && "active"
+                    )}
+                  >
+                    <span>{category}</span>
+                    <div className="dot-indicator" />
+                    <ChevronRight className="chevron-icon" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* GRID */}
+          <div className="space-y-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+              <AnimatePresence mode="popLayout">
+                {paginatedResources.map((resource) => (
+                  <motion.div
+                    key={resource.id || resource.title}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="resource-card px-6 py-12 group cursor-pointer"
+                    onClick={() => setSelectedResource(resource)}
+                  >
+
+                    <div className="logo-square">
+                      <Image
+                        src="/pv-logo.png"
+                        alt="PV Logo"
+                        width={32}
+                        height={32}
+                        className="object-contain"
+                      />
+                    </div>
+
+                    <div className="category-label flex flex-nowrap gap-[0.2em]">
+                      {resource.category.split('').map((char, i) => (
+                        <span key={i}>{char}</span>
+                      ))}
+                    </div>
+                    <h3 className="resource-title">{resource.title}</h3>
+
+                    {/* Bottom Gradient/Fade Effect */}
+                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#8b0202]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* PAGINATION */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-3 pt-8">
                 <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={cn(
-                    "px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border",
-                    activeCategory === category
-                      ? "bg-[#9f0202] text-white border-[#9f0202] shadow-md shadow-[#9f0202]/10"
-                      : "bg-white text-gray-400 border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                  )}
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => prev - 1)}
+                  className="pagination-btn disabled:opacity-30"
                 >
-                  {category}
+                  <span className="mr-1 text-gray-400">Previous</span>
                 </button>
-              ))}
-            </div>
+
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={cn(
+                      "pagination-btn",
+                      currentPage === i + 1 && "active"
+                    )}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => prev + 1)}
+                  className="pagination-btn disabled:opacity-30"
+                >
+                  <span className="ml-1 text-gray-400">Next</span>
+                </button>
+              </div>
+            )}
           </div>
-        </MaxWidthWrapper>
-      </section>
-
-      {/* GRID */}
-      <MaxWidthWrapper className="py-24 max-w-[1440px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <AnimatePresence mode="popLayout">
-            {paginatedResources.map((resource, idx) => (
-              <motion.div 
-                key={resource.id || resource.title}
-                layout
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ y: -10 }}
-                className="relative min-h-[340px] rounded-[1.5rem] overflow-hidden group cursor-pointer shadow-xl bg-white border border-gray-100 transition-all duration-500"
-                onClick={() => handleDownloadClick(resource)}
-              >
-                {/* PATTERNED MAROON HEADER */}
-                <div className="absolute top-0 left-0 right-0 h-24 bg-[#9f0202] overflow-hidden">
-                  {/* Micro-Grid Pattern Overlay */}
-                  <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px]" />
-                  {/* Gradient Fade */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent" />
-                </div>
-                
-                <div className="relative h-full flex flex-col z-10">
-                  {/* ICON SECTION */}
-                  <div className="pt-12 pb-4 flex flex-col items-center justify-center">
-                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-gray-50 group-hover:scale-110 transition-all duration-500">
-                        <FileText size={28} className="text-[#9f0202]" />
-                     </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="flex-1 px-8 pb-6 text-center space-y-2">
-                    <div className="inline-block px-3 py-1 bg-red-50 rounded-lg text-[9px] font-black text-[#9f0202] uppercase tracking-[0.2em] mb-1">
-                       {resource.category}
-                    </div>
-                    <h3 className="text-lg font-black text-gray-900 leading-tight">
-                      {resource.title}
-                    </h3>
-                    <p className="text-[12px] text-gray-500 leading-relaxed line-clamp-3 mx-auto">
-                      {resource.description}
-                    </p>
-                  </div>
-
-                  {/* Footer Action */}
-                  <div className="px-8 pb-8 mt-auto">
-                    <div className="w-full h-12 rounded-xl border-2 border-[#9f0202]/10 flex items-center justify-center gap-2 text-[12px] font-bold text-[#9f0202] group-hover:bg-[#9f0202] group-hover:text-white group-hover:border-[#9f0202] transition-all duration-300">
-                      Access Asset <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
         </div>
-
-        {/* PAGINATION */}
-        {totalPages > 1 && (
-          <div className="mt-20 flex items-center justify-center gap-2">
-            <Button
-              variant="outline"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(prev => prev - 1)}
-              className="rounded-xl h-12 w-12 border-gray-200"
-            >
-              <ChevronRight size={20} className="rotate-180" />
-            </Button>
-
-            {[...Array(totalPages)].map((_, i) => (
-              <Button
-                key={i}
-                variant={currentPage === i + 1 ? "default" : "outline"}
-                onClick={() => setCurrentPage(i + 1)}
-                className={cn(
-                  "rounded-xl h-12 w-12 font-bold",
-                  currentPage === i + 1 ? "bg-[#9f0202] hover:bg-[#7a0101]" : "border-gray-200 text-gray-500"
-                )}
-              >
-                {i + 1}
-              </Button>
-            ))}
-
-            <Button
-              variant="outline"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(prev => prev + 1)}
-              className="rounded-xl h-12 w-12 border-gray-200"
-            >
-              <ChevronRight size={20} />
-            </Button>
-          </div>
-        )}
       </MaxWidthWrapper>
 
       {/* LEAD GATE MODAL */}
@@ -384,70 +426,131 @@ export default function ResourcesPage() {
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setSelectedResource(null)}
-              className="absolute inset-0 bg-gray-900/60 backdrop-blur-xl"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-lg bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden"
+              className="relative w-full max-w-[740px] z-10"
             >
               {!isSuccess ? (
-                <div className="p-8 md:p-10">
-                  <div className="flex flex-col items-center text-center space-y-4 mb-10">
-                    <div className="w-16 h-16 bg-[#9f0202]/5 rounded-3xl flex items-center justify-center border border-[#9f0202]/10 shadow-sm">
-                      <FileText size={28} className="text-[#9f0202]" />
-                    </div>
-                    <div className="space-y-3">
-                      <h2 className="text-2xl font-black text-gray-900 tracking-tight">Access Asset</h2>
-                      <p className="text-xs text-gray-500 max-w-xs mx-auto leading-relaxed">
-                        Secure your copy of <span className="font-bold text-[#9f0202]">&quot;{selectedResource.title}&quot;</span> by providing your professional details.
-                      </p>
+                <div className="modal-container">
+                  {/* LEFT PANEL */}
+                  <div className="modal-left">
+                    <div className="relative z-10 space-y-8">
+                      <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-xl">
+                        <Image src="/pv-logo.png" alt="PV Logo" width={28} height={28} />
+                      </div>
+                      <div className="space-y-4">
+                        <div className="category-label flex flex-nowrap gap-[0.2em] text-[#8b0202] !mb-0">
+                          {selectedResource.category.split('').map((char, i) => (
+                            <span key={i}>{char}</span>
+                          ))}
+                        </div>
+                        <h2 className="text-2xl font-bold leading-tight tracking-tight">
+                          {selectedResource.title}
+                        </h2>
+                        <p className="text-gray-400 text-[13px] leading-relaxed max-w-[240px]">
+                          {selectedResource.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit(onLeadSubmit)} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label className="text-[10px] text-gray-400 font-black uppercase tracking-widest ml-1">Full Name</Label>
-                        <Input {...register("name")} placeholder="John Doe" className="bg-gray-50 border-gray-100 h-12 rounded-xl focus:bg-white focus:border-[#9f0202] focus:ring-0 px-6 transition-all" />
-                        {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name.message}</p>}
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-[10px] text-gray-400 font-black uppercase tracking-widest ml-1">Business Email</Label>
-                        <Input {...register("email")} placeholder="john@company.com" className="bg-gray-50 border-gray-100 h-12 rounded-xl focus:bg-white focus:border-[#9f0202] focus:ring-0 px-6 transition-all" />
-                        {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email.message}</p>}
-                      </div>
-                    </div>
+                  {/* RIGHT PANEL (FORM) */}
+                  <div className="modal-right">
+                    <button
+                      onClick={() => setSelectedResource(null)}
+                      className="modal-close"
+                    >
+                      <X size={20} />
+                    </button>
 
-                    <div className="space-y-2">
-                      <Label className="text-[10px] text-gray-400 font-black uppercase tracking-widest ml-1">Mobile Number</Label>
-                      <Input {...register("mobile")} placeholder="+91 98765 43210" className="bg-gray-50 border-gray-100 h-12 rounded-xl focus:bg-white focus:border-[#9f0202] focus:ring-0 px-6 transition-all" />
-                      {errors.mobile && <p className="text-[10px] text-red-500 ml-1">{errors.mobile.message}</p>}
-                    </div>
+                    <div className="space-y-8">
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 tracking-tight">DOWNLOAD RESOURCE</h3>
+                        <p className="text-[15px] text-gray-500 leading-relaxed">
+                          Please provide your professional details to receive the asset immediately.
+                        </p>
+                      </div>
 
-                    <div className="pt-4">
-                      <Button type="submit" disabled={isGenerating} className="w-full bg-[#9f0202] hover:bg-[#7a0101] text-white h-14 font-bold rounded-xl shadow-xl shadow-[#9f0202]/20 text-md transition-all active:scale-[0.98]">
-                        {isGenerating ? <Loader2 className="animate-spin mr-2" /> : <Download className="mr-2 h-4 w-4" />}
-                        {isGenerating ? "Preparing Asset..." : "Get Detailed Resource"}
-                      </Button>
-                      <p className="text-[9px] text-center text-gray-400 mt-4 uppercase tracking-widest font-medium">
-                        Instant Access • Professional PDF & Excel Assets
-                      </p>
+                      <form onSubmit={handleSubmit(onLeadSubmit)} className="space-y-6">
+                        <div className="space-y-2">
+                          <label className="modal-label">Full Name</label>
+                          <Input
+                            {...register("name")}
+                            placeholder="Your Name"
+                            className="modal-input"
+                          />
+                          {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="modal-label">Email</label>
+                          <Input
+                            {...register("email")}
+                            placeholder="name@company.com"
+                            className="modal-input"
+                          />
+                          {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="modal-label">Mobile Number</label>
+                          <PhoneInput 
+                            defaultCountry="IN"
+                            value={watch("mobile")}
+                            onChange={(val) => setValue("mobile", val, { shouldValidate: true })}
+                            className="bg-gray-50 rounded-lg border-transparent h-12 flex items-center overflow-hidden focus-within:ring-1 focus-within:ring-[#9f0202]"
+                          />
+                          {errors.mobile && <p className="text-[10px] text-red-500 ml-1">{errors.mobile.message}</p>}
+                        </div>
+
+                        <div className="pt-4">
+                          <Button
+                            type="submit"
+                            disabled={isGenerating}
+                            className="submit-btn"
+                          >
+                            {isGenerating ? (
+                              <Loader2 className="animate-spin" size={20} />
+                            ) : (
+                              <>
+                                <Download size={18} />
+                                <span className="tracking-tight">Get Started Now</span>
+                              </>
+                            )}
+                          </Button>
+
+                          <button
+                            type="button"
+                            onClick={() => setSelectedResource(null)}
+                            className="modal-footer-link"
+                          >
+                            Maybe later, take me back
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                  </form>
+                  </div>
                 </div>
               ) : (
-                <div className="p-10 md:p-14 text-center space-y-6">
-                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center text-green-600 mx-auto border-4 border-green-100 shadow-sm">
-                    <CheckCircle2 size={32} />
+                <div className="bg-white rounded-[3.5rem] p-20 text-center space-y-10 max-w-lg mx-auto shadow-2xl">
+                  <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center text-green-600 mx-auto border-4 border-green-100 shadow-sm">
+                    <CheckCircle2 size={48} />
                   </div>
-                  <div className="space-y-2">
-                    <h2 className="text-2xl font-black text-gray-900 tracking-tight">Started</h2>
-                    <p className="text-xs text-gray-500 leading-relaxed max-w-xs mx-auto">Your file is being downloaded now.</p>
+                  <div className="space-y-3">
+                    <h2 className="text-3xl font-black text-gray-900 tracking-tight">Success!</h2>
+                    <p className="text-[15px] text-gray-500 leading-relaxed max-w-xs mx-auto">
+                      Thank you for your interest. Your download has been initiated successfully.
+                    </p>
                   </div>
-                  <Button variant="outline" onClick={() => setSelectedResource(null)} className="border-gray-200 text-gray-600 h-12 px-8 rounded-xl font-bold hover:bg-gray-50 transition-all text-sm">
-                    Return to Repository
+                  <Button
+                    onClick={() => setSelectedResource(null)}
+                    className="bg-gray-900 text-white h-14 px-12 rounded-2xl font-bold hover:bg-black transition-all"
+                  >
+                    Back to Resources
                   </Button>
                 </div>
               )}
@@ -456,5 +559,24 @@ export default function ResourcesPage() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function CheckCircle2({ size }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
   );
 }

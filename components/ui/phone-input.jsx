@@ -2,6 +2,7 @@ import * as React from "react";
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
+import en from "react-phone-number-input/locale/en";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,6 +42,7 @@ const PhoneInput =
            *
            * @param {E164Number | undefined} value - The entered value
            */
+          labels={en}
           onChange={(value) => onChange?.(value || (""))}
           {...props}
         />
@@ -93,8 +95,15 @@ const CountrySelect = ({
             <ScrollArea className="h-72">
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countryList.map(({ value, label }) =>
-                  value ? (
+                {countryList
+                  .filter((x) => x.value)
+                  .sort((a, b) => {
+                    // Put India (IN) at the top if it exists
+                    if (a.value === "IN") return -1;
+                    if (b.value === "IN") return 1;
+                    return a.label.localeCompare(b.label);
+                  })
+                  .map(({ value, label }) => (
                     <CountrySelectOption
                       key={value}
                       country={value}
@@ -102,8 +111,7 @@ const CountrySelect = ({
                       selectedCountry={selectedCountry}
                       onChange={onChange}
                     />
-                  ) : null,
-                )}
+                  ))}
               </CommandGroup>
             </ScrollArea>
           </CommandList>
@@ -121,7 +129,11 @@ const CountrySelectOption = ({
   onChange,
 }) => {
   return (
-    <CommandItem className="gap-2" onSelect={() => onChange(country)}>
+    <CommandItem 
+      className="gap-2" 
+      onSelect={() => onChange(country)}
+      value={countryName}
+    >
       <FlagComponent country={country} countryName={countryName} />
       <span className="flex-1 text-sm">{countryName}</span>
       <span className="text-sm text-foreground/50">{`+${RPNInput.getCountryCallingCode(country)}`}</span>
